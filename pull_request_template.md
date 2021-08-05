@@ -6,7 +6,7 @@ Please include a summary of the change and which issue is fixed. Please also inc
 
 ### Issue addressed
 <!-- include `fixes #<issue-number>` -->
-<!-- the relevant issue in https://github.com/AgileVentures/WebsiteOne/issues https://github.com/AgileVentures/senf_client/issues -->
+<!-- the relevant issue in https://github.com/AgileVentures/senf_client/issues -->
 
 Fixes # (issue)
 
