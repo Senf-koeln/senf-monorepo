@@ -9,7 +9,6 @@ import ChatBorder from "../../images/icons/chat.png";
 import Comments from "./Comments";
 import CommentForm from "./CommentForm";
 import dayjs from "dayjs";
-import { Link } from "react-router-dom";
 // MUI Stuff
 import Dialog from "@material-ui/core/Dialog";
 import Grid from "@material-ui/core/Grid";
@@ -17,10 +16,8 @@ import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 
 // Icons
-import CloseIcon from "@material-ui/icons/Close";
 import MenuIcon from "../../images/icons/menu.png";
 import Pin from "../../images/pin3.png";
-import Button from "@material-ui/core/Button";
 import LocationOn from "@material-ui/icons/LocationOn";
 import CreateIcon from "@material-ui/icons/Create";
 import EventIcon from "@material-ui/icons/Event";
@@ -33,11 +30,10 @@ import contactIcon from "../../images/icons/mail.png";
 
 import Switch from "@material-ui/core/Switch";
 
-import Autolinker from "autolinker";
 import * as linkify from "linkifyjs";
 
 //MAPSTUFF
-import MapGL, { Layer, Marker } from "@urbica/react-map-gl";
+import MapGL, { Marker } from "@urbica/react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 // Redux stuff
@@ -52,9 +48,6 @@ import {
 import MenuScream from "../modals/menuScream/MenuScream";
 import ReportScream from "../modals/ReportScream";
 import SignNote from "../profile/SignNote";
-
-//IF COOKIES NOT ACCEPTED
-import Maploader from "../../images/map.png";
 
 //ANIMATION
 import Slide from "@material-ui/core/Slide";
@@ -265,13 +258,6 @@ const styles = {
     paddingBottom: "15px",
   },
 
-  commentHeader: {
-    fontFamily: "Futura PT W01-Bold",
-    marginLeft: "5vw",
-    paddingTop: "1em",
-    paddingBottom: "1em",
-    color: "#414345",
-  },
   KontaktButton: {
     position: "absolute",
     zIndex: 99,
@@ -364,7 +350,7 @@ class ScreamDialog extends Component {
     if (this.props.UI.openScream) {
       const { screamId } = this.props.scream;
       this.setState({
-        path: "https://senf.koeln" + `/${screamId}`,
+        path: `https://senf.koeln/${screamId}`,
       });
 
       setTimeout(() => {
@@ -470,7 +456,6 @@ class ScreamDialog extends Component {
         long,
         userHandle,
         comments,
-        color,
         Thema,
         project,
 
@@ -623,11 +608,6 @@ class ScreamDialog extends Component {
         </button>
       </div>
     ) : null;
-
-    const commentHeader =
-      commentCount > 0 ? (
-        <span className={classes.commentHeader}> Kommentare</span>
-      ) : null;
 
     const deleteButton =
       authenticated && (isAdmin === true || isModerator === true) ? (

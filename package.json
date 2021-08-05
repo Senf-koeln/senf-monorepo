@@ -69,7 +69,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "super": "superstatic src",
+    "cypress": "cypress open"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -87,7 +89,9 @@
     ]
   },
   "devDependencies": {
-    "@types/react-router-dom": "^4.3.5"
+    "@types/react-router-dom": "^4.3.5",
+    "cypress": "^8.1.0",
+    "superstatic": "^7.1.0"
   },
   "proxy": "https://europe-west1-senf-dev.cloudfunctions.net/api"
 }

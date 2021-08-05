@@ -1,9 +1,9 @@
 /** @format */
 
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
-import MyButton from "../../util/MyButton";
+
 // Redux stuff
 import { connect } from "react-redux";
 import { editUserDetails } from "../../redux/actions/userActions";
@@ -11,25 +11,14 @@ import { editUserDetails } from "../../redux/actions/userActions";
 import { openScream } from "../../redux/actions/dataActions";
 
 // Icons
-import EditIcon1 from "../../images/icons/maps4.png";
-import EditIcon2 from "../../images/icons/maps4_1.png";
-import CloseIcon from "@material-ui/icons/Close";
 import Arrow from "../../images/icons/arrow.png";
 import CircularArrow from "../../images/icons/circular-arrow.png";
-
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 
 //MAPSTUFF
 // import ReactMapGL, { Marker } from "react-map-gl";
 import MapGL, { Source, Layer, Marker } from "@urbica/react-map-gl";
 
 //IF NOT ACCEPTED COOKIES / NOT SIGNED IN
-import Maploader from "../../images/map.png";
 
 import { isMobileOnly } from "react-device-detect";
 
@@ -37,106 +26,6 @@ import { isMobileOnly } from "react-device-detect";
 import Cookies from "universal-cookie";
 import { Themenfilter } from "../layout/Themenfilter";
 const cookies = new Cookies();
-
-const theme = createMuiTheme({
-  overrides: {
-    MuiInput: {
-      underline: {
-        "&&&&:before": {
-          borderBottom: "1px solid rgba(0, 0, 0, 0)",
-        },
-        "&&&&:after": {
-          borderBottom: "1px solid rgba(255, 255, 255, 0)",
-        },
-      },
-    },
-    MuiNativeSelect: {
-      icon: {
-        opacity: 0,
-      },
-    },
-  },
-});
-
-const AllCheckbox = withStyles({
-  root: {
-    color: "#000000",
-    "&$checked": {
-      color: "#000000",
-    },
-  },
-  checked: {},
-})((props) => <Checkbox color="default" {...props} />);
-
-const BlueCheckbox = withStyles({
-  root: {
-    color: "#929df6",
-    "&$checked": {
-      color: "#929df6",
-    },
-  },
-  checked: {},
-})((props) => <Checkbox color="default" {...props} />);
-
-const RedCheckbox = withStyles({
-  root: {
-    color: "#e8907e",
-    "&$checked": {
-      color: "#e8907e",
-    },
-  },
-  checked: {},
-})((props) => <Checkbox color="default" {...props} />);
-
-const GreenCheckbox = withStyles({
-  root: {
-    color: "#8dd9b8",
-    "&$checked": {
-      color: "#8dd9b8",
-    },
-  },
-  checked: {},
-})((props) => <Checkbox color="default" {...props} />);
-
-const LightblueCheckbox = withStyles({
-  root: {
-    color: "#91dff4",
-    "&$checked": {
-      color: "#91dff4",
-    },
-  },
-  checked: {},
-})((props) => <Checkbox color="default" {...props} />);
-
-const OrangeCheckbox = withStyles({
-  root: {
-    color: "#f6c095",
-    "&$checked": {
-      color: "#f6c095",
-    },
-  },
-  checked: {},
-})((props) => <Checkbox color="default" {...props} />);
-
-const PurpleCheckbox = withStyles({
-  root: {
-    color: "#bd98f6",
-    "&$checked": {
-      color: "#bd98f6",
-    },
-  },
-  checked: {},
-})((props) => <Checkbox color="default" {...props} />);
-
-const YewllowCheckbox = withStyles({
-  root: {
-    color: "#f9db95",
-    "&$checked": {
-      color: "#f9db95",
-    },
-  },
-  checked: {},
-})((props) => <Checkbox color="default" {...props} />);
 
 const styles = {
   normal: "mapbox://styles/tmorino/ckclpzylp0vgp1iqsrp4asxt6",
@@ -321,14 +210,9 @@ class Geofilter extends Component {
     const {
       viewport,
       latitude1,
-      longitude1,
       latitude2,
       longitude2,
-      latitude3,
       longitude3,
-      latitude4,
-      longitude4,
-      handleRevert,
       _onViewportChange,
       dataFinal,
 
@@ -354,7 +238,6 @@ class Geofilter extends Component {
       handleResetGeofilter,
       openGeofilter,
       showGeofilterResults,
-      createGeofilterCircle,
 
       dataNoLocationHandle,
       selectedId,
@@ -365,8 +248,7 @@ class Geofilter extends Component {
     } = this.props;
 
     const {
-      classes,
-      user: { authenticated },
+      classes
     } = this.props;
 
     const data =
@@ -407,17 +289,6 @@ class Geofilter extends Component {
 
     let screamLenghth = dataFinal.length;
 
-    const filtericon =
-      (latitude1 < 50.95) |
-      (latitude2 > 50.82) |
-      (longitude2 > 6.812) |
-      (longitude3 < 7.07) ? (
-        <div>
-          <img src={EditIcon2} width="30" alt="district_filter_icon"></img>
-        </div>
-      ) : (
-        <img src={EditIcon1} width="30" alt="district_filter_icon"></img>
-      );
 
     // const closeicon =
     //   (latitude1 < 50.95) |
@@ -438,22 +309,6 @@ class Geofilter extends Component {
         }
       });
     }
-    const Sonstigefilter =
-      Sonstige.length > 0 ? (
-        <FormControlLabel
-          control={
-            <YewllowCheckbox
-              icon={<FiberManualRecordIcon />}
-              checkedIcon={
-                <FiberManualRecordIcon className="activelegenditem" />
-              }
-              onChange={() => handleLegend7("Sonstige")}
-              checked={checked7 === "Sonstige"}
-            />
-          }
-          label="Sonstige"
-        />
-      ) : null;
 
     let dataNoLocation = [];
     const dataArrayNoLocation = dataFinal;
