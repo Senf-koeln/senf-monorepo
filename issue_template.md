@@ -8,19 +8,15 @@ Please answer the following questions for yourself before submitting an issue. *
 
 
 # Expected Behavior
-<!--Provide a clear description of what should happen ideally-->
-Please describe the behavior you are expecting
+<!--Please describe the behavior you are expecting-->
 
 
 # Current Behavior
-<!--Describe what happens presently -->
-What is the current behavior?
+<!--What is the current behavior?-->
 
 
 # Failure Information (for bugs)
-<!--This section is only useful if the failure is a bug.-->
-<!--describe what led to the failure-->
-Please help provide information about the failure if this is a bug. If it is not a bug, please remove the rest of this template.
+<!--Please help provide information about the failure if this is a bug. If it is not a bug, please remove the rest of this template.-->
 
 
 ## Steps to Reproduce
@@ -34,7 +30,7 @@ Please provide detailed steps for reproducing the issue.
 
 ## Failure Logs
 
-Please include any relevant log snippets or files here.
+<!--Please include any relevant log snippets or files here.-->
 
 
 ### Snapshots (if applicable)
