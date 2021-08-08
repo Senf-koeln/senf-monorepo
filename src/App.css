@@ -194,8 +194,8 @@ background-color: #353535 !important;
 
 
 
-/* Create  finger pointer cursor for all buttons */
-button {
+/* Create  finger pointer cursor for all buttons and Tabs on the project page */
+button, .Tab_active, .Tab_not_active{
   cursor: pointer;
 }
 
