@@ -194,7 +194,10 @@ background-color: #353535 !important;
 
 
 
-
+/* Create  finger pointer cursor for all buttons */
+button {
+  cursor: pointer;
+}
 
 .cookiesHeader {
   font-family: Futura PT W01-Bold;
