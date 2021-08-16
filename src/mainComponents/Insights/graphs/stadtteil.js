@@ -2,17 +2,20 @@
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import withStyles from "@material-ui/core/styles/withStyles";
 
+//MUI Stuff
+import withStyles from "@material-ui/core/styles/withStyles";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+
+//Icons
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 
+//Graphs
 import createPlotlyComponent from "react-plotlyjs";
 //See the list of possible plotly bundles at https://github.com/plotly/plotly.js/blob/master/dist/README.md#partial-bundles or roll your own
 import Plotly from "plotly.js/dist/plotly-cartesian";
-
 const PlotlyComponent = createPlotlyComponent(Plotly);
 
 const AllCheckbox = withStyles({
@@ -777,11 +780,6 @@ export class Stadtteil extends Component {
   }
 }
 
-const mapActionsToProps = {};
-
 const mapStateToProps = (state) => ({ data: state.data });
 
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(withStyles(styles)(Stadtteil));
+export default connect(mapStateToProps)(withStyles(styles)(Stadtteil));

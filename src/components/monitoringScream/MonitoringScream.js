@@ -3,28 +3,22 @@
 import React, { Component } from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import PropTypes from "prop-types";
-import MyButton from "../../util/MyButton";
 
 //TIMESTAMP
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
-// Icons
-
 // Redux
 import { connect } from "react-redux";
 
+// Icons
 import menuIcon from "../../images/icons/menu.png";
 import statusIcon from "../../images/icons/flag.png";
 
 import {
   clearErrors,
   openMonitoringScream,
-  openProject,
 } from "../../redux/actions/dataActions";
-
-import _ from "lodash";
-import MonitoringEditScream from "./MonitoringEditScream";
 
 const styles = {
   gradient: {
@@ -61,7 +55,7 @@ const styles = {
   },
 };
 
-class Scream extends Component {
+class MonitoringScream extends Component {
   state = {
     isToggleOn: false,
     cardHeight: "30px",
@@ -76,9 +70,6 @@ class Scream extends Component {
 
   handleExpand = (screamId) => {
     this.props.openMonitoringScream(screamId);
-
-    // this.setState({ cardHeight: "auto" });
-
     this.setState((prevState) => ({
       isToggleOn: !prevState.isToggleOn,
     }));
@@ -98,21 +89,16 @@ class Scream extends Component {
       projectsData,
       scream: {
         title,
-        body,
         screamId,
         likeCount,
         commentCount,
         Stadtteil,
-        locationHeader,
         project,
         Thema,
         status,
         createdAt,
         userHandle,
-        age,
-        sex,
       },
-      user: { authenticated },
     } = this.props;
 
     const colorNew =
@@ -141,34 +127,13 @@ class Scream extends Component {
       });
     }
 
-    const finalCreatedAt = [];
-    const createdAtNew = dayjs(createdAt).format("DD.MM.");
-
-    console.log(createdAtNew);
-
-    // var i;
-    // for (i = 0; i < selectedUnix.length; i++) {
-    //   selectedDays[i] = new Date(selectedUnix[i] * 1000);
-    // }
-
-    // this.setState({
-    //   selectedDays: selectedDays,
-    //   selectedUnix: this.props.scream.selectedUnix,
-    // });
-
     return (
       <button
         className="monitoringCard"
-        // style={
-        //   this.state.isToggleOn
-        //     ? { backgroundColor: "#f8f8f8" }
-        //     : { backgroundColor: "white" }
-        // }
         onClick={() => this.handleExpand(screamId)}
       >
         <div>
           <div className={classes.content}>
-            {/* <div className={classes.gradient}></div> */}
             <div style={{ width: "20px", margin: "10px" }}>
               <div
                 style={{
@@ -181,7 +146,6 @@ class Scream extends Component {
               />
             </div>
             <div style={{ width: "300px", margin: "10px" }}>{title} </div>
-            {/* <div style={{ width: "70px", margin: "10px" }}> {Thema} </div> */}
             <div style={{ width: "110px", margin: "10px" }}>{Stadtteil}</div>
             <div style={{ width: "110px", margin: "10px" }}>{userHandle}</div>
 
@@ -195,50 +159,17 @@ class Scream extends Component {
               <img
                 src={projectsDataFinal}
                 width="30px"
+                alt="project-thumbnail"
                 style={{ borderRadius: "10px", overflow: "hidden" }}
               ></img>
             </div>
             <div style={{ width: "20px", margin: "10px" }}>
               {" "}
               {status === "None" ? (
-                <img src={statusIcon} width="22" alt="WeblinkIcon" />
+                <img src={statusIcon} width="22" alt="status-icon" />
               ) : null}
             </div>
           </div>
-
-          {/* <div className={classes.content}>
-            {" "}
-            <div style={{ width: "300px", margin: "10px", marginLeft: "50px" }}>
-              {body}
-            </div>
-            <div style={{ width: "110px", margin: "10px" }}>
-              {locationHeader}
-            </div>
-            <div style={{ width: "110px", margin: "10px" }}>
-              {age}, {sex}
-            </div>
-          </div> */}
-
-          {/* <div
-            className="monitoringScreamExpand"
-            onClick={() => this.handleExpand(screamId)}
-          >
-            <div
-              style={
-                this.state.isToggleOn
-                  ? { transform: "rotate(180deg)", transition: "0.5s" }
-                  : { transform: "rotate(0)", transition: "0.5s" }
-              }
-            >
-              <img
-                src={Arrow}
-                width="10px"
-                style={{
-                  pointerEvents: "none",
-                }}
-              ></img>
-            </div>
-          </div> */}
         </div>
 
         <div
@@ -253,56 +184,6 @@ class Scream extends Component {
           }}
           className="hoverIcon"
         >
-          {/* <div style={{ width: "20px", margin: "10px" }}>
-            {" "}
-            <a href={"mailto:" + "hi@gmail.com" + "?subject=" + escape(title)}>
-              <img
-                className="hoverIcon"
-                src={weblinkIcon}
-                style={{ paddingLeft: "15px" }}
-                width="18"
-                alt="WeblinkIcon"
-              />
-            </a>
-          </div>
-          <div style={{ width: "20px", margin: "10px" }}>
-            {" "}
-            <a href={"mailto:" + "hi@gmail.com" + "?subject=" + escape(title)}>
-              <img
-                className="hoverIcon"
-                src={downloadIcon}
-                style={{ paddingLeft: "9px" }}
-                width="22"
-                alt="WeblinkIcon"
-              />
-            </a>
-          </div>
-          <div style={{ width: "20px", margin: "10px" }}>
-            {" "}
-            <a href={"mailto:" + "hi@gmail.com" + "?subject=" + escape(title)}>
-              <img
-                className="hoverIcon"
-                src={contactIcon}
-                style={{ paddingLeft: "9px" }}
-                width="22"
-                alt="WeblinkIcon"
-              />
-            </a>
-          </div>
-
-          <div style={{ width: "30px", margin: "10px" }}>
-            {" "}
-            <a href={"mailto:" + "hi@gmail.com" + "?subject=" + escape(title)}>
-              <img
-                className="hoverIcon"
-                src={shareBorderIcon}
-                style={{ paddingLeft: "9px" }}
-                width="22"
-                alt="WeblinkIcon"
-              />
-            </a>
-          </div> */}
-
           <div style={{ width: "50px", margin: "10px" }}>
             {" "}
             <img
@@ -319,13 +200,11 @@ class Scream extends Component {
   }
 }
 
-Scream.propTypes = {
+MonitoringScream.propTypes = {
   user: PropTypes.object.isRequired,
   scream: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
-  openDialog: PropTypes.bool,
   openMonitoringScream: PropTypes.func.isRequired,
-  openProject: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -333,11 +212,10 @@ const mapStateToProps = (state) => ({
 });
 const mapActionsToProps = {
   openMonitoringScream,
-  openProject,
   clearErrors,
 };
 
 export default connect(
   mapStateToProps,
   mapActionsToProps
-)(withStyles(styles)(Scream));
+)(withStyles(styles)(MonitoringScream));

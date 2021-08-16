@@ -6,8 +6,6 @@ import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import { Calendar } from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 
-import "react-modern-calendar-datepicker/lib/DatePicker.css";
-
 import withStyles from "@material-ui/core/styles/withStyles";
 import PropTypes from "prop-types";
 

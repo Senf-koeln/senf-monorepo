@@ -61,8 +61,6 @@ import { isAndroid, isMobileOnly } from "react-device-detect";
 //ANIMATION
 import Slide from "@material-ui/core/Slide";
 
-import Geocode from "react-geocode";
-
 //COOKIES
 import Cookies from "universal-cookie";
 import { MuiThemeProvider, NativeSelect } from "@material-ui/core";
@@ -543,40 +541,39 @@ class PostScream extends Component {
       500
     );
     setTimeout(() => {
-    const geocoder = L.Control.Geocoder.nominatim();
+      const geocoder = L.Control.Geocoder.nominatim();
 
-    geocoder.reverse(
-      { lat: this.state.viewport.latitude, lng: this.state.viewport.longitude },
-      12,
-      (results) => {
-        var r = results[0];
-        var split = r.html.split("<br/>");
-        var address = split[0];
-        this.setState({ address: address, district: r.name });
-        console.log("ihasddhasdkashdkjashd", r);
+      geocoder.reverse(
+        {
+          lat: this.state.viewport.latitude,
+          lng: this.state.viewport.longitude,
+        },
+        12,
+        (results) => {
+          var r = results[0];
+          var split = r.html.split("<br/>");
+          var address = split[0];
+          this.setState({ address: address, district: r.name });
+          console.log("ihasddhasdkashdkjashd", r);
+        }
+      );
+
+      if (
+        this.state.viewport.latitude > 51.08 ||
+        this.state.viewport.latitude < 50.79 ||
+        this.state.viewport.longitude < 6.712 ||
+        this.state.viewport.longitude > 7.17
+      ) {
+        alert("Außerhalb von Köln kannst du leider noch keine Ideen teilen.");
+        this.setState({
+          Out: true,
+        });
+      } else {
+        this.setState({
+          Out: false,
+        });
       }
-    );
-
-    if (
-      this.state.viewport.latitude > 51.08 ||
-      this.state.viewport.latitude < 50.79 ||
-      this.state.viewport.longitude < 6.712 ||
-      this.state.viewport.longitude > 7.17
-    ) {
-      alert("Außerhalb von Köln kannst du leider noch keine Ideen teilen.");
-      this.setState({
-        Out: true,
-      });
-    } else {
-      this.setState({
-        Out: false,
-      });
-    }
-
-  
-      
     }, 500);
-      
   };
 
   geoclick = () => {

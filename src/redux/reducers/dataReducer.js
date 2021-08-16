@@ -19,10 +19,6 @@ import {
   SET_ALL_COMMENTS,
   ADD_ALL_LIKES,
   SET_ALL_LIKES,
-  ADD_WORDCLOUD,
-  SET_WORDCLOUD,
-  ADD_AGEGROUPS,
-  SET_AGEGROUPS,
   LOADING_PROJECTS_DATA,
   SET_PROJECTS,
   SET_PROJECT_SCREAMS,
@@ -49,10 +45,7 @@ const initialState = {
   comment: {},
   likes: [],
   like: {},
-  wordcollections: [],
-  wordcollection: {},
-  agegroups: [],
-  agegroup: {},
+
   loading: false,
 
   loadingProjects: false,
@@ -187,32 +180,6 @@ export default function (state = initialState, action) {
           ...state.scream,
           comments: [action.payload, ...state.scream.comments],
         },
-      };
-
-    case ADD_WORDCLOUD:
-      return {
-        ...state,
-        wordcollections: [...state.wordcollections, ...action.payload],
-        loading: false,
-      };
-    case SET_WORDCLOUD:
-      return {
-        ...state,
-        wordcollections: action.payload,
-        loading: false,
-      };
-
-    case ADD_AGEGROUPS:
-      return {
-        ...state,
-        agegroups: [...state.agegroups, ...action.payload],
-        loading: false,
-      };
-    case SET_AGEGROUPS:
-      return {
-        ...state,
-        agegroups: action.payload,
-        loading: false,
       };
 
     case LOADING_PROJECTS_DATA:

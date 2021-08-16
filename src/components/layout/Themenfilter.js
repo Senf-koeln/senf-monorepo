@@ -26,15 +26,9 @@ const AllCheckbox = withStyles({
   checked: {},
 })((props) => <Checkbox color="default" {...props} />);
 
-const BlueCheckbox = withStyles({
-  root: {
-    color: "#929df6",
-    "&$checked": {
-      color: "#929df6",
-    },
-  },
-  checked: {},
-})((props) => <Checkbox color="default" {...props} />);
+const BlueCheckbox = withStyles({})((props) => (
+  <Checkbox color="default" style={{ color: "#929df6" }} {...props} />
+));
 
 const RedCheckbox = withStyles({
   root: {

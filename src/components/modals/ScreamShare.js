@@ -28,7 +28,6 @@ import {
 import { EmailIcon, FacebookIcon, WhatsappIcon } from "react-share";
 
 import html2canvas from "html2canvas";
-import htmlToImage from "html-to-image";
 import Swipe from "react-easy-swipe";
 
 //COOKIES

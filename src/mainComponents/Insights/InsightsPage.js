@@ -1,33 +1,28 @@
 /** @format */
 
 import React, { Component } from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
-import Analyse from "./graphs/analyse";
+//Components
+import Keyindicators from "./graphs/Keyindicators";
 import ThemenDialog from "./graphs/themendialog";
 import StadttteilDialog from "./graphs/stadtteilDialog";
 import AltersgruppeDialog from "./graphs/altersgruppeDialog";
 import WordcloudDialog from "./graphs/wordcloudDialog";
 
+//Images
 import Themencover from "../../images/themencover.png";
 import Stadtteilcover from "../../images/stadtteilcover.png";
 import Keywordscover from "../../images/keywordscover.png";
 import Altersgruppencover from "../../images/altersgruppencover.png";
 
-const styles = {};
 export class InsightsPage extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const { order } = this.props;
 
     return order === 3 ? (
       <>
         <div className="MainAnimation2">
-          <Analyse />
+          <Keyindicators />
           <div className="cover cover1">
             <img src={Themencover} width="100%" alt="Themencover" />
             <ThemenDialog />
@@ -38,7 +33,7 @@ export class InsightsPage extends Component {
           </div>
 
           <div className="cover cover4">
-            <AltersgruppeDialog agegroups={this.props.data} />
+            <AltersgruppeDialog />
             <img src={Altersgruppencover} width="100%" alt="Themencover" />
           </div>
           <div className="cover cover3">
@@ -50,15 +45,5 @@ export class InsightsPage extends Component {
     ) : null;
   }
 }
-InsightsPage.propTypes = {};
 
-const mapActionsToProps = {};
-
-const mapStateToProps = (state) => ({
-  data: state.data,
-});
-
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(withStyles(styles)(InsightsPage));
+export default InsightsPage;

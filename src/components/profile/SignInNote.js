@@ -3,31 +3,30 @@
 import React, { Component, Fragment } from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import PropTypes from "prop-types";
+import { isAndroid } from "react-device-detect";
 
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+//Redux
+import { loginUser, signupUser } from "../../redux/actions/userActions";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+
+//Icons
 import CloseIcon from "@material-ui/icons/Close";
-import MyButton from "../../util/MyButton";
 import CircularProgress from "@material-ui/core/CircularProgress";
+
+//Images
+import Wirke_mit from "../../images/headlines/Wirke_mit.png";
+
+//Components
+import ResetPassword from "./ResetPassword";
 
 // MUI Stuff
 import Dialog from "@material-ui/core/Dialog";
 import Swipe from "react-easy-swipe";
-
-//Redux
-import { loginUser, signupUser } from "../../redux/actions/userActions";
-
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-
-import Wirke_mit from "../../images/headlines/Wirke_mit.png";
-
-import { isAndroid } from "react-device-detect";
-
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
 import Slide from "@material-ui/core/Slide";
-import ResetPassword from "./ResetPassword";
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });

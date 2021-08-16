@@ -2,35 +2,24 @@
 
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import withStyles from "@material-ui/core/styles/withStyles";
-
-// MUI Stuff
-import Dialog from "@material-ui/core/Dialog";
-import Typography from "@material-ui/core/Typography";
-
-// Icons
-
-import Arrow from "../../images/icons/arrow.png";
-
-//MAPSTUFF
-import "mapbox-gl/dist/mapbox-gl.css";
+import Swipe from "react-easy-swipe";
+import { isMobileOnly } from "react-device-detect";
 
 // Redux stuff
 import { connect } from "react-redux";
 import { clearErrors, getMyScreams } from "../../redux/actions/dataActions";
 
-//ANIMATION
-import Slide from "@material-ui/core/Slide";
-
-import Swipe from "react-easy-swipe";
-
-import { isMobileOnly } from "react-device-detect";
-
-//COOKIES
-import Cookies from "universal-cookie";
+//Components
 import { MyIdeas } from "./MyIdeas";
 
-const cookies = new Cookies();
+// Icons
+import Arrow from "../../images/icons/arrow.png";
+
+// MUI Stuff
+import withStyles from "@material-ui/core/styles/withStyles";
+import Dialog from "@material-ui/core/Dialog";
+import Typography from "@material-ui/core/Typography";
+import Slide from "@material-ui/core/Slide";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;

@@ -8,8 +8,6 @@ import {
   getScreams,
   getallComments,
   getallLikes,
-  getWordcloud,
-  getAgegroups,
   getProjects,
   closeScream,
   openScreamFirstTime,
@@ -233,9 +231,6 @@ export class home extends Component {
 
       this.props.getallComments();
       this.props.getallLikes();
-
-      this.props.getWordcloud();
-      this.props.getAgegroups();
     }
   };
 
@@ -467,17 +462,6 @@ export class home extends Component {
   };
 
   zoomToBounds = (centerLat, centerLong, zoom) => {
-    // if (this.props.geoData !== undefined && this.props.geoData !== "") {
-    //   var bbox = require("geojson-bbox");
-    //   var feature = {
-    //     type: "Feature",
-    //     geometry: {
-    //       type: "LineString",
-    //       coordinates: JSON.parse(this.props.geoData),
-    //     },
-    //   };
-    //   var extent = bbox(feature);
-
     this.setState({
       viewport: {
         latitude: centerLat,
@@ -1239,8 +1223,6 @@ home.propTypes = {
 
   getallComments: PropTypes.func.isRequired,
   getallLikes: PropTypes.func.isRequired,
-  getWordcloud: PropTypes.func.isRequired,
-  getAgegroups: PropTypes.func.isRequired,
   openDialog: PropTypes.bool,
 
   getProjects: PropTypes.func.isRequired,
@@ -1258,8 +1240,6 @@ const mapActionsToProps = {
 
   getallComments,
   getallLikes,
-  getWordcloud,
-  getAgegroups,
 
   clearErrors,
 

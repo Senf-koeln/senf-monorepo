@@ -14,14 +14,12 @@ import CircularArrow from "../../images/icons/circular-arrow.png";
 
 import Maploader from "../../images/map.png";
 
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import MapGL, {
   Source,
   Layer,
   Marker,
   NavigationControl,
 } from "@urbica/react-map-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 

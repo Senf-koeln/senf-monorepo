@@ -1,24 +1,24 @@
 /** @format */
 
 import React, { Component } from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
+import { isMobileOnly } from "react-device-detect";
 
 //REDUX STUFF
 import { connect } from "react-redux";
 
-//LOADER
+//Icons
 import CircularProgress from "@material-ui/core/CircularProgress";
+import CloseIcon from "@material-ui/icons/Close";
 
-//IMAGE
+//Images
 import Celebrate from "../../images/celebrateImage.png";
 import Fast_geschafft from "../../images/headlines/Fast_geschafft.png";
-import CloseIcon from "@material-ui/icons/Close";
 
 //COMPONENT
 import SignInNote from "./SignInNote";
 
-//DETECT DEVICE
-import { isMobileOnly } from "react-device-detect";
+//MUI Stuff
+import withStyles from "@material-ui/core/styles/withStyles";
 
 const styles = {
   question: {
@@ -37,14 +37,6 @@ const styles = {
 };
 
 export class info extends Component {
-  constructor(props) {
-    super(props);
-
-    // if (!isMobileOnly) {
-    //   this.props.history.push("/info");
-    // }
-  }
-
   handleClick = () => {
     alert(
       "Abhängig davon, welchen E-Mail Dienstleister du nutzt, kann die Verifizierungs-E-Mail verzögert eintreffen. Falls wirklich keine E-Mail eintreffen sollte, bitte melde dich bei uns: dein@senf.koeln"

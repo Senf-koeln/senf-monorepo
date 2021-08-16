@@ -1,32 +1,27 @@
 /** @format */
 
 import React, { Component, Fragment } from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
 import PropTypes from "prop-types";
-
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import CloseIcon from "@material-ui/icons/Close";
-import MyButton from "../../util/MyButton";
-import CircularProgress from "@material-ui/core/CircularProgress";
-
-// MUI Stuff
-import Dialog from "@material-ui/core/Dialog";
 import Swipe from "react-easy-swipe";
+import { isAndroid } from "react-device-detect";
 
 //Redux
 import { resetPassword } from "../../redux/actions/userActions";
-
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
+//Images
 import pw_reset from "../../images/headlines/pw_reset.png";
 
-import { isAndroid } from "react-device-detect";
+//Icons
+import CloseIcon from "@material-ui/icons/Close";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
+// MUI Stuff
+import withStyles from "@material-ui/core/styles/withStyles";
+import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
+import TextField from "@material-ui/core/TextField";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;

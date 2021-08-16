@@ -1,17 +1,18 @@
 /** @format */
 
-import React, { Component, Fragment } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import withStyles from "@material-ui/core/styles/withStyles";
+import React, { Component } from "react";
 
+//Redux
+import { connect } from "react-redux";
+
+//Graphs
 import createPlotlyComponent from "react-plotlyjs";
 //See the list of possible plotly bundles at https://github.com/plotly/plotly.js/blob/master/dist/README.md#partial-bundles or roll your own
 import Plotly from "plotly.js/dist/plotly-cartesian";
 
+//MUI Stuff
+import withStyles from "@material-ui/core/styles/withStyles";
 import Slide from "@material-ui/core/Slide";
-
-import { clearErrors } from "../../../redux/actions/dataActions";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -117,7 +118,6 @@ export class Trends extends Component {
   };
   handleClose = () => {
     this.setState({ open: false });
-    this.props.clearErrors();
   };
   render() {
     const { classes } = this.props;
@@ -343,21 +343,8 @@ export class Trends extends Component {
   }
 }
 
-Trends.propTypes = {
-  clearErrors: PropTypes.func.isRequired,
-};
-
 const mapStateToProps = (state) => ({
-  UI: state.UI,
-  user: state.user,
   data: state.data,
 });
 
-const mapActionsToProps = {
-  clearErrors,
-};
-
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(withStyles(styles)(Trends));
+export default connect(mapStateToProps)(withStyles(styles)(Trends));

@@ -25,7 +25,6 @@ import {
 
 import L from "leaflet";
 
-
 import _ from "lodash";
 
 import Arrow from "../../images/icons/arrow.png";
@@ -281,34 +280,37 @@ class MonitoringEditScream extends Component {
     });
 
     const geocoder = L.Control.Geocoder.nominatim();
-  
-      geocoder.reverse(
-        { lat: this.state.viewport.latitude, lng: this.state.viewport.longitude },
-        12,
-        (results) => {
-          var r = results[0];
-          var split = r.html.split("<br/>");
-          var address = split[0];
-          this.setState({ locationHeader: address, address: address, district: r.name });
-         
-        }
-      );
-  
-      if (
-        this.state.viewport.latitude > 51.08 ||
-        this.state.viewport.latitude < 50.79 ||
-        this.state.viewport.longitude < 6.712 ||
-        this.state.viewport.longitude > 7.17
-      ) {
-        alert("Außerhalb von Köln kannst du leider noch keine Ideen teilen.");
+
+    geocoder.reverse(
+      { lat: this.state.viewport.latitude, lng: this.state.viewport.longitude },
+      12,
+      (results) => {
+        var r = results[0];
+        var split = r.html.split("<br/>");
+        var address = split[0];
         this.setState({
-          Out: true,
-        });
-      } else {
-        this.setState({
-          Out: false,
+          locationHeader: address,
+          address: address,
+          district: r.name,
         });
       }
+    );
+
+    if (
+      this.state.viewport.latitude > 51.08 ||
+      this.state.viewport.latitude < 50.79 ||
+      this.state.viewport.longitude < 6.712 ||
+      this.state.viewport.longitude > 7.17
+    ) {
+      alert("Außerhalb von Köln kannst du leider noch keine Ideen teilen.");
+      this.setState({
+        Out: true,
+      });
+    } else {
+      this.setState({
+        Out: false,
+      });
+    }
   };
 
   editScream = () => {
@@ -360,9 +362,7 @@ class MonitoringEditScream extends Component {
       scream: { Stadtteil, title, Thema },
       UI: { loading },
     } = this.props;
-    const { viewport, weblink, weblinkTitle, errors } = this.state;
-    // Question: weblink and weblinkTitle show warnings of "no-unused-vars"
-    // Should they simply be deleted here? I'm unfamiliar this React code.
+    const { viewport, errors } = this.state;
 
     const queryParams = {
       bbox: [6.7, 50.8, 7.2, 51],
@@ -500,11 +500,7 @@ class MonitoringEditScream extends Component {
               >
                 <div style={{ width: "20px", margin: "10px" }}>
                   {" "}
-                  <a
-                    href={
-                      "mailto:hi@gmail.com?subject=" + escape(title)
-                    }
-                  >
+                  <a href={"mailto:hi@gmail.com?subject=" + escape(title)}>
                     <img
                       src={weblinkIcon}
                       style={{ paddingLeft: "15px" }}
@@ -515,11 +511,7 @@ class MonitoringEditScream extends Component {
                 </div>
                 <div style={{ width: "20px", margin: "10px" }}>
                   {" "}
-                  <a
-                    href={
-                      "mailto:hi@gmail.com?subject=" + escape(title)
-                    }
-                  >
+                  <a href={"mailto:hi@gmail.com?subject=" + escape(title)}>
                     <img
                       src={downloadIcon}
                       style={{ paddingLeft: "9px" }}
@@ -530,11 +522,7 @@ class MonitoringEditScream extends Component {
                 </div>
                 <div style={{ width: "20px", margin: "10px" }}>
                   {" "}
-                  <a
-                    href={
-                      "mailto:hi@gmail.com?subject=" + escape(title)
-                    }
-                  >
+                  <a href={"mailto:hi@gmail.com?subject=" + escape(title)}>
                     <img
                       src={contactIcon}
                       style={{ paddingLeft: "9px" }}
@@ -546,11 +534,7 @@ class MonitoringEditScream extends Component {
 
                 <div style={{ width: "30px", margin: "10px" }}>
                   {" "}
-                  <a
-                    href={
-                      "mailto:hi@gmail.com?subject=" + escape(title)
-                    }
-                  >
+                  <a href={"mailto:hi@gmail.com?subject=" + escape(title)}>
                     <img
                       src={shareBorderIcon}
                       style={{ paddingLeft: "9px" }}
@@ -693,7 +677,9 @@ class MonitoringEditScream extends Component {
                   </MuiThemeProvider>
                 </div>{" "}
                 <Geocoder
-                  mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
+                  mapboxApiAccessToken={
+                    process.env.REACT_APP_MAPBOX_ACCESS_TOKEN
+                  }
                   onSelected={this.onSelected}
                   {...viewport}
                   hideOnSelect={true}

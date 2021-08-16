@@ -1,15 +1,15 @@
 /** @format */
 
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import withStyles from "@material-ui/core/styles/withStyles";
+import axios from "axios";
+
+//Extra-Packages
 import ReactWordcloud from "react-wordcloud";
 
+//MUI Stuff
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
-
-const styles = {};
 
 const options = {
   colors: [
@@ -36,7 +36,15 @@ const options = {
 export class Wordcloud extends Component {
   state = {
     bezirk: "3",
+
+    wordcollections: [],
   };
+
+  componentDidMount() {
+    axios.get("/wordcloud").then((res) => {
+      this.setState({ wordcollections: res.data });
+    });
+  }
 
   handleChange = (event) => {
     this.setState({
@@ -46,7 +54,8 @@ export class Wordcloud extends Component {
   render() {
     const { classes } = this.props;
     let Words = [];
-    const WordsArray = this.props.data.wordcollections;
+    const WordsArray = this.state.wordcollections;
+
     if (WordsArray !== undefined && WordsArray.length > 0) {
       WordsArray.forEach((element) => {
         Words.push(element.wordlist);
@@ -63,7 +72,7 @@ export class Wordcloud extends Component {
     const Words_new_array_six = Words[5];
 
     if (
-      this.state.bezirk == "3" &&
+      this.state.bezirk === "3" &&
       Words_new_array !== undefined &&
       Words_new_array.length > 0
     ) {
@@ -170,7 +179,6 @@ export class Wordcloud extends Component {
             <option value={5}>Sport / Freizeit</option>
           </Select>
         </FormControl>
-        {/* <div className={classes.clickblocker}></div> */}
         <div className={classes.wordcloud}>
           <ReactWordcloud options={options} words={Words_new} />
         </div>
@@ -179,11 +187,4 @@ export class Wordcloud extends Component {
   }
 }
 
-const mapActionsToProps = {};
-
-const mapStateToProps = (state) => ({ data: state.data });
-
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(withStyles(styles)(Wordcloud));
+export default Wordcloud;

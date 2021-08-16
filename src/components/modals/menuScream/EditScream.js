@@ -22,15 +22,12 @@ import { editScream } from "../../../redux/actions/dataActions";
 
 import _ from "lodash";
 
-
 import L from "leaflet";
-
 
 import Arrow from "../../../images/icons/arrow.png";
 
 import Geocoder from "react-mapbox-gl-geocoder";
 
-import Geocode from "react-geocode";
 import Weblink from "../postModals/Weblink";
 import Contact from "../postModals/Contact";
 import InlineDatePicker from "../postModals/InlineDatePicker";
@@ -262,36 +259,38 @@ class EditScream extends Component {
       lat: this.state.viewport.latitude,
     });
 
-   
     const geocoder = L.Control.Geocoder.nominatim();
-  
-      geocoder.reverse(
-        { lat: this.state.viewport.latitude, lng: this.state.viewport.longitude },
-        12,
-        (results) => {
-          var r = results[0];
-          var split = r.html.split("<br/>");
-          var address = split[0];
-          this.setState({ locationHeader: address, address: address, district: r.name });
-         
-        }
-      );
-  
-      if (
-        this.state.viewport.latitude > 51.08 ||
-        this.state.viewport.latitude < 50.79 ||
-        this.state.viewport.longitude < 6.712 ||
-        this.state.viewport.longitude > 7.17
-      ) {
-        alert("Außerhalb von Köln kannst du leider noch keine Ideen teilen.");
+
+    geocoder.reverse(
+      { lat: this.state.viewport.latitude, lng: this.state.viewport.longitude },
+      12,
+      (results) => {
+        var r = results[0];
+        var split = r.html.split("<br/>");
+        var address = split[0];
         this.setState({
-          Out: true,
-        });
-      } else {
-        this.setState({
-          Out: false,
+          locationHeader: address,
+          address: address,
+          district: r.name,
         });
       }
+    );
+
+    if (
+      this.state.viewport.latitude > 51.08 ||
+      this.state.viewport.latitude < 50.79 ||
+      this.state.viewport.longitude < 6.712 ||
+      this.state.viewport.longitude > 7.17
+    ) {
+      alert("Außerhalb von Köln kannst du leider noch keine Ideen teilen.");
+      this.setState({
+        Out: true,
+      });
+    } else {
+      this.setState({
+        Out: false,
+      });
+    }
   };
 
   editScream = () => {
@@ -434,7 +433,7 @@ class EditScream extends Component {
               </MuiThemeProvider>
             </div>
             <Geocoder
-              mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN} 
+              mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
               onSelected={this.onSelected}
               {...viewport}
               hideOnSelect={true}

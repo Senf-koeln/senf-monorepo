@@ -66,8 +66,6 @@ import { ConsoleView, isAndroid, isMobileOnly } from "react-device-detect";
 //ANIMATION
 import Slide from "@material-ui/core/Slide";
 
-import Geocode from "react-geocode";
-
 //COOKIES
 import Cookies from "universal-cookie";
 import { MuiThemeProvider, NativeSelect } from "@material-ui/core";

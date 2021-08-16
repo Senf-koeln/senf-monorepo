@@ -20,7 +20,6 @@ import { logoutUser, getUserData } from "./redux/actions/userActions";
 //Pages
 import home from "./pages/home";
 import start from "./components/infocomponents/start";
-import share from "./components/modals/share";
 
 import info from "./components/infocomponents/info";
 import intro from "./components/infocomponents/intro";
@@ -38,13 +37,6 @@ import monitoring from "./pages/monitoring";
 import ReactGA from "react-ga";
 
 import axios from "axios";
-
-import autorefresh from "jwt-autorefresh";
-
-import jwt from "jwt-autorefresh";
-import tokens from "jwt-autorefresh";
-import payload from "jwt-autorefresh";
-import Constant from "jwt-autorefresh";
 
 import { isTablet } from "react-device-detect";
 import Cookies from "universal-cookie";
@@ -114,7 +106,6 @@ if (token) {
   store.dispatch(logoutUser());
 }
 
-
 if (cookies.get("Cookie_settings") === "all") {
   ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS);
   ReactGA.pageview(window.location.pathname + window.location.search);
@@ -181,8 +172,6 @@ class App extends Component {
                 />
 
                 <Route exact path="/impressum" component={impressum} />
-
-                <Route exact path="/share/:screamId" component={share} />
 
                 <Route exact path="/:screamId" component={home} />
               </Switch>

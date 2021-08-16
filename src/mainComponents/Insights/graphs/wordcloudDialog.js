@@ -1,25 +1,20 @@
 /** @format */
 
 import React, { Component, Fragment } from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
-import MyButton from "../../../util/MyButton";
-
-// MUI Stuff
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
+import { isMobileOnly } from "react-device-detect";
 
 // Icons
 import CloseIcon from "@material-ui/icons/Close";
 
-// Redux stuff
-import { connect } from "react-redux";
-
-//ANIMATION
-import Slide from "@material-ui/core/Slide";
+//Component
+import MyButton from "../../../util/MyButton";
 import { Wordcloud } from "./wordcloud";
 
-import { isMobileOnly } from "react-device-detect";
-
+// MUI Stuff
+import withStyles from "@material-ui/core/styles/withStyles";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import Slide from "@material-ui/core/Slide";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -225,14 +220,4 @@ class StadtteilDialog extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  UI: state.UI,
-  data: state.data,
-});
-
-const mapActionsToProps = {};
-
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(withStyles(styles)(StadtteilDialog));
+export default withStyles(styles)(StadtteilDialog);

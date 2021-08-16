@@ -106,8 +106,6 @@ const styles = {
 
     borderRadius: "10px",
     top: "2vh",
-    transform: "scale(0.8)",
-    marginLeft: "7px",
     paddingLeft: "20px",
 
     marginBottom: "20px",

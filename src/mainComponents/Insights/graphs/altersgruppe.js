@@ -1,20 +1,22 @@
 /** @format */
 
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import withStyles from "@material-ui/core/styles/withStyles";
+import axios from "axios";
 
+//MUI Stuff
+import withStyles from "@material-ui/core/styles/withStyles";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 
+//Icons
+import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+//Graphs
 import createPlotlyComponent from "react-plotlyjs";
 //See the list of possible plotly bundles at https://github.com/plotly/plotly.js/blob/master/dist/README.md#partial-bundles or roll your own
 import Plotly from "plotly.js/dist/plotly-cartesian";
-
 const PlotlyComponent = createPlotlyComponent(Plotly);
 
 const AllCheckbox = withStyles({
@@ -87,13 +89,13 @@ const PurpleCheckbox = withStyles({
   checked: {},
 })((props) => <Checkbox color="default" {...props} />);
 
-const styles = {};
 export class Altersgruppe extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       order: 4,
+      agegroups: [],
       checked: 1,
       checked1: "Empty",
       checked2: "Empty",
@@ -104,6 +106,13 @@ export class Altersgruppe extends Component {
       checked7: "Empty",
     };
   }
+
+  componentDidMount() {
+    axios.get("/agegroups").then((res) => {
+      this.setState({ agegroups: res.data });
+    });
+  }
+
   handleLegend = (checked) => {
     this.setState({
       checked,
@@ -287,7 +296,7 @@ export class Altersgruppe extends Component {
   };
   render() {
     const { classes } = this.props;
-    const { agegroups } = this.props;
+    const { agegroups } = this.state;
 
     const themenfilter = (
       <div className={classes.legendwrapper}>
@@ -917,7 +926,6 @@ export class Altersgruppe extends Component {
           Anhand der gesammelten Ideen und Votes kannst du die Relevanz der
           Themen für die unterschiedlichen Altersgruppen erkennen und nach
           Themen filtern.
-          {/* Welche Altersgruppen legen wert auf welche Themen? */}
         </div>
 
         {themenfilter}
@@ -928,11 +936,4 @@ export class Altersgruppe extends Component {
   }
 }
 
-const mapActionsToProps = {};
-
-const mapStateToProps = (state) => ({ data: state.data });
-
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(withStyles(styles)(Altersgruppe));
+export default Altersgruppe;
