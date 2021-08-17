@@ -30,3 +30,7 @@ jobs:
           npm run cypress:ci
         env:
           REACT_APP_MAPBOX_ACCESS_TOKEN: ${{ secrets.REACT_APP_MAPBOX_ACCESS_TOKEN }}
+<<<<<<< HEAD
+=======
+          REACT_APP_DB_BASE_URL: https://europe-west1-senf-dev.cloudfunctions.net/api
+>>>>>>> gh-actions
