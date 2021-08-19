@@ -11,6 +11,9 @@ on:
 
 jobs:
   cypress-run:
+    env:
+      REACT_APP_MAPBOX_ACCESS_TOKEN: ${{ secrets.REACT_APP_MAPBOX_ACCESS_TOKEN }}
+      REACT_APP_DB_BASE_URL: https://europe-west1-senf-dev.cloudfunctions.net/api
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout repository
@@ -21,13 +24,6 @@ jobs:
           node-version: '16'
           cache: 'npm'
       - name: Install dependencies
-        run: |
-          npm ci
-        env:
-          REACT_APP_MAPBOX_ACCESS_TOKEN: ${{ secrets.REACT_APP_MAPBOX_ACCESS_TOKEN }}
+        run: npm ci
       - name: Run Cypress
-        run: |
-          npm run cypress:ci
-        env:
-          REACT_APP_MAPBOX_ACCESS_TOKEN: ${{ secrets.REACT_APP_MAPBOX_ACCESS_TOKEN }}
-          REACT_APP_DB_BASE_URL: https://europe-west1-senf-dev.cloudfunctions.net/api
+        run: npm run cypress:ci
