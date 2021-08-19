@@ -17,4 +17,4 @@ Befor you can start to work on the project, you need
 
 5. The Reviewer will approve and merge your code if it is okay. If not, she/he can request changes to be made. In that case you will have to address any outstanding comments and add the requested changes. If you do not agree with the reviewers suggestions/requests, you need to address the comments on the PR itself, not in Slack or email, etc. 
 
-6. 
+6. More to come...
