@@ -40,9 +40,6 @@ const theme = createMuiTheme({
   },
 });
 export class AllIdeasPage extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const {
       classes,
@@ -82,19 +79,12 @@ export class AllIdeasPage extends Component {
       checked5,
       checked6,
       checked7,
-
       dataNoLocationHandle,
       selectedId,
       noLocation,
-
       viewport,
-
       dataFinal,
       projectsData,
-      // user: {
-      //   credentials: { handle },
-      //   authenticated,
-      // },
     } = this.props;
 
     let HotScreamsMarkup = _.orderBy(dataFinal, "likeCount", "desc").map(
@@ -119,17 +109,6 @@ export class AllIdeasPage extends Component {
       )
     );
 
-    // let StatusFullfilledScreamsMarkup = _.orderBy(
-    //   StatusFulfilleddataFinal,
-    //   "createdAt",
-    //   "desc"
-    // ).map((scream) => <Scream key={scream.screamId} scream={scream} />);
-    // let StatusDeleteScreamsMarkup = _.orderBy(
-    //   StatusDeletedataFinal,
-    //   "createdAt",
-    //   "desc"
-    // ).map((scream) => <Scream key={scream.screamId} scream={scream} />);
-
     let screamLength = dataFinal.length;
 
     let noMoreScreamsMarkup =
@@ -143,29 +122,7 @@ export class AllIdeasPage extends Component {
         </div>
       );
 
-    // let noMoreStatusFullfilledScreamsMarkup =
-    //   !loading && StatusFullfilledScreamsMarkup.length > 0 ? (
-    //     <div className="ende">
-    //       ... <br /> Keine weiteren Ideen <br />
-    //     </div>
-    //   ) : (
-    //     <span className={classes.inlineText}>
-    //        Mit den ausgewählten Filtern findest du noch keine Ideen.
-    //     </span>
-    //   );
-
-    // let noMoreStatusDeleteScreamsMarkup =
-    //   !loading && StatusDeleteScreamsMarkup.length > 0 ? (
-    //     <div className="ende">
-    //       ... <br /> Keine weiteren Ideen <br />
-    //     </div>
-    //   ) : (
-    //     <span className={classes.inlineText}>
-    //        Mit den ausgewählten Filtern findest du noch keine Ideen.
-    //     </span>
-    //   );
-
-    const content = !loading ? (
+    const content = !loading && (
       <>
         <ToggleDisplay show={dropdown === "10"}>
           <div className={dropdown === "10" ? "MainAnimation" : ""}>
@@ -180,7 +137,7 @@ export class AllIdeasPage extends Component {
           </div>
         </ToggleDisplay>
       </>
-    ) : null;
+    );
 
     return order === 1 ? (
       <div className="MainAnimationChannels">

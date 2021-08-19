@@ -5,6 +5,9 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import PropTypes from "prop-types";
 import MyButton from "../../util/MyButton";
 
+//UTILITIES
+import setColorByTopic from "../../utils/setColorByTopic";
+
 //TIMESTAMP
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -16,6 +19,9 @@ import SignNote from "../profile/SignNote";
 // MUI Stuff
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
+
+// Custom style
+import screamStyles from "../../util/screamStyles";
 
 // Icons
 import ChatBorder from "../../images/icons/chat.png";
@@ -29,126 +35,7 @@ import {
   openProject,
 } from "../../redux/actions/dataActions";
 
-const styles = {
-  gradient: {
-    width: "100%",
-    height: "100px",
-    position: "absolute",
-    bottom: 0,
-
-    background:
-      "linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, rgba(255,255,255,0) 100%)",
-  },
-
-  gradient2: {
-    width: "80%",
-    height: "50px",
-    position: "absolute",
-    bottom: "50px",
-
-    background:
-      "linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, rgba(255,255,255,0) 100%)",
-  },
-  yellow: {
-    color: "rgb(100, 100, 100, 0.5)",
-  },
-
-  line: {
-    position: "absolute",
-    left: "85%",
-    top: "0%",
-    width: "1px",
-    backgroundColor: "#d5dadd",
-    height: "100%",
-  },
-
-  likeButton: {
-    zIndex: 10,
-    position: "relative",
-    left: "0%",
-    // width: "15vw",
-    // height: "15vw",
-    top: "10%",
-  },
-  likeButtonWrapper: {
-    zIndex: 10,
-    position: "absolute",
-    left: "85%",
-    // width: "15vw",
-    top: "10%",
-    textAlign: "center",
-  },
-  commentButtonWrapper: {
-    top: "55%",
-    position: "absolute",
-    left: "85%",
-    zIndex: 0,
-  },
-
-  commentButtonWrapperNotAuthenticated: {
-    top: "55%",
-    position: "absolute",
-    left: "85%",
-    zIndex: 10,
-  },
-  card: {
-    position: "relative",
-    display: "flex",
-    marginBottom: 10,
-    marginLeft: "auto",
-    marginRight: "auto",
-    minHeight: "12em",
-    maxWidth: "95%",
-    borderRadius: 20,
-    boxShadow: "0 8px 40px -12px rgba(0,0,0,0)",
-    maxHeight: "14.5em",
-  },
-  image: {
-    minWidth: 200,
-  },
-  content: {
-    padding: 15,
-    color: "rgb(87, 87, 87)",
-    width: "95%",
-
-    objectFit: "cover",
-  },
-
-  bodytext: {
-    position: "relative",
-    width: "85%",
-    fontSize: "14pt",
-    overflow: "hidden",
-    maxHeight: "3.6em",
-    textOverflow: "-o-ellipsis-lastline",
-  },
-
-  engagement: {
-    paddingRight: 10,
-    width: "100%",
-    textAlign: "center",
-    fontSize: 14,
-    color: "black",
-  },
-
-  locationOuter: {
-    float: "left",
-    marginLeft: "10px",
-    color: "rgb(255, 205, 6)",
-    height: "3vh",
-  },
-  locationHeader: {
-    color: "rgb(255, 205, 6)",
-    float: "left",
-    paddingRight: "2%",
-    width: "100%",
-  },
-  locationIcon: {
-    marginTop: "-2px",
-    float: "left",
-    color: "rgb(255, 205, 6)",
-  },
-};
+const styles = screamStyles;
 
 class Scream extends Component {
   state = {
@@ -181,41 +68,32 @@ class Scream extends Component {
       user: { authenticated },
     } = this.props;
 
-    const neuladen =
-      Stadtteil === undefined ? (
-        <span
-          style={{
-            left: "0",
-            position: "relative",
-            margintop: "5px",
-            float: "left",
-            color: "rgb(255, 205, 6)",
-          }}
-        >
-          Aktualisiere die Seite
-        </span>
-      ) : null;
+    const neuladen = Stadtteil === undefined && (
+      <span
+        style={{
+          left: "0",
+          position: "relative",
+          margintop: "5px",
+          float: "left",
+          color: "rgb(255, 205, 6)",
+        }}
+      >
+        Aktualisiere die Seite
+      </span>
+    );
 
-    const commentButton = !authenticated ? (
+    const commentButton = (
       <div
-        className={classes.commentButtonWrapperNotAuthenticated}
+        className={
+          !authenticated
+            ? classes.commentButtonWrapperNotAuthenticated
+            : classes.commentButtonWrapper
+        }
         style={project && projectsData ? { top: "100px" } : {}}
       >
         <div className={classes.commentButton}>
           <MyButton>
-            <SignNote />
-            <img src={ChatBorder} width="100%" alt="ChatIcon" />
-          </MyButton>
-        </div>
-        <div className={classes.engagement}>{commentCount}</div>
-      </div>
-    ) : (
-      <div
-        className={classes.commentButtonWrapper}
-        style={project && projectsData ? { top: "100px" } : {}}
-      >
-        <div className={classes.commentButton}>
-          <MyButton>
+            {!authenticated && <SignNote />}
             <img src={ChatBorder} width="100%" alt="ChatIcon" />
           </MyButton>
         </div>
@@ -223,38 +101,18 @@ class Scream extends Component {
       </div>
     );
 
-    const colorNew =
-      Thema === "Rad"
-        ? "#929df6"
-        : Thema === "Verkehr"
-        ? "#91dff4"
-        : Thema === "Umwelt und Grün"
-        ? "#8dd9b8"
-        : Thema === "Sport / Freizeit"
-        ? "#f6c095"
-        : Thema === "Inklusion / Soziales"
-        ? "#e8907e"
-        : Thema === "Versorgung"
-        ? "#bd98f6"
-        : "#f9db95";
+    const colorNew = setColorByTopic(Thema);
 
     const projectsDataFinal = [];
-    if (projectsData) {
-      const projectsDataArray = projectsData;
 
-      projectsDataArray.forEach((element) => {
+    if (projectsData) {
+      projectsData.forEach((element) => {
         if (project === element.project) {
           projectsDataFinal.push(element.title);
         }
       });
     }
-    // else {
-    //   const projectsDataArray = projectsData;
 
-    //   projectsDataArray.forEach((element) => {
-    //     projectsDataFinal.push(project);
-    //   });
-    // }
     const projectTitle =
       project && projectsData ? (
         <>

@@ -238,7 +238,7 @@ export const openScream = (screamId) => (dispatch) => {
   dispatch({ type: OPEN_SCREAM });
   const newPath = `/${screamId}`;
   window.history.pushState(null, null, newPath);
-
+  debugger
   axios
     .get(`/scream/${screamId}`)
     .then((res) => {

@@ -863,7 +863,7 @@ export class home extends Component {
     // }
 
     const error =
-      !loading && screams.length === 0 ? (
+      !loading && screams.length === 0 && (
         <div className="errorBackground">
                <div className="homeHeader"> Ooops! </div>
           <br />
@@ -871,7 +871,7 @@ export class home extends Component {
             Etwas ist schiefgelaufen. Bitte lade die Seite neu!
           </span>
         </div>
-      ) : null;
+      );
 
     const loader =
       loading &&
