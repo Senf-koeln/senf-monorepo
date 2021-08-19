@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import MyButton from "../../util/MyButton";
 
 //UTILITIES
-import setColorByTopic from "../../utils/setColorByTopic";
+import setColorByTopic from "../../util/setColorByTopic";
 
 //TIMESTAMP
 import dayjs from "dayjs";

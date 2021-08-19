@@ -48,7 +48,7 @@ export class info extends Component {
 
     const closeButtonDesktop = !isMobileOnly ? (
       <a href="/">
-        <button className="buttonRound buttonClose">
+        <button data-cy="close-dialog" className="buttonRound buttonClose">
           <CloseIcon />
         </button>
       </a>
