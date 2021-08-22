@@ -404,6 +404,7 @@ class SignNote extends Component {
                     margin="normal"
                     variant="outlined"
                     className={classes.textField}
+                    data-cy="login-email"
                     // helperText={errors.email}
                     error={errors.email ? true : false}
                     value={this.state.email}
@@ -419,6 +420,7 @@ class SignNote extends Component {
                     margin="normal"
                     variant="outlined"
                     className={classes.textField}
+                    data-cy="login-password"
                     // helperText={errors.password}
                     error={errors.password ? true : false}
                     value={this.state.password}
@@ -762,7 +764,7 @@ class SignNote extends Component {
                   }
                   onClick={() => this.handleClickSignIn()}
                 >
-                  Bereits Mitglied? <span className="Terms">Anmelden</span>
+                  Bereits Mitglied? <span className="Terms" data-cy="login">Anmelden</span>
                 </div>
               </form>
             </ToggleDisplay>
