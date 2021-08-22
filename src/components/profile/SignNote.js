@@ -459,6 +459,7 @@ class SignNote extends Component {
                     type="submit"
                     className="buttonWide buttonSign"
                     disabled={loading}
+                    data-cy="login-user"
                   >
                     Anmelden
                     {loading && (
