@@ -48,6 +48,13 @@ import Constant from "jwt-autorefresh";
 
 import { isTablet } from "react-device-detect";
 import Cookies from "universal-cookie";
+
+import packageJson from "../package.json";
+import { getBuildDate } from "./util/utils";
+import withClearCache from "./ClearCache";
+
+
+
 const cookies = new Cookies();
 
 require("intersection-observer");
@@ -131,6 +138,8 @@ window.addEventListener("resize", () => {
   let vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty("--vh", `${vh}px`);
 });
+
+
 class App extends Component {
   componentDidMount() {
     let name = "Senf.koeln";
@@ -147,6 +156,7 @@ class App extends Component {
     const tabletNote = isTablet ? (
       <div className="tabletLandscapeNote">Bitte rotiere dein Tablet</div>
     ) : null;
+
     return (
       <MuiThemeProvider theme={theme}>
         <Provider store={store}>
@@ -158,6 +168,7 @@ class App extends Component {
             <div className="container">
               <Switch>
                 <Route exact path="/" component={home} />
+                
                 <Route exact path="/start" component={start} />
 
                 <Route exact path="/filter" component={filter} />
@@ -190,8 +201,17 @@ class App extends Component {
           </Router>
         </Provider>
       </MuiThemeProvider>
+      
     );
   }
 }
 
+
+
+console.log(getBuildDate(packageJson.buildDate));
+console.log('grun');
+
+
+
 export default App;
+

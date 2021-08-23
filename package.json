@@ -33,6 +33,7 @@
     "linkifyjs": "*",
     "lodash": "^4.17.21",
     "mapbox-gl": "^1.11.1",
+    "moment": "^2.29.1",
     "nominatim-geocode": "^1.1.0",
     "plotly.js": "^1.54.5",
     "react": "^16.13.1",
@@ -67,7 +68,7 @@
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "node ./update-build.js && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "super": "superstatic src",
@@ -94,5 +95,6 @@
     "cypress": "^8.1.0",
     "superstatic": "^7.1.0"
   },
-  "proxy": "https://europe-west1-senf-dev.cloudfunctions.net/api"
+  "proxy": "https://europe-west1-senf-dev.cloudfunctions.net/api",
+  "buildDate": 1629234356116
 }
