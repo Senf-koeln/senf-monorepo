@@ -360,7 +360,11 @@ class SignNote extends Component {
 
     return (
       <Fragment>
-        <div onClick={this.handleOpenSign} className={classes.openButton}></div>
+        <button
+          onClick={this.handleOpenSign}
+          className={classes.openButton}
+          data-cy="open-signnote"
+        ></button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -400,6 +404,7 @@ class SignNote extends Component {
                     margin="normal"
                     variant="outlined"
                     className={classes.textField}
+                    data-cy="login-email"
                     // helperText={errors.email}
                     error={errors.email ? true : false}
                     value={this.state.email}
@@ -415,6 +420,7 @@ class SignNote extends Component {
                     margin="normal"
                     variant="outlined"
                     className={classes.textField}
+                    data-cy="login-password"
                     // helperText={errors.password}
                     error={errors.password ? true : false}
                     value={this.state.password}
@@ -453,6 +459,7 @@ class SignNote extends Component {
                     type="submit"
                     className="buttonWide buttonSign"
                     disabled={loading}
+                    data-cy="login-user"
                   >
                     Anmelden
                     {loading && (
@@ -484,7 +491,10 @@ class SignNote extends Component {
                     className={classes.smallText}
                     onClick={() => this.handleClickSignIn()}
                   >
-                    Bereits Mitglied? <span className="Terms">Anmelden</span>
+                    Bereits Mitglied?{" "}
+                    <span className="Terms" data-cy="login">
+                      Anmelden
+                    </span>
                   </div>
                   <TextField
                     id="email"

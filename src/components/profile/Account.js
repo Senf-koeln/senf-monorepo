@@ -558,7 +558,7 @@ class Account extends Component {
               </button> */}
         </div>
         {/* <div className="dialoggradient1"></div> */}
-        <div className="hey-user">Hey {handle} </div>
+        <div className="hey-user" data-cy="hey-user">Hey {handle} </div>
 
         <div className="Tabs Account_Tabs">
           <div className="Tab">
@@ -708,6 +708,7 @@ class Account extends Component {
         <button
           onClick={this.handleOpen}
           className="buttonExpand ripple"
+          data-cy="profile-button"
         ></button>
 
         {dialog}
