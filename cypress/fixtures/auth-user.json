@@ -1,4 +1,5 @@
 {
     "email":"senftestuser@web.de",
-    "password":"senftestpassword"
+    "password":"senftestpassword",
+    "handle": "senftestuser"
 }
