@@ -209,7 +209,6 @@ class App extends Component {
 
 
 console.log(getBuildDate(packageJson.buildDate));
-console.log('grun');
 
 
 
