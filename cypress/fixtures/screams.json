@@ -1,0 +1,62 @@
+[
+  {
+    "screamId": "fYH0ljY5LimMrprLoTqw",
+    "lat": 50.93864020643174,
+    "long": 6.958725744885521,
+    "title": "This IS the fixture",
+    "body": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown p",
+    "createdAt": "2021-08-03T23:06:04.942Z",
+    "commentCount": 2,
+    "likeCount": 1,
+    "status": "None",
+    "Thema": "Versorgung",
+    "Stadtteil": "Test",
+    "project": "",
+    "projectId": ""
+  },
+  {
+    "screamId": "SWH8P5vVjm9MTwx5dFm5",
+    "lat": 50.93864020643174,
+    "long": 6.958725744885521,
+    "title": "Test",
+    "body": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown p",
+    "createdAt": "2021-08-03T23:05:14.445Z",
+    "commentCount": 3,
+    "likeCount": 1,
+    "status": "None",
+    "Thema": "Inklusion / Soziales",
+    "Stadtteil": "Test",
+    "project": "",
+    "projectId": ""
+  },
+  {
+    "screamId": "l8EvxBWuIIO1XhJb1bdX",
+    "lat": 50.937991165033516,
+    "long": 6.949456030532853,
+    "title": "test",
+    "body": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown p",
+    "createdAt": "2021-08-03T23:03:20.942Z",
+    "commentCount": 2,
+    "likeCount": 1,
+    "status": "None",
+    "Thema": "Verkehr",
+    "Stadtteil": "Test",
+    "project": "",
+    "projectId": ""
+  },
+  {
+    "screamId": "DAAkG2NCzfeDPnUtnlaQ",
+    "lat": 50.93864020643174,
+    "long": 6.958725744885521,
+    "title": "test",
+    "body": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown p",
+    "createdAt": "2021-07-31T17:29:39.456Z",
+    "commentCount": 2,
+    "likeCount": 1,
+    "status": "None",
+    "Thema": "Rad",
+    "Stadtteil": "Test",
+    "project": "Test:testproject_name",
+    "projectId": "Test:testproject_name"
+  }
+]

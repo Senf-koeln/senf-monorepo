@@ -7,7 +7,7 @@ describe("user can click on the scream card", () => {
     cy.visit("/");
   });
 
-  it("replace with real test", () => {
-    cy.get("body");
+  it("is expected to show scream title", () => {
+    cy.get("body").should("contain.text", "This IS the fixture");
   });
 });
