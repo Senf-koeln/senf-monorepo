@@ -20,6 +20,7 @@ export const MenuData = [
         {(t, { i18n }) => <span>{t("menuData_allIdeas")}</span>}
       </Translation>
     ),
+    name: "allIdeas",
   },
   {
     isSelectedIcon: List_grey,
@@ -29,12 +30,13 @@ export const MenuData = [
         {(t, { i18n }) => <span>{t("menuData_projectrooms")}</span>}
       </Translation>
     ),
+    name: "projectrooms",
   },
-  {
+  /* {
     isSelectedIcon: List_grey,
     isNotSelectedIcon: List_yellow,
     text: <Translation>{(t, { i18n }) => <span>Aktionen</span>}</Translation>,
-  },
+  }, */
   {
     isSelectedIcon: Insights_grey,
     isNotSelectedIcon: Insights_yellow,
@@ -43,5 +45,6 @@ export const MenuData = [
         {(t, { i18n }) => <span>{t("menuData_insights")}</span>}
       </Translation>
     ),
+    name: "insights",
   },
 ];

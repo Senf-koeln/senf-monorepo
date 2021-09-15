@@ -42,6 +42,7 @@ const DesktopSidebar = ({
   const { t } = useTranslation();
 
   return (
+
     !isMobileCustom && (
       <div className={openInfoPage ? "sideBar_hide" : "sideBar"}>
         <h1 className="logoWeb">
@@ -93,6 +94,7 @@ const DesktopSidebar = ({
             isSelectedIcon={item.isSelectedIcon}
             isNotSelectedIcon={item.isNotSelectedIcon}
             text={item.text}
+            name={item.name}
             handleClick={handleClick}
           ></MenuItem>
         ))}
