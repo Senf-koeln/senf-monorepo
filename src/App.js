@@ -21,20 +21,11 @@ import { SET_AUTHENTICATED } from "./redux/types";
 import { logoutUser, getUserData } from "./redux/actions/userActions";
 import { setCookies } from "./redux/actions/cookiesActions";
 import { setInfoPageOpen } from "./redux/actions/UiActions";
+import Loader from './components/atoms/Animations/Loader'
 
-//Pages
-import Main from "./components/templates/Main";
-import IntroductionInformation from "./components/organisms/infocomponents/IntroductionInformation";
 
-import Welcome from "./components/organisms/infocomponents/Welcome";
-import Verification from "./pages/Verification";
 
-import impressum from "./components/organisms/infocomponents/legal/impressum";
-import datenschutz from "./components/organisms/infocomponents/legal/datenschutz";
-import agb from "./components/organisms/infocomponents/legal/agb";
-import cookieConfigurator from "./components/organisms/infocomponents/legal/cookieConfigurator";
 
-import monitoring from "./pages/monitoring";
 
 import ReactGA from "react-ga";
 
@@ -52,6 +43,17 @@ import { isMobileCustom } from "./util/customDeviceDetect";
 import packageJson from "../package.json";
 import { getBuildDate } from "./util/utils";
 import withClearCache from "./ClearCache";
+
+//Pages
+const Main = React.lazy(() => import("./components/templates/Main"));
+const IntroductionInformation = React.lazy(() => import("./components/organisms/infocomponents/IntroductionInformation"));
+const Welcome = React.lazy(() => import("./components/organisms/infocomponents/Welcome"));
+const Verification = React.lazy(() => import("./pages/Verification"));
+const impressum = React.lazy(() => import("./components/organisms/infocomponents/legal/impressum"));
+const datenschutz = React.lazy(() => import("./components/organisms/infocomponents/legal/datenschutz"));
+const agb = React.lazy(() => import("./components/organisms/infocomponents/legal/agb"));
+const cookieConfigurator = React.lazy(() => import("./components/organisms/infocomponents/legal/cookieConfigurator"));
+const monitoring = React.lazy(() => import("./pages/monitoring"));
 
 const ClearCacheComponent = withClearCache(MainApp);
 
@@ -190,44 +192,46 @@ const App = () => {
   ) : null;
   return (
     <React.StrictMode>
-    <MuiThemeProvider theme={theme}>
-      {process.env.REACT_APP_STAGE !== "development" && <ClearCacheComponent />}
+      <React.Suspense fallback={<Loader/>}>
+        <MuiThemeProvider theme={theme}>
+          {process.env.REACT_APP_STAGE !== "development" && <ClearCacheComponent />}
 
-      <Provider store={store}>
-        <Router>
-          {/* <Topbar/> */}
-          {tabletNote}
-          <div className="landscapeNote">{t("rotate_phone")}</div>
+          <Provider store={store}>
+            <Router>
+              {/* <Topbar/> */}
+              {tabletNote}
+              <div className="landscapeNote">{t("rotate_phone")}</div>
 
-          <div className="container">
-            <Switch>
-              <Route exact path="/" component={Main} />
-              <Route exact path="/start" component={IntroductionInformation} />
+              <div className="container">
+                <Switch>
+                  <Route exact path="/" component={Main} />
+                  <Route exact path="/start" component={IntroductionInformation} />
 
-              <Route exact path="/intro" component={Welcome} />
+                  <Route exact path="/intro" component={Welcome} />
 
-              <Route exact path="/datenschutz" component={datenschutz} />
+                  <Route exact path="/datenschutz" component={datenschutz} />
 
-              <Route exact path="/agb" component={agb} />
+                  <Route exact path="/agb" component={agb} />
 
-              <Route exact path="/monitoring" component={monitoring} />
+                  <Route exact path="/monitoring" component={monitoring} />
 
-              <Route exact path="/verify" component={Verification} />
+                  <Route exact path="/verify" component={Verification} />
 
-              <Route
-                exact
-                path="/cookieConfigurator"
-                component={cookieConfigurator}
-              />
+                  <Route
+                    exact
+                    path="/cookieConfigurator"
+                    component={cookieConfigurator}
+                  />
 
-              <Route exact path="/impressum" component={impressum} />
+                  <Route exact path="/impressum" component={impressum} />
 
-              <Route exact path="/:screamId" component={Main} />
-            </Switch>
-          </div>
-        </Router>
-      </Provider>
-    </MuiThemeProvider>
+                  <Route exact path="/:screamId" component={Main} />
+                </Switch>
+              </div>
+            </Router>
+          </Provider>
+        </MuiThemeProvider>
+      </React.Suspense>
     </React.StrictMode>
   );
 };
