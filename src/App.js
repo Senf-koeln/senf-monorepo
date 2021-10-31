@@ -189,6 +189,7 @@ const App = () => {
     <div className="tabletLandscapeNote">{t("rotate_tablet")} </div>
   ) : null;
   return (
+    <React.StrictMode>
     <MuiThemeProvider theme={theme}>
       {process.env.REACT_APP_STAGE !== "development" && <ClearCacheComponent />}
 
@@ -227,6 +228,7 @@ const App = () => {
         </Router>
       </Provider>
     </MuiThemeProvider>
+    </React.StrictMode>
   );
 };
 console.log(getBuildDate(packageJson.buildDate));
