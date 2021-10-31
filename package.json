@@ -77,11 +77,12 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.3.2",
+    "@welldone-software/why-did-you-render": "^6.2.1",
     "cypress": "^8.7.0",
     "cypress-firebase": "^2.0.0",
     "cypress-wait-until": "^1.7.1",
     "start-server-and-test": "^1.14.0"
   },
   "proxy": "https://europe-west1-senf-dev.cloudfunctions.net/api",
-  "buildDate": 1635597905797
+  "buildDate": 1635673715557
 }
