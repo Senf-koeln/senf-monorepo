@@ -4,14 +4,14 @@ import React from "react";
 import {
   MuiThemeProvider,
   NativeSelect,
-  createMuiTheme,
 } from "@material-ui/core";
+import { createTheme } from '@material-ui/core/styles'
 
 //Images
 import Arrow from "../../../images/icons/arrow.png";
 import { useTranslation } from "react-i18next";
 
-const theme = createMuiTheme({
+const theme = createTheme({
   overrides: {
     MuiInput: {
       underline: {
