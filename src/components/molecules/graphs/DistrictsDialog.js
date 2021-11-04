@@ -11,7 +11,7 @@ import CloseIcon from "@material-ui/icons/Close";
 
 //ANIMATION
 import Slide from "@material-ui/core/Slide";
-import { Stadtteil } from "./stadtteil";
+import DistrictsGraph from "./DistrictsGraph";
 
 import { isMobileCustom } from "../../../util/customDeviceDetect";
 import ExpandButton from "../../atoms/CustomButtons/ExpandButton";
@@ -123,7 +123,7 @@ const styles = {
   },
 };
 
-const StadtteilDialog = ({ classes, screams }) => {
+const DistrictsDialog = ({ classes, screams }) => {
   const [open, setOpen] = useState("");
 
   const dialogComponent = isMobileCustom ? (
@@ -146,7 +146,7 @@ const StadtteilDialog = ({ classes, screams }) => {
       </MyButtonStyle>
 
       <DialogContent>
-        <Stadtteil classes={classes} screams={screams} />
+        <DistrictsGraph classes={classes} screams={screams} />
       </DialogContent>
     </Dialog>
   ) : (
@@ -169,20 +169,18 @@ const StadtteilDialog = ({ classes, screams }) => {
       </MyButtonStyle>
 
       <DialogContent>
-        <Stadtteil classes={classes} screams={screams} />
+        <DistrictsGraph classes={classes} screams={screams} />
       </DialogContent>
     </Dialog>
   );
 
   return (
     <Fragment>
-      <ExpandButton
-        handleButtonClick={() => setOpen(true)}
-      ></ExpandButton>
+      <ExpandButton handleButtonClick={() => setOpen(true)}></ExpandButton>
 
       {dialogComponent}
     </Fragment>
   );
 };
 
-export default withStyles(styles)(StadtteilDialog);
+export default withStyles(styles)(DistrictsDialog);

@@ -72,7 +72,8 @@ body {
   overscroll-behavior-y: contain;
 
  
-
+font-size: 18,666666666666664px !important;
+    line-height: 22,666666666666664px !important;
 
 
   background-attachment: fixed;
@@ -621,15 +622,6 @@ button:disabled {
 
 
 
-.inlineInfoIcon {
-  position: absolute;
-  z-index: 999;
-  top: 0;
-  width: 30px;
-  left: 20px;
-  margin-top: 25px;
-  font-size: 0pt;
-}
 
 
 .facebook {
@@ -1494,7 +1486,7 @@ font-size:15px !important
   display: flex;
   flex-direction: column;
   z-index:99;
-  animation: enterScreamDialogAnimation 1.7s;
+  animation: enterScreamDialogAnimation 1.5s;
 }
 
 .wrapperMenu {
@@ -2459,7 +2451,7 @@ background-color: #353535;
 .keyindicatorswrapper {
   width: 95%;
   display: flex;
-  margin-top: 0em;
+  padding-top: 10px;
   margin-left: 2.5%;
   margin-bottom: 20px;
   flex-direction: row;

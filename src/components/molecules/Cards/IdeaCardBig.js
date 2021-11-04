@@ -22,6 +22,13 @@ import ChatBorder from "../../../images/icons/chat.png";
 import contactIcon from "../../../images/icons/mail.png";
 import MyButtonStyle from "../../atoms/CustomButtons/MyButtonStyle";
 
+import {
+  LikeButtonWrapper,
+  CommentButtonWrapper,
+  Engagement,
+} from "./styles/sharedStyles";
+import CommentButton from "../../atoms/CustomButtons/CommentButton";
+
 const Content = styled.div`
   width: 95%;
   padding: 15px;
@@ -126,8 +133,9 @@ const styles = {
     paddingTop: 5,
     paddingBottom: 5,
     fontSize: 20,
-    fontWeight: 500,
+
     fontFamily: "Playfair Display",
+    fontWeight: "900",
     clear: "both",
     pointerEvents: "none",
   },
@@ -179,7 +187,7 @@ const styles = {
     float: "left",
     marginLeft: "10px",
     color: "rgb(255, 205, 6)",
-    height: "3vh",
+    height: "25px",
     pointerEvents: "none",
   },
 
@@ -324,7 +332,15 @@ const IdeaCardBig = ({ classes, setClicked }) => {
         <div className={classes.title}>{title} </div>
         <Typography className={classes.bodytext}>{body}</Typography>
         <div className={classes.line} />
-        <div className={classes.likeButtonWrapper}>
+        <LikeButtonWrapper ideaCardBig={true}>
+          <LikeButton screamId={screamId} />
+          <Engagement>{likeCount} </Engagement>
+        </LikeButtonWrapper>
+        <CommentButtonWrapper ideaCardBig={true}>
+          <CommentButton handleButtonClick={() => handleClick()} />
+          <Engagement>{commentCount}</Engagement>
+        </CommentButtonWrapper>
+        {/* <div className={classes.likeButtonWrapper}>
           <div className={classes.likeButton}>
             <LikeButton screamId={screamId} />
           </div>
@@ -344,7 +360,7 @@ const IdeaCardBig = ({ classes, setClicked }) => {
             )}
           </div>
           <div className={classes.engagement}>{commentCount}</div>
-        </div>
+        </div> */}
         <div className={classes.horrizontalLine}></div>
         <div className={classes.header}>
           {selectedUnixArray !== undefined && selectedUnixArray !== null && (

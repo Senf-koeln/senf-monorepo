@@ -142,7 +142,7 @@ const styles = {
   },
 };
 
-class StadtteilDialog extends Component {
+class DistrictsDialog extends Component {
   state = {
     open: false,
 
@@ -178,7 +178,10 @@ class StadtteilDialog extends Component {
         className="dialogOverlayContent"
         maxWidth={"lg"}
       >
-        <MyButtonStyle onClick={this.handleClose} btnClassName={classes.closeButton}>
+        <MyButtonStyle
+          onClick={this.handleClose}
+          btnClassName={classes.closeButton}
+        >
           <CloseIcon />
         </MyButtonStyle>
 
@@ -198,7 +201,10 @@ class StadtteilDialog extends Component {
         className="dialogOverlayContent"
         maxWidth={"lg"}
       >
-        <MyButtonStyle onClick={this.handleClose} btnClassName={classes.closeButton}>
+        <MyButtonStyle
+          onClick={this.handleClose}
+          btnClassName={classes.closeButton}
+        >
           <CloseIcon />
         </MyButtonStyle>
 
@@ -210,9 +216,7 @@ class StadtteilDialog extends Component {
 
     return (
       <Fragment>
-        <ExpandButton
-          handleButtonClick={this.handleOpen}
-        ></ExpandButton>
+        <ExpandButton handleButtonClick={this.handleOpen}></ExpandButton>
 
         {dialogComponent}
       </Fragment>
@@ -220,4 +224,4 @@ class StadtteilDialog extends Component {
   }
 }
 
-export default withStyles(styles)(StadtteilDialog);
+export default withStyles(styles)(DistrictsDialog);

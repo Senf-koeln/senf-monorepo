@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import _ from "lodash";
 import { isMobileCustom } from "../../../util/customDeviceDetect";
 import styled from "styled-components";
 import { closeAccountFunc } from "../../../redux/actions/accountActions";
@@ -50,8 +51,13 @@ const Account = ({ handleTopicSelector, topicsSelected, dataFinalMap }) => {
     setDropdown(value);
   };
 
+  const sortedScreams =
+    dropdown === "newest"
+      ? _.orderBy(myScreams, "createdAt", "desc")
+      : _.orderBy(myScreams, "likeCount", "desc");
+
   const dataFinal = myScreams
-    ? myScreams.filter(
+    ? sortedScreams.filter(
         ({ Thema, status, lat, long }) =>
           topicsSelected.includes(Thema) &&
           lat <= mapBounds.latitude1 &&
@@ -76,28 +82,23 @@ const Account = ({ handleTopicSelector, topicsSelected, dataFinalMap }) => {
       <div className="accountDialog">
         {isMobileCustom ? <BackgroundMobile /> : <BackgroundDesktop />}
 
-        {order === 1 && (
-          <MainAnimations transition="0.5s" display="block" paddingBottom="2em">
-            {!loadingMyScreams ? (
-              <IdeaList
-                type="myIdeas"
-                loading={loadingMyScreams}
-                order={order}
-                dataFinal={dataFinal}
-                dataFinalLength={dataFinalLength}
-                viewport={mapViewport}
-                handleDropdown={handleDropdown}
-                dropdown={dropdown}
-                handleTopicSelector={handleTopicSelector}
-                topicsSelected={topicsSelected}
-                dataFinalMap={dataFinalMap}
-                
-              ></IdeaList>
-            ) : (
-              <Loader />
-            )}
-          </MainAnimations>
-        )}
+        {loadingMyScreams ? (
+          <Loader />
+        ) : order === 1 ? (
+          <IdeaList
+            type="myIdeas"
+            loading={loadingMyScreams}
+            order={order}
+            dataFinal={dataFinal}
+            dataFinalLength={dataFinalLength}
+            viewport={mapViewport}
+            handleDropdown={handleDropdown}
+            dropdown={dropdown}
+            handleTopicSelector={handleTopicSelector}
+            topicsSelected={topicsSelected}
+            dataFinalMap={dataFinalMap}
+          ></IdeaList>
+        ) : null}
 
         {order === 2 && (
           <React.Fragment>

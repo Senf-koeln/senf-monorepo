@@ -91,8 +91,8 @@ const Main = () => {
           if (!screamId) {
             setTimeout(() => {
               const viewport = {
-                latitude: 50.95,
-                longitude: 6.9503,
+                latitude: 50.93864020643174,
+                longitude: 6.958725744885521,
                 zoom: isMobileCustom ? 9.5 : 11.5,
                 transitionDuration: 4000,
                 pitch: 30,
@@ -173,8 +173,9 @@ const Main = () => {
     } else if (index === -1) {
       setTopicsSelected(topicsSelected.concat(topic));
     } else {
-      topicsSelected.splice(index, 1);
-      if (topicsSelected.length === 0) {
+      const newTopics = topicsSelected.filter((item) => item !== topic);
+
+      if (newTopics.length === 0) {
         setTopicsSelected([
           "Verkehr",
           "Versorgung",
@@ -185,7 +186,7 @@ const Main = () => {
           "Sonstige",
         ]);
       } else {
-        setTopicsSelected(topicsSelected);
+        setTopicsSelected(...[newTopics]);
       }
     }
   };
@@ -267,30 +268,24 @@ const Main = () => {
           {loading && <Loader />}
           <div className="MainBackgroundHome" />
 
-          <IdeaList
-            type="allIdeas"
-            loading={loading}
-            order={order}
-            dataFinal={dataFinal}
-            dataFinalLength={dataFinalLength}
-            dataFinalMap={dataFinalMap}
-            viewport={mapViewport}
-            handleDropdown={handleDropdown}
-            projectsData={projects}
-            loadingProjects={loadingProjects}
-            project={project}
-            dropdown={dropdown}
-            handleTopicSelector={handleTopicSelector}
-            topicsSelected={topicsSelected}
-          />
-
-          <ProjectsPage
-            loadingProjects={loadingProjects}
-            order={order}
-            projects={projects}
-          ></ProjectsPage>
-
-          <InsightsPage order={order}></InsightsPage>
+          {!openProject && !openAccount && (
+            <IdeaList
+              type="allIdeas"
+              loading={loading}
+              order={order}
+              dataFinal={dataFinal}
+              dataFinalLength={dataFinalLength}
+              dataFinalMap={dataFinalMap}
+              viewport={mapViewport}
+              handleDropdown={handleDropdown}
+              projectsData={projects}
+              loadingProjects={loadingProjects}
+              project={project}
+              dropdown={dropdown}
+              handleTopicSelector={handleTopicSelector}
+              topicsSelected={topicsSelected}
+            />
+          )}
 
           {openProject && (
             <ProjectDialog
@@ -313,6 +308,21 @@ const Main = () => {
               dataFinalMap={dataFinalMap}
             />
           )}
+        </div>
+      )}
+
+      {!openInfoPage && order === 2 && (
+        <div className="contentWrapper_insights">
+          <ProjectsPage
+            loadingProjects={loadingProjects}
+            order={order}
+            projects={projects}
+          ></ProjectsPage>
+        </div>
+      )}
+      {!openInfoPage && order === 3 && (
+        <div className="contentWrapper_insights">
+          <InsightsPage order={order}></InsightsPage>
         </div>
       )}
 

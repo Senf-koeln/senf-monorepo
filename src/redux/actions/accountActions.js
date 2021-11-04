@@ -15,9 +15,9 @@ export const openAccountFunc = (userId) => async (dispatch) => {
   dispatch({
     type: OPEN_ACCOUNT,
   });
-  dispatch({ type: LOADING_MYSCREAMS_DATA });
 
   if (userId !== undefined) {
+    dispatch({ type: LOADING_MYSCREAMS_DATA });
     const db = firebase.firestore();
     const ref = await db
       .collection("screams")

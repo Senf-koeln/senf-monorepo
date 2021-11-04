@@ -41,6 +41,7 @@ const PostScreamFormContent = ({
   handleCloseContact,
   handleSaveContact,
   project,
+  checkIfCalendar,
   openCalendar,
   selectedDays,
   handleOpenCalendar,
@@ -151,11 +152,7 @@ const PostScreamFormContent = ({
             contact={contact}
             handleChange={handleChange}
           ></Contact>
-          <div
-            style={
-              project === "Test:testproject_name" ? {} : { display: "none" }
-            }
-          >
+          <div style={checkIfCalendar ? {} : { display: "none" }}>
             <InlineDatePicker
               openCalendar={openCalendar}
               handleOpenCalendar={handleOpenCalendar}

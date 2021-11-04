@@ -5,6 +5,8 @@ import ReactDOM from "react-dom";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { isMobileCustom } from "../../../util/customDeviceDetect";
+import { useSpring, animated } from "@react-spring/web";
+import { useDrag } from "@use-gesture/react";
 
 // Redux stuff
 import { closeScream } from "../../../redux/actions/screamActions";
@@ -67,6 +69,7 @@ const ScreamDialog = () => {
   const [commentMenuOpen, setCommentMenuOpen] = useState(false);
   const [userHandleSelected, setUserHandleSelected] = useState("");
   const [commentIdSelected, setCommentIdSelected] = useState("");
+  const [commentFormShow, setCommentFormShow] = useState(false);
 
   useEffect(() => {
     if (openScream && lat !== undefined) {
@@ -75,6 +78,9 @@ const ScreamDialog = () => {
         left: 0,
         behavior: "smooth",
       });
+      if (!isMobileCustom) {
+        setCommentFormShow(true);
+      }
       setTimeout(() => {
         const viewport = {
           latitude: isMobileCustom && openScream ? lat - 0.0008 : lat,
@@ -111,6 +117,53 @@ const ScreamDialog = () => {
       setShareOpen(true);
     }
   };
+
+  const [props, set] = useSpring(() => ({
+    x: 0,
+    y: 0,
+    scale: 1,
+    transform: `translateY(${window.innerHeight / 2}px)`,
+    overflow: "scroll",
+    touchAction: "none",
+  }));
+
+  const bind = useDrag(
+    ({ down, movement: [, my], offset: [, y] }) => {
+      const el = document.querySelector(".screamDialogDrag");
+
+      if (my < -50) {
+        set({
+          y: down ? my : 100,
+          transform: !down ? `translateY(${-30}px)` : `translateY(${0}px)`,
+          touchAction: "unset",
+          overflow: "scroll",
+        });
+        setCommentFormShow(true);
+      }
+      if (el.scrollTop < 30 && my > 150) {
+        set({
+          y: down ? my : window.innerHeight - 120,
+          transform: down
+            ? `translateY(${0}px)`
+            : `translateY(${window.innerHeight / 2}px)`,
+          touchAction: "none",
+          overflow: "scroll",
+        });
+      }
+
+      set({ y: down ? my : 0 });
+    },
+    {
+      pointer: { touch: true },
+      bounds: {
+        enabled: true,
+        top: -window.innerHeight + 241,
+        bottom: window.innerHeight - 120,
+        left: 0,
+        right: 0,
+      },
+    }
+  );
   const content = (
     <div className="wrapperScreamDialog">
       {!loadingIdea ? (
@@ -119,6 +172,7 @@ const ScreamDialog = () => {
             <CustomIconButton name="Share" handleButtonClick={handleShare} />
             <CustomIconButton
               name="Menu"
+              iconWidth="70%"
               handleButtonClick={() => setMenuOpen(true)}
             />
           </ButtonsContainer>
@@ -170,7 +224,7 @@ const ScreamDialog = () => {
         />
       )}
 
-      <CommentForm screamId={screamId} clicked={clicked} />
+      {commentFormShow && <CommentForm screamId={screamId} clicked={clicked} />}
       <CustomIconButton
         name="ArrowLeft"
         position="fixed"
@@ -182,7 +236,13 @@ const ScreamDialog = () => {
       />
 
       {isMobileCustom ? (
-        <ScreamDialogSwipe loading={loadingIdea}> {content}</ScreamDialogSwipe>
+        <animated.div
+          className={!loadingIdea ? "screamDialogDrag" : ""}
+          {...bind()}
+          style={props}
+        >
+          {content}
+        </animated.div>
       ) : (
         <React.Fragment>{content}</React.Fragment>
       )}

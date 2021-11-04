@@ -3,16 +3,23 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 
 import { SET_USER, SET_UNAUTHENTICATED } from "../types";
-import axios from "axios";
 import { closeAccountFunc } from "./accountActions";
 
 export const resetPassword = (email, history) => (dispatch) => {
-  axios
-    .post("/resetPassword", email)
-    .then((res) => {
-      // history.push("/");
+  console.log(email);
+  firebase
+    .auth()
+    .sendPasswordResetEmail(email)
+    .then(() => {
+      console.log("Password reset email sent!", email);
+      // Password reset email sent!
+      // ..
     })
-    .catch((err) => console.log(err));
+    .catch((error) => {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ..
+    });
 };
 
 export const logoutUser = () => (dispatch) => {

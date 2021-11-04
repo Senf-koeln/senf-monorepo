@@ -13,6 +13,11 @@ const MainAnimation = styled.div`
   display: ${(props) => props.display && props.display};
   top: ${(props) => (props.top ? props.top : 0)};
   position: ${(props) => props.position && props.position};
+  width: 100%;
+
+  @media (min-width: 768px) {
+    width: 400px;
+  }
 `;
 
 /* .MainAnimation {

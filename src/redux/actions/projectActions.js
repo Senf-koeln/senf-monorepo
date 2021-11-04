@@ -41,6 +41,7 @@ export const getProjects = () => async (dispatch) => {
       centerLong: doc.data().centerLong,
       zoom: doc.data().zoom,
       projectId: doc.id,
+      calendar: doc.data().calendar,
       // weblink: doc.data().weblink,
     };
 

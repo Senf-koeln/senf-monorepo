@@ -223,11 +223,7 @@ class ResetPassword extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    const email = {
-      email: this.state.email,
-    };
-
-    this.props.resetPassword(email, this.props.history);
+    this.props.resetPassword(this.state.email, this.props.history);
 
     setTimeout(() => {
       this.handleClose();
@@ -258,9 +254,7 @@ class ResetPassword extends Component {
     return (
       <Fragment>
         <div className={classes.forgot} onClick={() => this.handleOpen()}>
-        <span className="Terms">
-          {this.props.t("forgotPassword")}
-          </span>
+          <span className="Terms">{this.props.t("forgotPassword")}</span>
         </div>
         <Dialog
           open={this.state.open}

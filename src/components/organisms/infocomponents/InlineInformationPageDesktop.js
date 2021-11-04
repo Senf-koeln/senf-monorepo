@@ -36,6 +36,8 @@ import {
   CustomButton,
   CustomIconButton,
 } from "../../atoms/CustomButtons/CustomButton";
+import ExpandButton from "../../atoms/CustomButtons/ExpandButton";
+import { SideBarTabs } from "../../../styles/GlobalStyle";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -66,16 +68,14 @@ const InlineInformationPageDesktop = () => {
   return (
     !isMobileCustom && (
       <Fragment>
-        <div onClick={handleOpen}>
-          <div className="inlineInfoIcon">
-            <img src={Info} width="35" alt="EndImage" />
-
-            <span className="inlineInfoIconText"> {t("info")}</span>
-          </div>
-        </div>
+        <SideBarTabs>
+          <ExpandButton handleButtonClick={handleOpen} />
+          <img src={Info} width="35" alt="EndImage" />
+          <span className="inlineInfoIconText"> {t("info")}</span>
+        </SideBarTabs>
 
         {!loading &&
-          (cookie_settings === "all" || cookie_settings === "minimum") ? (
+        (cookie_settings === "all" || cookie_settings === "minimum") ? (
           <Dialog
             scroll={"paper"}
             open={openInfoPage}

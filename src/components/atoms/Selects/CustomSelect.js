@@ -172,7 +172,7 @@ const CustomSelect = ({ value, initialValue, options, handleDropdown }) => {
         class="dropbtn"
         style={{ zIndex: 999 }}
       >
-        {truncateString(selectedLabel, 34)}
+        {truncateString(selectedLabel, 25)}
 
         <img
           src={Arrow}
@@ -198,14 +198,14 @@ const CustomSelect = ({ value, initialValue, options, handleDropdown }) => {
                     <Span style={{ fontFamily: "Futura PT W01-Bold" }}>
                       {option.color && <ColorDot color={option.color} />}
                       {option.img && <Img src={option.img} />}
-                      {truncateString(option.label, 34)}
+                      {truncateString(option.label, 22)}
                     </Span>
                   ) : (
                     <Span>
                       {" "}
                       {option.color && <ColorDot color={option.color} />}
                       {option.img && <Img src={option.img} />}
-                      {truncateString(option.label, 34)}
+                      {truncateString(option.label, 30)}
                     </Span>
                   )}
                 </ListItem>

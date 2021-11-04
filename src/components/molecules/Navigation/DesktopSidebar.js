@@ -24,6 +24,8 @@ import PostScream from "../../organisms/PostIdea/PostScream";
 import { isMobileCustom } from "../../../util/customDeviceDetect";
 import ExpandButton from "../../atoms/CustomButtons/ExpandButton";
 import styled from "styled-components";
+import { closeScream } from "../../../redux/actions/screamActions";
+import { closeProject } from "../../../redux/actions/projectActions";
 
 const Logo = styled.div`
   position: fixed;
@@ -71,6 +73,8 @@ const DesktopSidebar = ({
   projectsData,
 }) => {
   const openInfoPage = useSelector((state) => state.UI.openInfoPage);
+  const openAccount = useSelector((state) => state.UI.openAccount);
+
   const authenticated = useSelector((state) => state.user.authenticated);
   const userId = useSelector((state) => state.user.userId);
   const dispatch = useDispatch();
@@ -78,6 +82,11 @@ const DesktopSidebar = ({
 
   const openTheAccount = () => {
     dispatch(openAccountFunc(userId));
+
+    dispatch(closeScream());
+    dispatch(closeProject());
+
+    handleTopicSelector("all");
   };
 
   return (
@@ -106,7 +115,7 @@ const DesktopSidebar = ({
               dataCy="profile-button"
             />
             <img
-              src={order === 4 ? profile_grey : profile_yellow}
+              src={openAccount ? profile_grey : profile_yellow}
               width="35"
               alt="EndImage"
               style={{ paddingRight: "10px" }}
@@ -128,6 +137,7 @@ const DesktopSidebar = ({
             isNotSelectedIcon={item.isNotSelectedIcon}
             text={item.text}
             handleClick={handleClick}
+            openAccount={openAccount}
           ></MenuItem>
         ))}
 

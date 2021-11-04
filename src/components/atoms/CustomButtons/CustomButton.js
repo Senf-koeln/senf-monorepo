@@ -7,6 +7,9 @@ import ArrowLeftIcon from "../../../images/icons/arrow-left.png";
 import CircularArrowIcon from "../../../images/icons/circular-arrow.png";
 import ShareIcon from "../../../images/icons/share.png";
 import MenuIcon from "../../../images/icons/menu.png";
+import HandsFullIcon from "../../../images/icons/handsFull.png";
+import HandsnoclapIcon from "../../../images/icons/handsnoclap.png";
+import ChatIconIcon from "../../../images/icons/chat.png";
 
 const enterAnimation = keyframes`
     0% {
@@ -101,6 +104,9 @@ const Icons = {
   CircularArrow: CircularArrowIcon,
   Share: ShareIcon,
   Menu: MenuIcon,
+  HandsFull: HandsFullIcon,
+  Handsnoclap: HandsnoclapIcon,
+  Chat: ChatIconIcon,
 };
 
 const enterAnimationRound = keyframes`
@@ -128,11 +134,13 @@ const enterAnimationRound = keyframes`
 const IconButton = styled.button`
   width: 50px;
   height: 50px;
+  overflow: hidden;
   color: #353535;
   border-radius: 100%;
   box-shadow: ${(props) =>
     props.shadow === false ? "" : "rgb(38, 57, 77, 0.7) 0px 20px 30px -15px;"};
-  background-color: white;
+  background-color: ${(props) =>
+    props.backgroundColor ? props.backgroundColor : "white"};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -150,9 +158,14 @@ const IconButton = styled.button`
     css`
       ${enterAnimationRound} 2s
     `};
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
 `;
 
 export const CustomIconButton = ({
+  children,
   name,
   position,
   marginLeft,
@@ -162,8 +175,10 @@ export const CustomIconButton = ({
   left,
   zIndex,
   shadow,
+  backgroundColor,
   handleButtonClick,
   animation,
+  iconWidth,
 }) => {
   const Icon = Icons[name];
   return (
@@ -178,8 +193,10 @@ export const CustomIconButton = ({
       zIndex={zIndex}
       animation={animation}
       shadow={shadow}
+      backgroundColor={backgroundColor}
     >
-      <img src={Icon} width="50%" alt="icon"/>
+      {children}
+      <img src={Icon} width={iconWidth ? iconWidth : "50%"} alt="icon" />
     </IconButton>
   );
 };

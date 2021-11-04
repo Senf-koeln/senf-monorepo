@@ -105,7 +105,7 @@ class MonitoringEditScream extends Component {
   // }
 
   handleOpen = () => {
-    this.props.getUserEmail(this.props.scream.userHandle);
+    this.props.getUserEmail(this.props.scream.userId);
 
     this.setState({
       open: true,

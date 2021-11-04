@@ -2,6 +2,8 @@
 
 import firebase from "firebase/app";
 import "firebase/firestore";
+import moment from "moment";
+import setColorByTopic from "../../data/setColorByTopic";
 
 import { LIKE_SCREAM, UNLIKE_SCREAM, VOTED_TRUE, VOTED_FALSE } from "../types";
 
@@ -37,11 +39,15 @@ export const likeScream = (screamId, user) => async (dispatch) => {
   } else {
     const scream = doc.data();
     scream.screamId = doc.id;
+    scream.color = setColorByTopic(doc.data().Thema);
     scream.comments = [];
 
     commentsRef.forEach((doc) =>
       scream.comments.push({ ...doc.data(), commentId: doc.id })
     );
+
+    const ageCapture =
+      user.age !== "" ? moment().diff(moment(user.age, "YYYY"), "years") : "";
 
     if (likeDocument.exists) {
       console.log("already liked");
@@ -49,9 +55,11 @@ export const likeScream = (screamId, user) => async (dispatch) => {
       db.collection("likes").add({
         screamId: screamId,
         userHandle: user.handle,
+        userId: user.userId,
         createdAt: new Date().toISOString(),
         sex: user.sex,
-        age: user.age,
+        age: ageCapture,
+        Thema: doc.data().Thema,
       });
 
       scream.likeCount++;
@@ -97,6 +105,7 @@ export const unlikeScream = (screamId, user) => async (dispatch) => {
   } else {
     const scream = doc.data();
     scream.screamId = doc.id;
+    scream.color = setColorByTopic(doc.data().Thema);
     scream.comments = [];
 
     commentsRef.forEach((doc) =>

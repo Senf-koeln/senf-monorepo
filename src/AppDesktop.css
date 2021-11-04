@@ -301,6 +301,18 @@
     width: 400px;
     transition: 0.5s;
     position: fixed;
+    
+
+
+  }
+
+   .contentWrapper_insights {
+    margin-left: 200px;
+    width: 400px;
+    height:100%;
+    transition: 0.5s;
+    position: fixed;
+    overflow:scroll
 
 
   }
@@ -409,20 +421,7 @@
       transition: 0.09s cubic-bezier(.51,0,.38,1)
     }  */
 
-  .inlineInfoIcon {
-    position: relative;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    z-index: 999;
-    width: 30px;
-    left: 20px;
-    top: 70px;
-    font-size: 14pt;
-    line-height: 14pt;
-  }
+  
 
   .inlineInfoIconText {
     padding-left: 10px;
@@ -902,6 +901,7 @@
 
     left: 200px;
     width: 400px;
+    z-index:9999;
 
   }
 

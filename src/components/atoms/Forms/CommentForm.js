@@ -2,10 +2,8 @@
 
 import React, { Component } from "react";
 import { withTranslation } from "react-i18next";
-import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 // MUI Stuff
-import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 // Redux stuff
 import { compose } from "redux";
@@ -18,8 +16,8 @@ const styles = {
   textField: {
     position: "absolute",
     bottom: "5px",
-    marginLeft: "20%",
-    width: "56%",
+    marginLeft: "2.5%",
+    width: "calc(100% - 110px)",
 
     float: "left",
     color: "white",
@@ -95,9 +93,9 @@ class CommentForm extends Component {
 
     const commentFormMarkup = authenticated ? (
       <div className="commentFormWrapper">
-        <div className="buttonLikeFixed">
+        {/* <div className="buttonLikeFixed">
           <LikeButton screamId={screamId} />
-        </div>
+        </div> */}
         <form onSubmit={this.handleSubmit}>
           <TextField
             name="body"

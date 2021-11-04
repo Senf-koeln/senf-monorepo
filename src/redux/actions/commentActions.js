@@ -13,6 +13,7 @@ import {
   STOP_LOADING_UI,
   SUBMIT_COMMENT,
 } from "../types";
+import moment from "moment";
 
 //get the data for one comment
 export const getComment = (commentId) => async (dispatch) => {
@@ -46,13 +47,18 @@ export const submitComment =
     } else {
       ref.update({ commentCount: doc.data().commentCount + 1 });
 
+      const ageCapture =
+        user.age !== "" ? moment().diff(moment(user.age, "YYYY"), "years") : "";
+
       const newComment = {
         body: commentData.body,
         createdAt: new Date().toISOString(),
         screamId: screamId,
         userHandle: user.handle,
+        userId: user.userId,
         sex: user.sex,
-        age: user.age,
+        age: ageCapture,
+        Thema: doc.data().Thema,
       };
       await db.collection("comments").add(newComment);
 

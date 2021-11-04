@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { logoutUser } from "../../../redux/actions/userActions";
+import { StyledText } from "../../../styles/GlobalStyle";
 import { CustomButton } from "../../atoms/CustomButtons/CustomButton";
 
 const Card = styled.div`
@@ -60,13 +61,13 @@ const AccountSettings = () => {
     <React.Fragment>
       <Card>
         <Content>
-          <p>
-            {t('account_contact')}
+          <StyledText>
+            {t("account_contact")}
             <br />
             <br />
-            {t('your')} Senf.koeln-Team
+            {t("your")} Senf.koeln-Team
             <br />
-          </p>
+          </StyledText>
         </Content>
       </Card>
 
@@ -83,10 +84,11 @@ const AccountSettings = () => {
           textAlign: "center",
           marginTop: "50px",
           textDecoration: "underline",
+          position: "relative",
         }}
         onClick={deleteAccount}
       >
-        {t('deteleAccount')}{" "}
+        {t("deteleAccount")}{" "}
       </div>
     </React.Fragment>
   );

@@ -5,9 +5,8 @@ import React, { useState, useEffect } from "react";
 //Components
 import Keyindicators from "../../molecules/graphs/Keyindicators";
 import ThemenDialog from "../../molecules/graphs/themendialog";
-import StadttteilDialog from "../../molecules/graphs/stadtteilDialog";
-import AltersgruppeDialog from "../../molecules/graphs/altersgruppeDialog";
-import WordcloudDialog from "../../molecules/graphs/wordcloudDialog";
+import DistrictsDialog from "../../molecules/graphs/DistrictsDialog";
+import AgegroupDialog from "../../molecules/graphs/AgegroupDialog";
 
 //Images
 import Themencover from "../../../images/insightsCovers/topic-cover.jpg";
@@ -20,7 +19,20 @@ import "firebase/firestore";
 import MainAnimations from "../../atoms/Animations/MainAnimations";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
+import ExpandButton from "../../atoms/CustomButtons/ExpandButton";
 
+const Wrapper = styled.div`
+  margin-top: 90px;
+  @media (min-width: 768px) {
+    margin-left: 200px;
+    width: 400px;
+    transition: 0.5s;
+    position: fixed;
+    top: 50px;
+    margin-top: 0px;
+    left: 0;
+  }
+`;
 const CoverWrapper = styled.div`
   margin-left: 2.5%;
   width: 95%;
@@ -62,6 +74,7 @@ const InsightsPage = ({ order }) => {
   const db = firebase.firestore();
 
   const [screams, setScreams] = useState("");
+  const [likes, setLikes] = useState("");
   const [likesLength, setLikesLength] = useState("");
   const [commentsLength, setCommentsLength] = useState("");
 
@@ -77,6 +90,7 @@ const InsightsPage = ({ order }) => {
         likeCount: doc.data().likeCount,
         Thema: doc.data().Thema,
         Stadtteil: doc.data().Stadtteil,
+        age: doc.data().age,
       };
       screams.push(docData);
     });
@@ -88,6 +102,16 @@ const InsightsPage = ({ order }) => {
     const ref = await db.collection("likes").orderBy("createdAt", "desc").get();
     const likesLength = ref.size;
     setLikesLength(likesLength);
+
+    const likes = [];
+    ref.docs.forEach((doc) => {
+      const docData = {
+        age: doc.data().age,
+        Thema: doc.data().Thema,
+      };
+      likes.push(docData);
+    });
+    setLikes(likes);
   };
 
   const fetchDataComments = async () => {
@@ -105,10 +129,13 @@ const InsightsPage = ({ order }) => {
     fetchDataComments();
   }, []);
 
+  const handleLink = () => {
+    window.open("https://wiki.agorakoeln.de/", "_blank");
+  };
   return (
     order === 3 && (
-      <React.Fragment>
-        <MainAnimations height="100vh" marginTop="90px">
+      <Wrapper>
+        <MainAnimations transition="0.5s" display="block" paddingBottom="2em">
           <Keyindicators
             screams={screams}
             likesLength={likesLength}
@@ -124,22 +151,23 @@ const InsightsPage = ({ order }) => {
             <Covers animation="coverAnimation 0.75s ease-in-out">
               <CoverTitle>{t("districts")}</CoverTitle>
               <CoverImg src={DistrictsCover} alt="insights-districts-cover" />
-              <StadttteilDialog screams={screams} />
+              <DistrictsDialog screams={screams} />
             </Covers>
 
             <Covers animation="coverAnimation 1.25s ease-in-out">
               <CoverTitle>{t("agegroups")}</CoverTitle>
               <CoverImg src={AgegroupsCover} alt="insights-agegroups-cover" />
-              <AltersgruppeDialog />
+              <AgegroupDialog screams={screams} likes={likes} />
             </Covers>
             <Covers animation="coverAnimation 1s ease-in-out">
-              <CoverTitle>{t("keywords")}</CoverTitle>
+              <CoverTitle>{t("toolbox")}</CoverTitle>
               <CoverImg src={KeywordsCover} alt="insights-keywords-cover" />
-              <WordcloudDialog />
+              <ExpandButton handleButtonClick={() => handleLink()} />
+              {/* <WordcloudDialog /> */}
             </Covers>
           </CoverWrapper>
         </MainAnimations>
-      </React.Fragment>
+      </Wrapper>
     )
   );
 };

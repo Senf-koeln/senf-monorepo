@@ -277,7 +277,7 @@ const LoginRegistration = ({ classes }) => {
         const db = firebase.firestore();
 
         if (userCredential) {
-          await db.collection("users").doc(handle).set({
+          await db.collection("users").doc(userCredential.user.uid).set({
             handle: handle,
             email: email,
             age: age,

@@ -6,6 +6,10 @@
   .fc-theme-standard .fc-list{
 border:0
   }
+  .fc table{
+    font-size: 28,666666666666664px !important;
+    line-height: 22,666666666666664px !important;
+  }
 
   .fc .fc-button{
     border-radius: 15px;
@@ -143,6 +147,8 @@ border:0
     flex-direction: column;
     align-items: flex-start;
     grid-column-start: 2;
+    
+    
   }
   .fc .fc-list-event:hover{
     background-color: rgb(255,255,255,0.9);
@@ -157,7 +163,10 @@ border:0
     border-radius: 20px 0 0 20px;
     padding: 8px 14px !important;
     padding-bottom: 0 !important;
-    color:grey
+    color:grey;
+ 
+    
   }
   
+ 
 

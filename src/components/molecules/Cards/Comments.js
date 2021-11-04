@@ -19,6 +19,7 @@ import Card from "@material-ui/core/Card";
 //ICONS
 import MenuIcon from "../../../images/icons/menu.png";
 import CommentMenuModal from "../Modals/CommentMenuModal";
+import { StyledText } from "../../../styles/GlobalStyle";
 
 const styles = {
   card: {
@@ -145,9 +146,7 @@ const Comments = ({
                           />
                         </div>
 
-                        <Typography className={classes.bodytext}>
-                          {body}
-                        </Typography>
+                        <StyledText>{body}</StyledText>
                       </div>
                     </Card>
                   </div>

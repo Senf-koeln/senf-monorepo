@@ -15,26 +15,11 @@ import MapGL, { Source, Layer, Marker } from "@urbica/react-map-gl";
 import { isMobileCustom } from "../../../util/customDeviceDetect";
 
 import NoLocationPopUp from "./NoLocationPopUp";
-import ExpandButton from "../CustomButtons/ExpandButton";
 
 //Icons
 import Pin from "../../../images/pin3.png";
+import { MarkersMobile } from "./Markers";
 // import cologne_grid from "../../../images/cologne_grid.svg";
-
-const OpenIdeaButton = styled.div`
-  position: absolute;
-  width: ${(props) => 7 + props.likeCount / 2 + "px"};
-  height: ${(props) => 7 + props.likeCount / 2 + "px"};
-  min-width: unset;
-
-  margin-left: ${(props) => -((7 + props.likeCount) / 4) + "px"};
-  margin-top: ${(props) => -(7 + props.likeCount) / 4 + "px"};
-  border-radius: 100%;
-  border: 1px white solid;
-  background-color: ${(props) => props.color};
-  opacity: 1;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 9px 38px, rgba(0, 0, 0, 0.15) 0px 5px 5px;
-`;
 
 const PinComponent = styled.img`
   position: absolute;
@@ -49,13 +34,12 @@ const MapMobile = ({
   viewport,
 
   _onViewportChange,
-
+  zoomBreak,
   loadingProjects,
   geoData,
   setSwipePositionUp,
 }) => {
   const dispatch = useDispatch();
-
   const openScream = useSelector((state) => state.UI.openScream);
   const scream = useSelector((state) => state.data.scream);
 
@@ -150,23 +134,11 @@ const MapMobile = ({
             }}
           />
 
-          {dataFinalMap.map(({ screamId, long, lat, likeCount, color }) => (
-            <Marker key={screamId} longitude={long} latitude={lat}>
-              <OpenIdeaButton
-                color={color}
-                likeCount={likeCount}
-                onClick={() => fetchDataScream(screamId)}
-              >
-                <ExpandButton
-                  handleButtonClick={() => fetchDataScream(screamId)}
-                />
-              </OpenIdeaButton>
-              <NoLocationPopUp
-                dataNoLocation={dataNoLocation}
-                setSwipePositionUp={setSwipePositionUp}
-              />
-            </Marker>
-          ))}
+          <MarkersMobile
+            dataFinalMap={dataFinalMap}
+            fetchDataScream={fetchDataScream}
+            zoomBreak={zoomBreak}
+          />
 
           {openScream && scream.lat && (
             <Marker
@@ -184,6 +156,10 @@ const MapMobile = ({
               />
             </Marker>
           )}
+          <NoLocationPopUp
+            dataNoLocation={dataNoLocation}
+            setSwipePositionUp={setSwipePositionUp}
+          ></NoLocationPopUp>
         </MapGL>
       </div>
     )

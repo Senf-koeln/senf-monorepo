@@ -87,11 +87,18 @@ const MenuModal = ({ setMenuOpen, screamId, userHandle }) => {
       {!editOpen && !adminEditOpen && (
         <MainModal handleButtonClick={() => setMenuOpen(false)}>
           {authenticated && (isAdmin === true || isModerator === true) && (
-            <ButtonWrapper>
-              <ExpandButton handleButtonClick={() => setAdminEditOpen(true)}>
-                Idee bearbeiten (Admin)
-              </ExpandButton>
-            </ButtonWrapper>
+            <React.Fragment>
+              <ButtonWrapper>
+                <ExpandButton handleButtonClick={() => setAdminEditOpen(true)}>
+                  Idee bearbeiten (Admin)
+                </ExpandButton>
+              </ButtonWrapper>
+              <ButtonWrapper>
+                <ExpandButton handleButtonClick={deleteTheScream}>
+                  Idee löschen (Admin)
+                </ExpandButton>
+              </ButtonWrapper>
+            </React.Fragment>
           )}
           {authenticated && userHandle === handle && (
             <React.Fragment>

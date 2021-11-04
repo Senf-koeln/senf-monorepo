@@ -1,6 +1,6 @@
 /** @format */
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { isMobileCustom } from "../../../util/customDeviceDetect";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -32,6 +32,7 @@ const TopicFilterWrapperMobile = styled.div`
   top: ${(props) => (props.openScream ? "10px" : "90px")};
   width: 100%;
   overflow-x: scroll;
+
   -webkit-overflow-scrolling: touch;
   transition: 1s;
 `;
@@ -41,6 +42,17 @@ const MapClickContainer = styled.div`
   width: calc(100% - 120px);
   height: 50px;
   z-index: 9;
+`;
+
+const OpenButtonMobile = styled.div`
+  position: absolute;
+  width: 120px;
+  margin-left: 0;
+  left: 0;
+  top: 0;
+  height: 50px;
+  z-index: 9;
+  display: ${(props) => (props.hide ? "block" : "none")};
 `;
 
 const TopicFilterInnerWrapperMobile = styled.div`
@@ -53,7 +65,6 @@ const TopicFilterInnerWrapperMobile = styled.div`
   padding-left: 20px;
   padding-right: 0px;
   margin: 5px;
-
   margin-left: calc(100% - 120px);
   animation: ${enterAnimation} 3.5s;
   z-index: 15;
@@ -75,10 +86,37 @@ export function TopicFilter({
   loading,
   swipePosition,
   setSwipePositionDown,
+  inline,
 }) {
   const openScream = useSelector((state) => state.UI.openScream);
-
+  const [moveLeft, setMoveLeft] = useState(false);
   const { t } = useTranslation();
+
+  useEffect(() => {
+    if (openScream) {
+      setMoveLeft(false);
+    }
+  }, [openScream]);
+
+  useEffect(() => {
+    if (isMobileCustom && !inline) {
+      const el = document.getElementById("Wrapper");
+      if (moveLeft) {
+        el.scroll({
+          top: 0,
+          left: window.innerWidth - 125,
+          behavior: "smooth",
+        });
+      } else {
+        el.scroll({
+          top: 0,
+          left: 0,
+          behavior: "smooth",
+        });
+      }
+    }
+  }, [moveLeft]);
+
   // Handler at index 0 is for the "all" checkbox
   const topicFilters = topics.map((topic, i) => {
     return (
@@ -96,12 +134,17 @@ export function TopicFilter({
     );
   });
 
-  return isMobileCustom && !loading ? (
-    <TopicFilterWrapperMobile openScream={openScream}>
+  return isMobileCustom && !loading && !inline ? (
+    <TopicFilterWrapperMobile openScream={openScream} id="Wrapper">
       {swipePosition === "top" && (
         <MapClickContainer onClick={setSwipePositionDown} />
       )}
+
       <TopicFilterInnerWrapperMobile>
+        <OpenButtonMobile
+          onClick={() => setMoveLeft(!moveLeft)}
+          hide={topicsSelected.length === 7}
+        />
         <FormControlLabel
           control={
             <Checkbox

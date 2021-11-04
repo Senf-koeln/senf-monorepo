@@ -85,12 +85,20 @@ const IdeaList = ({
   zIndex,
 }) => {
   const mapViewport = useSelector((state) => state.data.mapViewport);
-  const dispatch = useDispatch();
-
   const openScream = useSelector((state) => state.UI.openScream);
+
+  const dispatch = useDispatch();
+  const [zoomBreak, setZoomBreak] = useState(0.6);
 
   const _onViewportChange = (viewport) => {
     dispatch(setMapViewport(viewport));
+    if (viewport.zoom > 15) {
+      setZoomBreak(2);
+    } else if (viewport.zoom > 11.5) {
+      setZoomBreak(1);
+    } else {
+      setZoomBreak(0.6);
+    }
 
     const boundAdds = [500, 1000, 500, 1000];
     dispatch(setMapBounds(viewport, boundAdds));
@@ -187,6 +195,7 @@ const IdeaList = ({
               viewport={mapViewport}
               _onViewportChange={_onViewportChange}
               setSwipePositionUp={() => setSwipePositionUp()}
+              zoomBreak={zoomBreak}
             />
           </div>
           <TopicFilter

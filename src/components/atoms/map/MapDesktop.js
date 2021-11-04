@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useState, PureComponent } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { isMobileCustom } from "../../../util/customDeviceDetect";
 import styled from "styled-components";
@@ -21,32 +21,17 @@ import MapGL, {
   Marker,
   NavigationControl,
 } from "@urbica/react-map-gl";
-
+import { Markers } from "./Markers";
 import NoLocationPopUp from "./NoLocationPopUp";
 import { DesktopMapButtons } from "./DesktopMapButtons";
-import ExpandButton from "../CustomButtons/ExpandButton";
-
-const OpenIdeaButton = styled.div`
-  position: absolute;
-  width: ${(props) => 7 + props.likeCount / 2 + "px"};
-  height: ${(props) => 7 + props.likeCount / 2 + "px"};
-  min-width: unset;
-
-  margin-left: ${(props) => -((7 + props.likeCount) / 4) + "px"};
-  margin-top: ${(props) => -(7 + props.likeCount) / 4 + "px"};
-  border-radius: 100%;
-  border: 1px white solid;
-  background-color: ${(props) => props.color};
-  opacity: 1;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 9px 38px, rgba(0, 0, 0, 0.15) 0px 5px 5px;
-`;
 
 const PinComponent = styled.img`
   position: absolute;
   width: 100px;
   transform: translateY(-88%) translateX(-45%) rotate(0deg);
   transform-origin: bottom center;
-  margin-top: ${(props) => -(7 + props.likeCount) / 4 + "px"};
+  margin-top: ${(props) =>
+    (-(7 + props.likeCount) * props.zoomBreak) / 4 + "px"};
 `;
 
 const styles = {
@@ -90,9 +75,18 @@ const MapDesktop = ({
   const [hoverLikeCount, setHoverLikeCount] = useState("");
 
   const viewport = useSelector((state) => state.data.mapViewport);
+  const [zoomBreak, setZoomBreak] = useState(0.8);
 
   const _onViewportChange = (viewport) => {
     dispatch(setMapViewport(viewport));
+
+    if (viewport.zoom > 15) {
+      setZoomBreak(2);
+    } else if (viewport.zoom > 13) {
+      setZoomBreak(1.2);
+    } else {
+      setZoomBreak(0.8);
+    }
   };
 
   const fetchDataScream = (screamId) => {
@@ -134,47 +128,6 @@ const MapDesktop = ({
       dataFinalMap.push(element);
     });
   }
-
-  // const datatry = "NgSEZQk57zWGJYVvOZ4z"
-  // const dataMarkers = {
-  //  `${datatry}`: {
-  //     type: "Feature",
-  //     geometry: {
-  //       type: "Point",
-  //       coordinates: [6.932, 50.915422],
-  //     },
-  //     properties: {
-  //       id: "IhmyQY49rOlKwZLwf35Q",
-  //     },
-  //   },
-  //   IhmyQY49rOlKwZLwf35Q: {
-  //     type: "Feature",
-  //     geometry: {
-  //       type: "Point",
-  //       coordinates: [6.93, 50.914422],
-  //     },
-  //     properties: {
-  //       id: "IhmyQY49rOlKwZLwf35Q",
-  //     },
-  //   },
-  // };
-
-  // dataFinal.forEach((element) => {
-  //   dataMarkers.push({
-  //      screamId: {
-  //       type: "Feature",
-  //       geometry: {
-  //         type: "Point",
-  //         coordinates: [6.93, 50.914422],
-  //       },
-  //       properties: {
-  //         id: "IhmyQY49rOlKwZLwf35Q",
-  //       },
-  //     },
-  //   });
-  // });
-
-  // console.log(dataMarkers);
 
   return (
     !isMobileCustom && (
@@ -229,29 +182,65 @@ const MapDesktop = ({
           <DesktopMapButtons viewport={viewport} />
 
           {/* {dataFinalMap.map(
-              ({ screamId, long, lat, likeCount, color, title }) => (
-                <React.Fragment>
-                  <Source
-                    id={screamId}
-                    type="geojson"
-                    data={dataMarkers[screamId]}
-                  />
-                  <Layer
-                    id={screamId}
-                    type="circle"
-                    source={screamId}
-                    paint={{
-                      "circle-radius": 6,
-                      "circle-color": "#B42222",
-                      "circle-stroke-color": "green",
-                    }}
-                    onClick={() => alert("hi")}
-                  />
-                </React.Fragment>
-              )
-            )} */}
+            ({ screamId, long, lat, likeCount, color, title }) => (
+              <div
+                style={{
+                  boxShadow:
+                    "rgba(0, 0, 0, 0.1) 0px 9px 38px, rgba(0, 0, 0, 0.15) 0px 5px 5px",
+                }}
+              >
+                <Source
+                  id={screamId}
+                  type="geojson"
+                  data={{
+                    type: "Feature",
+                    geometry: {
+                      type: "Point",
+                      coordinates: [long, lat],
+                    },
+                  }}
+                />
+                <Layer
+                  id={screamId}
+                  type="circle"
+                  source={screamId}
+                  paint={{
+                    "circle-radius": 3 + likeCount / 4,
+                    "circle-color": color,
+                    "circle-stroke-color": "#fff",
+                  }}
+                  onClick={() => fetchDataScream(screamId)}
+                  onHover={() => {
+                    setHoverScreamId(screamId);
+                    setHoverLat(lat);
+                    setHoverLong(long);
+                    setHoverTitle(title);
+                    setHoverLikeCount(likeCount);
+                  }}
+                  onLeave={() => {
+                    setHoverScreamId("");
+                    setHoverLat("");
+                    setHoverLong("");
+                    setHoverTitle("");
+                    setHoverLikeCount("");
+                  }}
+                />
+              </div>
+            )
+          )} */}
 
-          {dataFinalMap.map(
+          <Markers
+            dataFinalMap={dataFinalMap}
+            fetchDataScream={fetchDataScream}
+            setHoverScreamId={setHoverScreamId}
+            setHoverLat={setHoverLat}
+            setHoverLong={setHoverLong}
+            setHoverTitle={setHoverTitle}
+            setHoverLikeCount={setHoverLikeCount}
+            zoomBreak={zoomBreak}
+          />
+
+          {/*    {dataFinalMap.map(
             ({ screamId, long, lat, likeCount, color, title }) => (
               <Marker key={screamId} longitude={long} latitude={lat}>
                 <OpenIdeaButton
@@ -281,7 +270,7 @@ const MapDesktop = ({
                 </OpenIdeaButton>
               </Marker>
             )
-          )}
+          )} */}
 
           {openScream && scream.lat && (
             <Marker
@@ -292,6 +281,7 @@ const MapDesktop = ({
               <PinComponent
                 src={Pin}
                 likeCount={scream.likeCount}
+                zoomBreak={zoomBreak}
                 style={{
                   clipPath: "polygon(0 0, 100% 0, 100% 88%, 0 88%)",
                 }}
@@ -304,10 +294,10 @@ const MapDesktop = ({
             <div
               style={{
                 position: "absolute",
-                width: 7 + hoverLikeCount / 2 + "px",
-                marginLeft: -((7 + hoverLikeCount) / 4) + "px",
-                height: 7 + hoverLikeCount / 2 + "px",
-                marginTop: -(7 + hoverLikeCount) / 4 + "px",
+                width: (7 + hoverLikeCount / 2) * zoomBreak + "px",
+                marginLeft: -((7 + hoverLikeCount) / 4) * zoomBreak + "px",
+                height: (7 + hoverLikeCount / 2) * zoomBreak + "px",
+                marginTop: -((7 + hoverLikeCount) / 4) * zoomBreak + "px",
                 borderRadius: "100%",
                 border: "1px white solid",
                 backgroundColor: "rgb(0,0,0,0.2)",

@@ -27,6 +27,7 @@ import Loader from './components/atoms/Animations/Loader'
 
 
 
+
 import ReactGA from "react-ga";
 
 import axios from "axios";
@@ -54,6 +55,8 @@ const datenschutz = React.lazy(() => import("./components/organisms/infocomponen
 const agb = React.lazy(() => import("./components/organisms/infocomponents/legal/agb"));
 const cookieConfigurator = React.lazy(() => import("./components/organisms/infocomponents/legal/cookieConfigurator"));
 const monitoring = React.lazy(() => import("./pages/monitoring"));
+const blank = React.lazy(()=>import('./pages/Blank'))
+
 
 const ClearCacheComponent = withClearCache(MainApp);
 
@@ -225,14 +228,16 @@ const App = () => {
 
                   <Route exact path="/impressum" component={impressum} />
 
-                  <Route exact path="/:screamId" component={Main} />
-                </Switch>
-              </div>
-            </Router>
-          </Provider>
-        </MuiThemeProvider>
-      </React.Suspense>
-    </React.StrictMode>
+
+              <Route exact path="/blank" component={blank} />
+
+              <Route exact path="/:screamId" component={Main} />
+            </Switch>
+          </div>
+        </Router>
+      </Provider>
+    </MuiThemeProvider>
+
   );
 };
 console.log(getBuildDate(packageJson.buildDate));
