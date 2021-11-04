@@ -237,6 +237,8 @@ const App = () => {
         </Router>
       </Provider>
     </MuiThemeProvider>
+    </React.Suspense>
+    </React.StrictMode>
 
   );
 };
