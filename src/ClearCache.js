@@ -40,6 +40,7 @@ function withClearCache(Component) {
     const refreshCacheAndReload = () => {
       if (caches) {
         // Service worker cache should be cleared with caches.delete()
+        console.log('deleting cache')
         caches.keys().then((names) => {
           for (const name of names) {
             caches.delete(name);

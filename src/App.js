@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import withClearCache from "./ClearCache";
 import "./App.css";
 import "./AppDesktop.css";
 import "./AppIpad.css";
@@ -53,9 +54,9 @@ import { isMobileCustom } from "./util/customDeviceDetect";
 
 import packageJson from "../package.json";
 import { getBuildDate } from "./util/utils";
-import withClearCache from "./ClearCache";
 
-const ClearCacheComponent = withClearCache(MainApp);
+
+
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
@@ -192,7 +193,7 @@ const App = () => {
 
   return (
     <MuiThemeProvider theme={theme}>
-      {process.env.REACT_APP_STAGE !== "development" && <ClearCacheComponent />}
+     
 
       <Provider store={store}>
         <Router>
@@ -233,12 +234,6 @@ const App = () => {
 };
 console.log(getBuildDate(packageJson.buildDate));
 
-function MainApp(props) {
-  return (
-    <div className="App">
-      <header className="App-header"></header>
-    </div>
-  );
-}
+export default withClearCache(App);
 
-export default App;
+
