@@ -90,6 +90,8 @@ axios.defaults.baseURL = process.env.REACT_APP_DB_BASE_URL;
 
 const theme = createTheme(themeFile);
 
+
+
 function get_local_storage_status() {
   let test = "test";
   try {
