@@ -40,7 +40,7 @@ import packageJson from "../package.json";
 import { getBuildDate } from "./util/utils";
 //import withClearCache from "./ClearCache";
 import Cookiebanner from "./components/organisms/Cookiebanner/Cookiebanner";
-import lazyLoader from "./components/atoms/Animations/lazyLoader";
+import lazyLoader from "./components/atoms/Animations/LazyLoader";
 
 //Pages
 const Main =React.lazy(()=>import( "./components/templates/Main"));

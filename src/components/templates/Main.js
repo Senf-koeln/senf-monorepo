@@ -28,7 +28,7 @@ import Topbar from "../molecules/Navigation/Topbar";
 import ThanksForTheVote from "../atoms/Backgrounds/ThanksForTheVote";
 import Account from "../organisms/Account/Account";
 import Loader from "../atoms/Animations/Loader";
-import lazyLoader from "../atoms/Animations/lazyLoader";
+import lazyLoader from "../atoms/Animations/LazyLoader";
 import { closeAccountFunc } from "../../redux/actions/accountActions";
 import ErrorBackground from "../atoms/Backgrounds/ErrorBackground";
 import { isAndroid } from "react-device-detect";
