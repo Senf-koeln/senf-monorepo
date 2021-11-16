@@ -24,25 +24,23 @@ import { setMapBounds, setMapViewport } from "../../redux/actions/mapActions";
 
 
 import Topbar from "../molecules/Navigation/Topbar";
-
+import IdeaList from "../organisms/IdeaList/IdeaList";
+import ScreamDialog from "../organisms/IdeaDialog/ScreamDialog";
+import ProjectDialog from "../organisms/Projects/ProjectDialog";
 import ThanksForTheVote from "../atoms/Backgrounds/ThanksForTheVote";
 import Account from "../organisms/Account/Account";
 import Loader from "../atoms/Animations/Loader";
-import lazyLoader from "../atoms/Animations/LazyLoader";
 import { closeAccountFunc } from "../../redux/actions/accountActions";
 import ErrorBackground from "../atoms/Backgrounds/ErrorBackground";
 import { isAndroid } from "react-device-detect";
 import TopicFilter from "../atoms/Filters/TopicFilter";
 
-const ProjectsPage =React.lazy(()=>import( "../organisms/Projects/ProjectsPage"));
-const MapMobile =React.lazy(()=>import( "../atoms/map/MapMobile"));
-const MapDesktop =React.lazy(()=>import( "../atoms/map/MapDesktop"));
-const PostScream =React.lazy(()=>import( "../organisms/PostIdea/PostScream"));
-const InsightsPage =React.lazy(()=>import( "../organisms/Insights/InsightsPage"));
-const DesktopSidebar =React.lazy(()=>import( "../molecules/Navigation/DesktopSidebar"));
-const IdeaList =React.lazy(()=>import( "../organisms/IdeaList/IdeaList"));
-const ScreamDialog =React.lazy(()=>import( "../organisms/IdeaDialog/ScreamDialog"));
-const ProjectDialog =React.lazy(()=>import( "../organisms/Projects/ProjectDialog"));
+import ProjectsPage from "../organisms/Projects/ProjectsPage";
+import MapMobile from "../atoms/map/MapMobile";
+import MapDesktop from "../atoms/map/MapDesktop";
+import PostScream from "../organisms/PostIdea/PostScream";
+import InsightsPage from "../organisms/Insights/InsightsPage";
+import DesktopSidebar from "../molecules/Navigation/DesktopSidebar";
 const Main = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -271,7 +269,7 @@ const Main = () => {
       );
 
   return (
-    <React.Suspense fallback={lazyLoader}>
+  
     <React.Fragment>
       {loading && isMobileCustom && <Loader />}
       <ErrorBackground loading={loading} />
@@ -396,7 +394,7 @@ const Main = () => {
 
       {!openInfoPage && openScream && <ScreamDialog />}
     </React.Fragment>
-    </React.Suspense>
+    
   );
 };
 
