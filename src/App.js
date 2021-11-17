@@ -43,19 +43,19 @@ import Cookiebanner from "./components/organisms/Cookiebanner/Cookiebanner";
 import lazyLoader from "./components/atoms/Animations/LazyLoader";
 
 //Pages
-const Main =React.lazy(()=>import( "./components/templates/Main"));
-const IntroductionInformation =React.lazy(()=>import( "./components/organisms/infocomponents/IntroductionInformation"));
+import Main from "./components/templates/Main";
+import IntroductionInformation from "./components/organisms/infocomponents/IntroductionInformation";
 
-const Welcome =React.lazy(()=>import( "./components/organisms/infocomponents/Welcome"));
-const Verification =React.lazy(()=>import( "./pages/Verification"));
+import Welcome from "./components/organisms/infocomponents/Welcome";
+import Verification from "./pages/Verification";
 
-const impressum =React.lazy(()=>import( "./components/organisms/infocomponents/legal/impressum"));
-const datenschutz =React.lazy(()=>import( "./components/organisms/infocomponents/legal/datenschutz"));
-const agb =React.lazy(()=>import( "./components/organisms/infocomponents/legal/agb"));
-const cookieConfigurator =React.lazy(()=>import( "./components/organisms/infocomponents/legal/cookieConfigurator"));
+import impressum from "./components/organisms/infocomponents/legal/impressum";
+import datenschutz from "./components/organisms/infocomponents/legal/datenschutz";
+import agb from "./components/organisms/infocomponents/legal/agb";
+import cookieConfigurator from "./components/organisms/infocomponents/legal/cookieConfigurator";
 
-const MonitoringBoard =React.lazy(()=>import( "./components/templates/MonitoringBoard"));
-const blank =React.lazy(()=>import( "./pages/Blank"));
+import MonitoringBoard from "./components/templates/MonitoringBoard";
+import blank from "./pages/Blank";
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
@@ -211,7 +211,7 @@ const App = () => {
 
           <div className="container">
             <Switch>
-              <React.Suspense fallback={lazyLoader}>
+              
               <Route exact path="/" component={Main} />
               <Route exact path="/projects" component={Main} />
               <Route exact path="/start" component={IntroductionInformation} />
@@ -234,7 +234,7 @@ const App = () => {
 
               <Route exact path="/:screamId" component={Main} />
               <Route path="*" component={Main} />
-              </React.Suspense>
+              
             </Switch>
           </div>
         </Router>
