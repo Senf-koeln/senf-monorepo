@@ -278,7 +278,7 @@ const Main = () => {
       );
 
   return (
-    <React.Suspense fallback={LazyLoader}>
+  
     <React.Fragment>
       {loading && isMobileCustom && <Loader />}
       <ErrorBackground loading={loading} />
@@ -407,7 +407,7 @@ const Main = () => {
 
       {!openInfoPage && openScream && <ScreamDialog />}
     </React.Fragment>
-    </React.Suspense>
+   
   );
 };
 
