@@ -45,10 +45,10 @@ import IdeaList from "../organisms/IdeaList/IdeaList";
 import ScreamDialog from "../organisms/IdeaDialog/ScreamDialog";
 import ProjectDialog from "../organisms/Projects/ProjectDialog";
 */
-
+import MapMobile from "../atoms/map/MapMobile"
+import MapDesktop from "../atoms/map/MapDesktop"
 const ProjectsPage =React.lazy(()=>import( "../organisms/Projects/ProjectsPage"));
-const MapMobile =React.lazy(()=>import( "../atoms/map/MapMobile"));
-const MapDesktop =React.lazy(()=>import( "../atoms/map/MapDesktop"));
+
 const PostScream =React.lazy(()=>import( "../organisms/PostIdea/PostScream"));
 const InsightsPage =React.lazy(()=>import( "../organisms/Insights/InsightsPage"));
 const DesktopSidebar =React.lazy(()=>import( "../molecules/Navigation/DesktopSidebar"));
