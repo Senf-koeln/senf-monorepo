@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import './styles/mapbox-gl.css';
+import "./styles/mapbox-gl.css";
 import "./App.css";
 import "./AppDesktop.css";
 import "./AppIpad.css";
@@ -25,8 +25,6 @@ import { setCookies } from "./redux/actions/cookiesActions";
 import { setInfoPageOpen } from "./redux/actions/UiActions";
 import axios from "axios";
 
-
-
 import { isTablet } from "react-device-detect";
 import Cookies from "universal-cookie";
 
@@ -43,19 +41,33 @@ import Cookiebanner from "./components/organisms/Cookiebanner/Cookiebanner";
 import lazyLoader from "./components/atoms/Animations/LazyLoader";
 
 //Pages
-const Main =React.lazy(()=>import( "./components/templates/Main"));
-const IntroductionInformation =React.lazy(()=>import( "./components/organisms/infocomponents/IntroductionInformation"));
+import Main  from "./components/templates/Main"
+const IntroductionInformation = React.lazy(() =>
+  import("./components/organisms/infocomponents/IntroductionInformation")
+);
 
-const Welcome =React.lazy(()=>import( "./components/organisms/infocomponents/Welcome"));
-const Verification =React.lazy(()=>import( "./pages/Verification"));
+const Welcome = React.lazy(() =>
+  import("./components/organisms/infocomponents/Welcome")
+);
+const Verification = React.lazy(() => import("./pages/Verification"));
 
-const impressum =React.lazy(()=>import( "./components/organisms/infocomponents/legal/impressum"));
-const datenschutz =React.lazy(()=>import( "./components/organisms/infocomponents/legal/datenschutz"));
-const agb =React.lazy(()=>import( "./components/organisms/infocomponents/legal/agb"));
-const cookieConfigurator =React.lazy(()=>import( "./components/organisms/infocomponents/legal/cookieConfigurator"));
+const impressum = React.lazy(() =>
+  import("./components/organisms/infocomponents/legal/impressum")
+);
+const datenschutz = React.lazy(() =>
+  import("./components/organisms/infocomponents/legal/datenschutz")
+);
+const agb = React.lazy(() =>
+  import("./components/organisms/infocomponents/legal/agb")
+);
+const cookieConfigurator = React.lazy(() =>
+  import("./components/organisms/infocomponents/legal/cookieConfigurator")
+);
 
-const MonitoringBoard =React.lazy(()=>import( "./components/templates/MonitoringBoard"));
-const blank =React.lazy(()=>import( "./pages/Blank"));
+const MonitoringBoard = React.lazy(() =>
+  import("./components/templates/MonitoringBoard")
+);
+const blank = React.lazy(() => import("./pages/Blank"));
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
@@ -85,18 +97,15 @@ require("intersection-observer");
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
   firebase
-  .firestore()
-  .enablePersistence()
-  .then(() => firebase.firestore())
-  .catch(err => {
-    console.log(err);
-    return firebase.firestore();
-  });
- 
+    .firestore()
+    .enablePersistence()
+    .then(() => firebase.firestore())
+    .catch((err) => {
+      console.log(err);
+      return firebase.firestore();
+    });
 } else {
   firebase.app(); // if already initialized, use that one
-   
-  
 }
 
 axios.defaults.baseURL = process.env.REACT_APP_DB_BASE_URL;
@@ -193,8 +202,6 @@ const App = () => {
 
   return (
     <MuiThemeProvider theme={theme}>
-     
-
       <Provider store={store}>
         <Router>
           <Cookiebanner />
@@ -212,28 +219,32 @@ const App = () => {
           <div className="container">
             <Switch>
               <React.Suspense fallback={lazyLoader}>
-              <Route exact path="/" component={Main} />
-              <Route exact path="/projects" component={Main} />
-              <Route exact path="/start" component={IntroductionInformation} />
-              <Route exact path="/intro" component={Welcome} />
-              <Route exact path="/datenschutz" component={datenschutz} />
-              <Route exact path="/agb" component={agb} />
-              <Route exact path="/monitoring" component={MonitoringBoard} />
+                <Route exact path="/" component={Main} />
+                <Route exact path="/projects" component={Main} />
+                <Route
+                  exact
+                  path="/start"
+                  component={IntroductionInformation}
+                />
+                <Route exact path="/intro" component={Welcome} />
+                <Route exact path="/datenschutz" component={datenschutz} />
+                <Route exact path="/agb" component={agb} />
+                <Route exact path="/monitoring" component={MonitoringBoard} />
 
-              <Route exact path="/verify" component={Verification} />
+                <Route exact path="/verify" component={Verification} />
 
-              <Route
-                exact
-                path="/cookieConfigurator"
-                component={cookieConfigurator}
-              />
+                <Route
+                  exact
+                  path="/cookieConfigurator"
+                  component={cookieConfigurator}
+                />
 
-              <Route exact path="/impressum" component={impressum} />
+                <Route exact path="/impressum" component={impressum} />
 
-              <Route exact path="/blank" component={blank} />
+                <Route exact path="/blank" component={blank} />
 
-              <Route exact path="/:screamId" component={Main} />
-              <Route path="*" component={Main} />
+                <Route exact path="/:screamId" component={Main} />
+                <Route path="*" component={Main} />
               </React.Suspense>
             </Switch>
           </div>
@@ -243,8 +254,6 @@ const App = () => {
   );
 };
 console.log(getBuildDate(packageJson.buildDate));
-
-
 
 export default App;
 /* export default withClearCache(MainApp); */
