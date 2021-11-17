@@ -36,7 +36,7 @@ import { isMobileCustom } from "./util/customDeviceDetect";
 
 import packageJson from "../package.json";
 import { getBuildDate } from "./util/utils";
-//import withClearCache from "./ClearCache";
+import withClearCache from "./ClearCache";
 import Cookiebanner from "./components/organisms/Cookiebanner/Cookiebanner";
 import lazyLoader from "./components/atoms/Animations/LazyLoader";
 
@@ -255,5 +255,5 @@ const App = () => {
 };
 console.log(getBuildDate(packageJson.buildDate));
 
-export default App;
-/* export default withClearCache(MainApp); */
+//export default App;
+ export default withClearCache(App); 
