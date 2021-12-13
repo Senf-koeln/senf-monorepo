@@ -15,7 +15,7 @@ const detectLocation = async () => {
   // const dispatch = useDispatch();
   await getClientIP().then((ip) => {
     ipLocation(ip).then((loc) => {
-      // console.log(loc.country.name + 'is the location');
+      console.log(loc.country.name + "is the location");
       if (!cookies.get("language")) {
         //console.log("no preference");
         if (loc.country.name === "Germany") {
