@@ -81,7 +81,7 @@ i18n
       escapeValue: false, // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
     },
   });
-
+detectLocation(); // detect location and set i18n language
 const cookies = new Cookies();
 require("intersection-observer");
 
@@ -188,7 +188,6 @@ const App = () => {
 
   useEffect(() => {
     setViewport();
-    detectLocation(); // detect location and set i18n language
   }, []);
 
   const tabletNote = isTablet ? (
