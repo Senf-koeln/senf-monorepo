@@ -88,7 +88,7 @@ const App = () => {
       }
     });
   };
-  console.log("test");
+
   useEffect(() => {
     userState();
   }, [isAuthed]);
