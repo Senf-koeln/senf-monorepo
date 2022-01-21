@@ -38,8 +38,8 @@ import { getBuildDate } from "./util/utils";
 //import withClearCache from "./util/ClearCache";
 
 import detectLocation from "./util/detectLocation";
-
 import "./util/i18n";
+console.log("test");
 detectLocation(); // detect location and set i18n language
 
 if (!firebase.apps.length) {
