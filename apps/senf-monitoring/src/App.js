@@ -92,7 +92,7 @@ const App = () => {
   useEffect(() => {
     userState();
   }, [isAuthed]);
-
+  console.log("remove log");
   const tabletNote = isTablet ? (
     <div className="tabletLandscapeNote">{t("rotate_tablet")} </div>
   ) : null;
