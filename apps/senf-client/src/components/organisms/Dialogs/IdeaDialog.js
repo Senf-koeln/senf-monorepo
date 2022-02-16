@@ -12,7 +12,7 @@ import { useDrag } from "@use-gesture/react";
 import { closeScream } from "../../../redux/actions/screamActions";
 import { clearErrors } from "../../../redux/actions/errorsActions";
 
-//COMPONENTS
+// COMPONENTS
 import ShareModal from "../../molecules/Modals/ShareModal";
 import MenuModal from "../../molecules/Modals/MenuModal";
 import Comments from "../../molecules/Cards/Comments";
