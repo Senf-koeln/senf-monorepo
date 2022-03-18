@@ -40,6 +40,7 @@ import InsightsPage from "../organisms/SubPages/InsightsPage";
 import DesktopSidebar from "../molecules/Navigation/DesktopSidebar";
 import Topbar from "../molecules/Navigation/Topbar";
 import Map from "../atoms/map/Map";
+import Map2 from "../atoms/map/Map2";
 import SwipeList from "../organisms/SwipeLists/SwipeList";
 import IdeaDialog from "../organisms/Dialogs/IdeaDialog";
 import ProjectDialog from "../organisms/Dialogs/ProjectDialog";
@@ -431,7 +432,7 @@ const Main = () => {
         />
       )}
 
-      <Map
+      {/*  <Map
         order={order}
         dataFinal={dataFinalMap}
         loading={loading}
@@ -440,7 +441,8 @@ const Main = () => {
         geoData={project && openProjectRoom && project.geoData}
         mapRef={mapRef}
         projects={dataFinalMapProjects}
-      />
+      /> */}
+      <Map2 />
 
       {!openInfoPage && (
         <MainColumnWrapper>
