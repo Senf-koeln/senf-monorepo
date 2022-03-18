@@ -27,7 +27,7 @@ import { withRouter } from "react-router-dom";
 
 //Components
 import PostScreamFormContent from "./PostScreamFormContent";
-import PostScreamMap from "./PostScreamMap";
+//import PostScreamMap from "./PostScreamMap";
 import PostScreamSelectContainter from "./PostScreamSelectContainter";
 import { CustomIconButton } from "../../atoms/CustomButtons/CustomButton";
 import styled, { keyframes } from "styled-components";
@@ -566,20 +566,6 @@ const PostScream = ({ classes, loadingProjects, projectsData }) => {
             selectedDays={selectedDays}
           />
         )}
-
-        <PostScreamMap
-          MapHeight={MapHeight}
-          geocode={geocode}
-          _onMarkerDragEnd={_onMarkerDragEnd}
-          geoData={geoData}
-          viewport={viewport}
-          clicked={addressBarClickedState}
-          addressBarClicked={addressBarClicked}
-          locationDecided={locationDecided}
-          onSelected={onSelected}
-          address={address}
-          loadingProjects={loadingProjects}
-        />
 
         <PostScreamSelectContainter
           classes={classes}

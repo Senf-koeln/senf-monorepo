@@ -27,7 +27,7 @@ import profile_grey from "../../../images/icons/profile_grey.png";
 import Circle_grey from "../../../images/icons/circle_grey.png";
 import Circle_yellow from "../../../images/icons/circle_yellow.png";
 import Noprofile from "../../../images/icons/noprofile.png";
-import PostScream from "../../organisms/PostIdea/PostScream";
+//import PostScream from "../../organisms/PostIdea/PostScream";
 import { isMobileCustom } from "../../../util/customDeviceDetect";
 import ExpandButton from "../../atoms/CustomButtons/ExpandButton";
 import { closeScream } from "../../../redux/actions/screamActions";
@@ -141,7 +141,7 @@ const DesktopSidebar = ({
       <FilterWrapper active={openAccount}>
         <TagsFilter column loading={loading} type="topics" />
       </FilterWrapper>
-      <PostScream loadingProjects={loadingProjects} projectsData={projects} />
+      {/*  <PostScream loadingProjects={loadingProjects} projectsData={projects} /> */}
       <br />
       <MenuItem
         key={1}

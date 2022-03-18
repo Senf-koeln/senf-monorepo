@@ -4,10 +4,10 @@ import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
-import MapDialog from "../Components/MapDialog";
+//import MapDialog from "../Components/MapDialog";
 
 import DrawMapImage from "../../../../images/drawMap.jpg";
-import MapPreview from "../Components/MapPreview";
+//import MapPreview from "../Components/MapPreview";
 import {
   ComponentWrapper,
   ComponentInnerWrapper,
@@ -107,17 +107,6 @@ const CreateProjectPage4 = ({ onClickNext, onClickPrev }) => {
 
   return (
     <React.Fragment>
-      <MapDialog
-        mapOpen={mapOpen}
-        setMapOpen={setMapOpen}
-        viewport={viewport}
-        mapRef={mapRef}
-        _onViewportChange={_onViewportChange}
-        data={data}
-        setData={setData}
-        setViewport={setViewport}
-      />
-
       <ComponentWrapper>
         <ComponentInnerWrapper>
           <StyledH2 fontWeight="900" textAlign="center">
@@ -128,21 +117,7 @@ const CreateProjectPage4 = ({ onClickNext, onClickPrev }) => {
             sammeln. Zeichne das Gebiet ein!
           </StyledH3>
 
-          <DrawMapButton onClick={setMapOpen}>
-            {data ? (
-              <MapPreview
-                mapOpen={mapOpen}
-                setMapOpen={setMapOpen}
-                viewport={viewport}
-                mapRef={mapRef}
-                _onViewportChange={_onViewportChange}
-                data={data}
-                setData={setData}
-              />
-            ) : (
-              <StyledImg src={DrawMapImage} />
-            )}
-          </DrawMapButton>
+          <DrawMapButton onClick={setMapOpen}></DrawMapButton>
         </ComponentInnerWrapper>
       </ComponentWrapper>
 

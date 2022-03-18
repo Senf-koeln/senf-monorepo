@@ -39,7 +39,7 @@ import {
 import InsightsPage from "../organisms/SubPages/InsightsPage";
 import DesktopSidebar from "../molecules/Navigation/DesktopSidebar";
 import Topbar from "../molecules/Navigation/Topbar";
-import Map from "../atoms/map/Map";
+//import Map from "../atoms/map/Map";
 import Map2 from "../atoms/map/Map2";
 import SwipeList from "../organisms/SwipeLists/SwipeList";
 import IdeaDialog from "../organisms/Dialogs/IdeaDialog";
