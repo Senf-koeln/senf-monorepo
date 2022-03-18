@@ -14,8 +14,6 @@ import { useHistory } from "react-router";
 import { useTranslation } from "react-i18next";
 import { isMobileCustom } from "../../util/customDeviceDetect";
 
-import _ from "lodash";
-
 import {
   getScreams,
   closeScream,
@@ -171,6 +169,54 @@ const Main = () => {
     (state) => state.data.initialMapViewport
   );
 
+  useLayoutEffect(() => {
+    if (
+      cookie_settings !== "all" &&
+      cookie_settings !== "minimum" &&
+      isMobileCustom &&
+      !screamId
+    ) {
+      history.push("/intro");
+    } else {
+      if (mapViewport && mapViewport.latitude !== 0) {
+        dispatch(getOrganizations(mapViewport));
+        dispatch(getProjects(mapViewport));
+        dispatch(getScreams(mapViewport));
+        projectRoomId && dispatch(openProjectRoomFunc(projectRoomId, true));
+        screamId && dispatch(openScreamFunc(screamId));
+        organizationId && dispatch(openOrganizationFunc(true, organizationId));
+
+        setInitialLoading(false); // [valueOfPromise1, valueOfPromise2, ...]
+
+        if (window.location.pathname === "/projectRooms") {
+          setOrder(2);
+        } else if (window.location.pathname === "/organizations") {
+          setOrder(2);
+          dispatch(setSwipePositionUp());
+          setOpenOrganizationsPage(true);
+        } else if (window.location.pathname === "/insights") {
+          // setOrder(4);
+        } else if (projectRoomId) {
+          setOrder(2);
+        } else if (screamId) {
+          setOrder(1);
+        } else if (organizationId) {
+          setOrder(2);
+          dispatch(setSwipePositionUp());
+          setOpenOrganizationsPage(true);
+        }
+      }
+    }
+  }, [
+    initialMapViewport,
+    cookie_settings,
+    dispatch,
+    history,
+    organizationId,
+    projectRoomId,
+    screamId,
+  ]);
+
   //Initial-ZOOM
   useLayoutEffect(() => {
     if (mapViewport?.latitude !== 0 && mapRef?.current && mapLoaded) {
@@ -243,54 +289,6 @@ const Main = () => {
       }
     }
   }, [lat, long, loadingIdea, openScream]);
-
-  useLayoutEffect(() => {
-    if (
-      cookie_settings !== "all" &&
-      cookie_settings !== "minimum" &&
-      isMobileCustom &&
-      !screamId
-    ) {
-      history.push("/intro");
-    } else {
-      if (mapViewport && mapViewport.latitude !== 0) {
-        dispatch(getOrganizations(mapViewport));
-        dispatch(getProjects(mapViewport));
-        dispatch(getScreams(mapViewport));
-        projectRoomId && dispatch(openProjectRoomFunc(projectRoomId, true));
-        screamId && dispatch(openScreamFunc(screamId));
-        organizationId && dispatch(openOrganizationFunc(true, organizationId));
-
-        setInitialLoading(false); // [valueOfPromise1, valueOfPromise2, ...]
-
-        if (window.location.pathname === "/projectRooms") {
-          setOrder(2);
-        } else if (window.location.pathname === "/organizations") {
-          setOrder(2);
-          dispatch(setSwipePositionUp());
-          setOpenOrganizationsPage(true);
-        } else if (window.location.pathname === "/insights") {
-          // setOrder(4);
-        } else if (projectRoomId) {
-          setOrder(2);
-        } else if (screamId) {
-          setOrder(1);
-        } else if (organizationId) {
-          setOrder(2);
-          dispatch(setSwipePositionUp());
-          setOpenOrganizationsPage(true);
-        }
-      }
-    }
-  }, [
-    initialMapViewport,
-    cookie_settings,
-    dispatch,
-    history,
-    organizationId,
-    projectRoomId,
-    screamId,
-  ]);
 
   const handleClick = useCallback(
     (order) => {

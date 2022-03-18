@@ -6,7 +6,7 @@ import { VitePWA } from "vite-plugin-pwa";
 // npm run build will create a file stats.html in root directory
 const pwaOptions = {
   devOptions: {
-    enabled: true,
+    enabled: false,
   },
   registerType: "autoUpdate",
   includeAssets: [],

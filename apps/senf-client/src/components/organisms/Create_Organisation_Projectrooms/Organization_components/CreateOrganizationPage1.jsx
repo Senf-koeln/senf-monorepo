@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import _ from "lodash";
 
 import { TextField } from "@material-ui/core";
 import { useTranslation } from "react-i18next";

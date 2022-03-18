@@ -14,7 +14,6 @@ import InfoModal from "../../molecules/DialogInlineComponents/InfoModal";
 import { Background } from "../../atoms/Backgrounds/GradientBackgrounds";
 import { handleTopicSelectorRedux } from "../../../redux/actions/UiActions";
 
-import _ from "lodash";
 import { AccountTabData } from "../../../data/AccountTabData";
 import { SubmitButton } from "../../atoms/CustomButtons/SubmitButton";
 import { useTranslation } from "react-i18next";

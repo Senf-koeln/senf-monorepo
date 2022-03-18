@@ -21,7 +21,6 @@ import styled from "styled-components";
 import { ModalBackground } from "../../atoms/Backgrounds/ModalBackground";
 import { handleTopicSelectorRedux } from "../../../redux/actions/UiActions";
 
-import _ from "lodash";
 import { SubmitButton } from "../../atoms/CustomButtons/SubmitButton";
 import { useTranslation } from "react-i18next";
 import PostScream from "../PostIdea/PostScream";

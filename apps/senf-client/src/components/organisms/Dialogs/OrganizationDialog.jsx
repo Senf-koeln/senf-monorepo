@@ -18,7 +18,6 @@ import MainAnimations from "../../atoms/Backgrounds/MainAnimations";
 import { Background } from "../../atoms/Backgrounds/GradientBackgrounds";
 import { handleTopicSelectorRedux } from "../../../redux/actions/UiActions";
 
-import _ from "lodash";
 import {
   openOrganizationFunc,
   stateCreateOrganizationsFunc,
