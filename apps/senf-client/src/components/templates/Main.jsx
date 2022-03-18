@@ -253,22 +253,14 @@ const Main = () => {
       history.push("/intro");
     } else {
       if (mapViewport && mapViewport.latitude !== 0) {
-        const allPromise = Promise.all([
-          dispatch(getOrganizations(mapViewport)),
-          dispatch(getProjects(mapViewport)),
-          dispatch(getScreams(mapViewport)),
-          projectRoomId && dispatch(openProjectRoomFunc(projectRoomId, true)),
-          screamId && dispatch(openScreamFunc(screamId)),
-          organizationId &&
-            dispatch(openOrganizationFunc(true, organizationId)),
-        ]);
-        allPromise
-          .then((values) => {
-            setInitialLoading(false); // [valueOfPromise1, valueOfPromise2, ...]
-          })
-          .catch((error) => {
-            setInitialLoading(false); // rejectReason of any first rejected promise
-          });
+        dispatch(getOrganizations(mapViewport));
+        dispatch(getProjects(mapViewport));
+        dispatch(getScreams(mapViewport));
+        projectRoomId && dispatch(openProjectRoomFunc(projectRoomId, true));
+        screamId && dispatch(openScreamFunc(screamId));
+        organizationId && dispatch(openOrganizationFunc(true, organizationId));
+
+        setInitialLoading(false); // [valueOfPromise1, valueOfPromise2, ...]
 
         if (window.location.pathname === "/projectRooms") {
           setOrder(2);
@@ -289,7 +281,15 @@ const Main = () => {
         }
       }
     }
-  }, [initialMapViewport]);
+  }, [
+    initialMapViewport,
+    cookie_settings,
+    dispatch,
+    history,
+    organizationId,
+    projectRoomId,
+    screamId,
+  ]);
 
   const handleClick = useCallback(
     (order) => {
@@ -328,36 +328,30 @@ const Main = () => {
   const handleDropdown = useCallback((value) => {
     setDropdown(value);
   }, []);
-
+  let ideasData;
   //IDEAS
-  var ideasData;
+  /*   var ideasData;
   ideasData = search(screams, searchTerm, [
     "title",
     "body",
     "Stadtteil",
     "Stadtbezirk",
     "locationHeader",
-  ]);
-  ideasData = filterByTagFilter(ideasData, selectedTopics, "Thema");
+  ]); */
+  //ideasData = filterByTagFilter(ideasData, selectedTopics, "Thema");
 
-  ideasData = sort(ideasData, dropdown);
-  const dataFinalIdeas = filterByGeodata(ideasData, mapBounds);
+  //const dataFinalIdeas = sort(ideasData, dropdown);
+  const dataFinalIdeas = useMemo(
+    () => sort(screams, dropdown),
+    [screams, dropdown]
+  );
+  //const dataFinalIdeas = filterByGeodata(ideasData, mapBounds);
 
   //PROJECTROOMS
-  var projectRoomsData;
-  projectRoomsData = search(projects, searchTerm, [
-    "title",
-    "brief",
-    "description_about",
-    "description_motivation",
-    "description_procedure",
-    "description_learnmore",
-  ]);
-  projectRoomsData = sort(projectRoomsData, dropdown);
-  const dataFinalProjectRooms = filterByTagFilter(
-    projectRoomsData,
-    selectedOrganizationTypes,
-    "organizationType"
+
+  const dataFinalProjectRooms = useMemo(
+    () => sort(projects, dropdown),
+    [projects, dropdown]
   );
 
   //ORGANIZATIONS
@@ -372,7 +366,7 @@ const Main = () => {
 
   //MAP
 
-  const dataMap = useMemo(
+  const dataFinalMap = useMemo(
     () =>
       openProjectRoom
         ? project?.screams?.filter(({ Thema }) =>
@@ -384,22 +378,27 @@ const Main = () => {
     [myScreams, openProjectRoom, project?.screams, ideasData, selectedTopics]
   );
 
-  const dataFinalMap = dataMap?.map((object) =>
-    pick(["title", "lat", "long", "screamId", "color", "likeCount"], object)
+  const dataFinalMapProjects = useMemo(
+    () =>
+      projects?.map((object) =>
+        pick(
+          [
+            "title",
+            "centerLat",
+            "centerLong",
+            "projectRoomId",
+            "organizationType",
+          ],
+          object
+        )
+      ),
+    [projects]
   );
 
-  const dataRawMapProjects = projects?.map((object) =>
-    pick(
-      ["title", "centerLat", "centerLong", "projectRoomId", "organizationType"],
-      object
-    )
+  const tabLabels = useMemo(
+    () => MenuData.map((item) => item.text).slice(0, 2),
+    []
   );
-
-  const dataFinalMapProjects = dataRawMapProjects?.filter(
-    ({ organizationType }) =>
-      selectedOrganizationTypes.includes(organizationType)
-  );
-
   return (
     <React.Fragment>
       {isMobileCustom ? (
@@ -460,7 +459,7 @@ const Main = () => {
             (order === 1 || (order === 2 && !loadingProjects)) && (
               <SwipeList
                 swipeListType={order === 1 ? "ideas" : "projectRoomOverview"}
-                tabLabels={MenuData.map((item) => item.text).slice(0, 2)}
+                tabLabels={tabLabels}
                 loading={initialLoading}
                 order={order}
                 dataFinal={order === 1 ? dataFinalIdeas : dataFinalProjectRooms}
