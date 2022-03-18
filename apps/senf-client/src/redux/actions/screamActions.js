@@ -25,14 +25,14 @@ import {
 import setColorByTopic from "../../data/setColorByTopic";
 
 // Get all ideas
-export const getScreams = (mapViewport) => async (dispatch) => {
+export const getScreams = () => async (dispatch) => {
   dispatch({ type: LOADING_DATA });
 
   const db = firebase.firestore();
   const ref = await db
     .collection("screams")
-    .where("lat", "<", Number(mapViewport.latitude) + 1)
-    .where("lat", ">", Number(mapViewport.latitude) - 1)
+    .limit(15)
+
     // .orderBy("createdAt", "desc")
     .get()
     .then((ref) => {

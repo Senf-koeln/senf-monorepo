@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 
 import react from "@vitejs/plugin-react";
-import { VitePWA } from "vite-plugin-pwa";
+//import { VitePWA } from "vite-plugin-pwa";
 /* import { visualizer } from "rollup-plugin-visualizer"; */
 // npm run build will create a file stats.html in root directory
 const pwaOptions = {
@@ -50,9 +50,10 @@ export default defineConfig(({ command, mode }) => {
   return {
     plugins: [
       react(),
+      /* 
       VitePWA(
         pwaOptions
-      ) /* , visualizer({ gzipSize: true, brotliSize: true } )*/,
+      ) , visualizer({ gzipSize: true, brotliSize: true } )*/
     ],
   };
 });

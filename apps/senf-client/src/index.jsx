@@ -3,7 +3,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { registerSW } from "virtual:pwa-register";
+//import { registerSW } from "virtual:pwa-register";
 
 const rootElement = document.getElementById("root");
 
@@ -14,8 +14,9 @@ ReactDOM.render(
   rootElement
 );
 
-registerSW({
+/* registerSW({
   onOfflineReady() {
     console.log("ready for offline use");
   },
 });
+ */

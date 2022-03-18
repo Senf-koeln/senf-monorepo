@@ -178,33 +178,28 @@ const Main = () => {
     ) {
       history.push("/intro");
     } else {
-      if (mapViewport && mapViewport.latitude !== 0) {
-        dispatch(getOrganizations(mapViewport));
-        dispatch(getProjects(mapViewport));
-        dispatch(getScreams(mapViewport));
-        projectRoomId && dispatch(openProjectRoomFunc(projectRoomId, true));
-        screamId && dispatch(openScreamFunc(screamId));
-        organizationId && dispatch(openOrganizationFunc(true, organizationId));
+      projectRoomId && dispatch(openProjectRoomFunc(projectRoomId, true));
+      screamId && dispatch(openScreamFunc(screamId));
+      organizationId && dispatch(openOrganizationFunc(true, organizationId));
 
-        setInitialLoading(false); // [valueOfPromise1, valueOfPromise2, ...]
+      setInitialLoading(false); // [valueOfPromise1, valueOfPromise2, ...]
 
-        if (window.location.pathname === "/projectRooms") {
-          setOrder(2);
-        } else if (window.location.pathname === "/organizations") {
-          setOrder(2);
-          dispatch(setSwipePositionUp());
-          setOpenOrganizationsPage(true);
-        } else if (window.location.pathname === "/insights") {
-          // setOrder(4);
-        } else if (projectRoomId) {
-          setOrder(2);
-        } else if (screamId) {
-          setOrder(1);
-        } else if (organizationId) {
-          setOrder(2);
-          dispatch(setSwipePositionUp());
-          setOpenOrganizationsPage(true);
-        }
+      if (window.location.pathname === "/projectRooms") {
+        setOrder(2);
+      } else if (window.location.pathname === "/organizations") {
+        setOrder(2);
+        dispatch(setSwipePositionUp());
+        setOpenOrganizationsPage(true);
+      } else if (window.location.pathname === "/insights") {
+        // setOrder(4);
+      } else if (projectRoomId) {
+        setOrder(2);
+      } else if (screamId) {
+        setOrder(1);
+      } else if (organizationId) {
+        setOrder(2);
+        dispatch(setSwipePositionUp());
+        setOpenOrganizationsPage(true);
       }
     }
   }, [

@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
 import firebaseApp from "./firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 import { Helmet } from "react-helmet";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./styles/mapbox-gl.css";
@@ -23,7 +24,9 @@ import { SET_AUTHENTICATED } from "./redux/types";
 import { logoutUser, getUserData } from "./redux/actions/userActions";
 import { setCookies } from "./redux/actions/cookiesActions";
 import { setInfoPageOpen } from "./redux/actions/UiActions";
-
+import { getScreams } from "./redux/actions/screamActions";
+import { getProjects } from "./redux/actions/projectActions";
+import { getOrganizations } from "./redux/actions/organizationActions";
 //Pages
 import Main from "./components/templates/Main";
 import IntroductionInformation from "./components/organisms/infocomponents/IntroductionInformation";
@@ -53,11 +56,10 @@ import detectLocation from "./util/detectLocation";
 import GlobalStyles from "./styles/GlobalStyles";
 
 import "./util/i18n"; // i18n configuration
+
 detectLocation(); // detect location and set i18n language
 const cookies = new Cookies();
 //require("intersection-observer");
-
-const auth = getAuth(firebaseApp);
 
 const theme = createTheme(themeFile);
 
@@ -121,11 +123,14 @@ if (cookies.get("Cookie_settings") === "all") {
 let vh = window.innerHeight * 0.01;
 // Then we set the value in the --vh custom property to the root of the document
 document.documentElement.style.setProperty("--vh", `${vh}px`);
-
+store.dispatch(getScreams());
+store.dispatch(getOrganizations());
+store.dispatch(getProjects());
 const App = () => {
   const { t } = useTranslation();
 
   const [isAuthed, setIsAuthed] = useState(false);
+  const auth = getAuth();
 
   const userState = () => {
     onAuthStateChanged(auth, (user) => {
