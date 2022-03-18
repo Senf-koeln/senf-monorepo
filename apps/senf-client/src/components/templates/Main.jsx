@@ -6,6 +6,7 @@ import React, {
   useRef,
   useCallback,
   useMemo,
+  useLayoutEffect,
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -171,7 +172,7 @@ const Main = () => {
   );
 
   //Initial-ZOOM
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (mapViewport?.latitude !== 0 && mapRef?.current && mapLoaded) {
       const map = mapRef.current.getMap();
       var canvas = map.getCanvas(),
@@ -193,7 +194,7 @@ const Main = () => {
   }, [mapLoaded, initialMapViewport]);
 
   //PROJECTROOM-ZOOM
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (
       openProjectRoom &&
       project &&
@@ -219,7 +220,7 @@ const Main = () => {
 
   //IDEA-ZOOM
   const prevLat = usePrevious({ lat });
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (
       openScream &&
       !loadingIdea &&
@@ -243,7 +244,7 @@ const Main = () => {
     }
   }, [lat, long, loadingIdea, openScream]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (
       cookie_settings !== "all" &&
       cookie_settings !== "minimum" &&
