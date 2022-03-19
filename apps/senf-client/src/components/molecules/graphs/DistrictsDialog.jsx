@@ -17,12 +17,12 @@ import ExpandButton from "../../atoms/CustomButtons/ExpandButton";
 import MyButtonStyle from "../../atoms/CustomButtons/MyButtonStyle";
 import MyButton from "../../../util/MyButton";
 
+import DistrictsGraph from "./DistrictsGraph";
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-const DistrictsGraph = React.lazy(() =>
-  import(/* webpackChunkName: "DistrictsGraph" */ "./DistrictsGraph")
-);
+
 const styles = {
   root: {
     //backgroundColor: "rgb(0,0,0,0.5)",
@@ -81,9 +81,7 @@ const DistrictsDialog = ({ classes, screams }) => {
         <img src={CloseIcon} width="20px" />
       </MyButton>
 
-      <React.Suspense fallback={<CircularProgress size={50} thickness={2} />}>
-        <DistrictsGraph classes={classes} screams={screams} />
-      </React.Suspense>
+      <DistrictsGraph classes={classes} screams={screams} />
     </Dialog>
   ) : (
     <Dialog
@@ -105,9 +103,7 @@ const DistrictsDialog = ({ classes, screams }) => {
       </MyButton>
 
       <DialogContent>
-        <React.Suspense fallback={<CircularProgress size={50} thickness={2} />}>
-          <DistrictsGraph classes={classes} screams={screams} />
-        </React.Suspense>
+        <DistrictsGraph classes={classes} screams={screams} />
       </DialogContent>
     </Dialog>
   );
