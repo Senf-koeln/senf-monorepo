@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
-/* import { visualizer } from "rollup-plugin-visualizer"; */
+//import { visualizer } from "rollup-plugin-visualizer";
 // npm run build will create a file stats.html in root directory
 const pwaOptions = {
   devOptions: {
@@ -50,9 +50,36 @@ export default defineConfig(({ command, mode }) => {
   return {
     plugins: [
       react(),
-      VitePWA(
-        pwaOptions
-      ) /* , visualizer({ gzipSize: true, brotliSize: true } )*/,
+      VitePWA(pwaOptions),
+      /*   visualizer({ gzipSize: true, brotliSize: true }), */
     ],
+    build: {
+      sourcemap: false,
+      rollupOptions: {
+        output: {
+          manualChunks: (id) => {
+            if (id.includes("node_modules")) {
+              if (id.includes("mapbox-gl.js")) {
+                return "vendor_mapbox";
+              } else if (id.includes("@material-ui")) {
+                return "vendor_mui";
+              } else if (id.includes("plotly.js-cartesian-dist")) {
+                return "vendor_plotly";
+              } else if (id.includes("firebase")) {
+                return "vendor_firebase";
+              } else if (id.includes("lodash")) {
+                return "vendor_lodash";
+              } else if (id.includes("moment")) {
+                return "vendor_moment";
+              } else if (id.includes("@fullcalendar")) {
+                return "vendor_@fullcalendar";
+              }
+
+              return "vendor"; // all other package goes here
+            }
+          },
+        },
+      },
+    },
   };
 });
