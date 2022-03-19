@@ -19,11 +19,12 @@ import Slide from "@material-ui/core/Slide";
 import ExpandButton from "../../atoms/CustomButtons/ExpandButton";
 import MyButtonStyle from "../../atoms/CustomButtons/MyButtonStyle";
 import MyButton from "../../../util/MyButton";
-import Thema from "./thema";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
+const Thema = React.lazy(() =>
+  import(/* webpackChunkName: "ThemenGraph" */ "./thema")
+);
 const styles = {
   root: {
     //backgroundColor: "rgb(0,0,0,0.5)",
@@ -93,8 +94,9 @@ const ThemenDialog = ({ classes, screams }) => {
       </MyButton>
 
       <DialogContent>
-        <Thema screams={screams} />
-
+        <React.Suspense fallback={<CircularProgress size={50} thickness={2} />}>
+          <Thema screams={screams} />
+        </React.Suspense>
         {/* <br />
         <Trends /> */}
       </DialogContent>
@@ -119,8 +121,9 @@ const ThemenDialog = ({ classes, screams }) => {
       </MyButton>
 
       <DialogContent>
-        <Thema screams={screams} />
-
+        <React.Suspense fallback={<CircularProgress size={50} thickness={2} />}>
+          <Thema screams={screams} />
+        </React.Suspense>
         {/* <br />
         <Trends /> */}
       </DialogContent>
