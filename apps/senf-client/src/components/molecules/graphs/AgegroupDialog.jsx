@@ -15,12 +15,11 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
+import AgegroupGraph from "./AgegroupGraph";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-const AgegroupGraph = React.lazy(() =>
-  import(/* webpackChunkName: "Agegroup-Graph" */ "./AgegroupGraph")
-);
+
 const styles = {
   root: {
     //backgroundColor: "rgb(0,0,0,0.5)",
@@ -81,14 +80,12 @@ const AgegroupDialog = ({ classes, data, screams, likes }) => {
         <img src={CloseIcon} width="20px" />
       </MyButton>
 
-      <React.Suspense fallback={<CircularProgress size={50} thickness={2} />}>
-        <AgegroupGraph
-          data={data}
-          classes={classes}
-          screams={screams}
-          likes={likes}
-        />
-      </React.Suspense>
+      <AgegroupGraph
+        data={data}
+        classes={classes}
+        screams={screams}
+        likes={likes}
+      />
     </Dialog>
   ) : (
     <Dialog
@@ -109,9 +106,7 @@ const AgegroupDialog = ({ classes, data, screams, likes }) => {
         <img src={CloseIcon} width="20px" />
       </MyButton>
 
-      <React.Suspense fallback={<CircularProgress size={50} thickness={2} />}>
-        <AgegroupGraph data={data} screams={screams} likes={likes} />
-      </React.Suspense>
+      <AgegroupGraph data={data} screams={screams} likes={likes} />
     </Dialog>
   );
 
