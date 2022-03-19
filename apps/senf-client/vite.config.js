@@ -2,8 +2,6 @@ import { defineConfig } from "vite";
 
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
-import { dependencies } from "./package.json";
-
 /* import { visualizer } from "rollup-plugin-visualizer"; */
 // npm run build will create a file stats.html in root directory
 const pwaOptions = {
@@ -48,28 +46,8 @@ const pwaOptions = {
     ],
   },
 };
-function renderChunks(deps) {
-  let chunks = {};
-  Object.keys(deps).forEach((key) => {
-    if (["react", "react-router-dom", "react-dom", "firebase"].includes(key))
-      return;
-    chunks[key] = [key];
-  });
-  return chunks;
-}
 export default defineConfig(({ command, mode }) => {
   return {
-    build: {
-      sourcemap: false,
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            vendor: ["react", "react-router-dom", "react-dom"],
-            ...renderChunks(dependencies),
-          },
-        },
-      },
-    },
     plugins: [
       react(),
       VitePWA(
