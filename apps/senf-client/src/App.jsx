@@ -3,17 +3,14 @@
 import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import firebaseApp from "./firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import "./styles/mapbox-gl.css";
 import "./App.css";
 import "./AppDesktop.css";
 import "./AppIpad.css";
 import "./mapbox.css";
 import "./Animations.css";
-
-import firebaseConfig from "./firebase";
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
-import "firebase/compat/firestore";
 
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import { createTheme } from "@material-ui/core/styles/";
@@ -54,9 +51,6 @@ import Cookiebanner from "./components/organisms/Cookiebanner/Cookiebanner";
 import { setViewport } from "./util/helpers-map-animations";
 import detectLocation from "./util/detectLocation";
 import GlobalStyles from "./styles/GlobalStyles";
-
-import firebaseApp from "./firebase";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import "./util/i18n"; // i18n configuration
 detectLocation(); // detect location and set i18n language
