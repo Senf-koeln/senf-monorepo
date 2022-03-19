@@ -37,7 +37,7 @@ import {
 } from "../../redux/actions/UiActions";
 
 // Components
-import InsightsPage from "../organisms/SubPages/InsightsPage";
+
 import DesktopSidebar from "../molecules/Navigation/DesktopSidebar";
 import Topbar from "../molecules/Navigation/Topbar";
 import Map from "../atoms/map/Map";
@@ -50,7 +50,6 @@ import Loader from "../atoms/Backgrounds/Loader";
 import { closeAccountFunc } from "../../redux/actions/accountActions";
 import ErrorBackground from "../atoms/Backgrounds/ErrorBackground";
 import TagsFilter from "../molecules/Filters/TagsFilter";
-import PostScream from "../organisms/PostIdea/PostScream";
 import ChangeLocationModal from "../molecules/Modals/ChangeLocationModal";
 import { usePrevious } from "../../hooks/usePrevious";
 import {
@@ -69,6 +68,7 @@ import {
   search,
   sort,
 } from "../../util/helpers";
+import { CircularProgress } from "@material-ui/core";
 
 const MainColumnWrapper = styled.div`
   width: 100vw;
@@ -101,6 +101,10 @@ const MobileMapClickBackground = styled.div`
   transition: 0.5s;
   pointer-events: ${(props) => (props.show ? "all" : "none")};
 `;
+
+const InsightsPage = React.lazy(() =>
+  import("../organisms/SubPages/InsightsPage")
+);
 const Main = () => {
   const { t } = useTranslation();
   const history = useHistory();
@@ -525,15 +529,14 @@ const Main = () => {
           />
         )}
 
-      {!openInfoPage &&
-        !openAccount &&
-        !openOrganization &&
-        openInsightsPage && (
+      {!openInfoPage && !openAccount && !openOrganization && openInsightsPage && (
+        <React.Suspense fallback={<CircularProgress size={50} thickness={2} />}>
           <InsightsPage
             setOpenInsightsPage={setOpenInsightsPage}
             projectRoomId={project?.projectRoomId}
           />
-        )}
+        </React.Suspense>
+      )}
 
       <ErrorBackground loading={loading} />
 
