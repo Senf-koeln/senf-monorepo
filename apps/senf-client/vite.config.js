@@ -57,26 +57,14 @@ export default defineConfig(({ command, mode }) => {
       sourcemap: false,
       rollupOptions: {
         output: {
-          manualChunks: (id) => {
-            if (id.includes("node_modules")) {
-              if (id.includes("mapbox-gl.js")) {
-                return "vendor_mapbox";
-              } else if (id.includes("@material-ui")) {
-                return "vendor_mui";
-              } else if (id.includes("plotly.js-cartesian-dist")) {
-                return "vendor_plotly";
-              } else if (id.includes("firebase")) {
-                return "vendor_firebase";
-              } else if (id.includes("lodash")) {
-                return "vendor_lodash";
-              } else if (id.includes("moment")) {
-                return "vendor_moment";
-              } else if (id.includes("@fullcalendar")) {
-                return "vendor_@fullcalendar";
-              }
+          manualChunks: {
+            lodash: ["lodash"],
 
-              return "vendor"; // all other package goes here
-            }
+            materialUi: ["@material-ui/core"],
+            plotlyjs: ["plotly.js-cartesian-dist"],
+            momentjs: ["moment"],
+            fullcalendarCore: ["@fullcalendar/core"],
+            browserimagecompression: ["browser-image-compression"],
           },
         },
       },
