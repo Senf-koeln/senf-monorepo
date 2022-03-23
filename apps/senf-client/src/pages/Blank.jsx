@@ -1,5 +1,5 @@
 /** @format */
-
+//
 import React from "react";
 import { Accordion } from "../components/molecules/Accordion/Accordion";
 const Blank = () => {
