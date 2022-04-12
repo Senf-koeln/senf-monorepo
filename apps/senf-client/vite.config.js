@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-
+import { dependencies } from "./package.json";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 
@@ -50,8 +50,55 @@ const pwaOptions = {
   },
 };
 
+function renderChunks(deps) {
+  let chunks = {};
+  Object.keys(deps).forEach((key) => {
+    if (
+      [
+        "react",
+        "react-router-dom",
+        "react-dom",
+        "react-redux",
+        "redux",
+        "redux-thunk",
+        "firebase",
+        "@fullcalendar/core",
+        "@fullcalendar/daygrid",
+        "@fullcalendar/google-calendar",
+        "@fullcalendar/interaction",
+        "@fullcalendar/list",
+        "@fullcalendar/react",
+        "@material-ui/core",
+        "@material-ui/icons",
+      ].includes(key)
+    ) {
+      return;
+    }
+
+    chunks[key] = [key];
+  });
+  return chunks;
+}
 export default defineConfig(({ command, mode }) => {
   return {
+    build: {
+      sourcemap: false,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vendor: [
+              "react",
+              "react-router-dom",
+              "react-dom",
+              "react-redux",
+              "redux",
+              "redux-thunk",
+            ],
+            ...renderChunks(dependencies),
+          },
+        },
+      },
+    },
     plugins: [
       react(),
       viteCompression({
