@@ -55,7 +55,7 @@ import detectLocation from "./util/detectLocation";
 import GlobalStyles from "./styles/GlobalStyles";
 
 import "./util/i18n"; // i18n configuration
-//detectLocation(); // detect location and set i18n language
+detectLocation(); // detect location and set i18n language
 const cookies = new Cookies();
 //require("intersection-observer");
 
@@ -141,14 +141,14 @@ const App = () => {
       }
     });
   };
-  useEffect(() => {
+  useLayoutEffect(() => {
     setViewport();
     const initialMapViewport = store.getState().data.initialMapViewport;
     store.dispatch(getScreams(initialMapViewport));
     store.dispatch(getOrganizations(initialMapViewport));
     store.dispatch(getProjects(initialMapViewport));
   }, []);
-  useEffect(() => {
+  useLayoutEffect(() => {
     userState();
   }, [isAuthed]);
 
