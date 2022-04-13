@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 
 import react from "@vitejs/plugin-react";
+import compress from "vite-plugin-compress";
 //import { VitePWA } from "vite-plugin-pwa";
 
 //import { visualizer } from "rollup-plugin-visualizer";
@@ -54,6 +55,7 @@ export default defineConfig(({ command, mode }) => {
   return {
     plugins: [
       react(),
+      compress({ exclude: ["**.svg"], verbose: true }),
       /*
       viteCompression({
         algorithm: "brotliCompress",
@@ -62,7 +64,6 @@ export default defineConfig(({ command, mode }) => {
       /* VitePWA(
         pwaOptions
       ) */
-      ,
     ],
   };
 });
