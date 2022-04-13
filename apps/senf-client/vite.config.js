@@ -55,7 +55,11 @@ export default defineConfig(({ command, mode }) => {
   return {
     plugins: [
       react(),
-      compress({ exclude: ["**.svg"], verbose: true }),
+      compress({
+        exclude: ["**.svg","*"],
+        verbose: true,
+        brotli: false,
+      }),
       /*
       viteCompression({
         algorithm: "brotliCompress",
