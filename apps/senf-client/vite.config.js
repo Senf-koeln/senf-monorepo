@@ -54,12 +54,15 @@ export default defineConfig(({ command, mode }) => {
   return {
     plugins: [
       react(),
+      /*
       viteCompression({
         algorithm: "brotliCompress",
-      }) /* , visualizer({ gzipSize: true, brotliSize: true } )*/,
+        filter: /\.(html)$/i,
+      })  , visualizer({ gzipSize: true, brotliSize: true } )*/
       /* VitePWA(
         pwaOptions
       ) */
+      ,
     ],
   };
 });
