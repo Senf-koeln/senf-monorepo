@@ -2,6 +2,7 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
+import { getPerformance } from "firebase/performance";
 
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
@@ -18,5 +19,6 @@ const firebaseConfig = {
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
+const perf = getPerformance(firebaseApp);
 export default firebaseApp;
 export { auth, db };
