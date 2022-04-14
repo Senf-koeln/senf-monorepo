@@ -70,6 +70,8 @@ import {
   countStatusOfScreams,
 } from "../../util/helpers";
 
+import bbox from "@turf/bbox";
+
 const MainColumnWrapper = styled.div`
   width: 100vw;
   height: 100%;
@@ -202,17 +204,15 @@ const Main = () => {
       mapRef.current &&
       mapLoaded
     ) {
-      setTimeout(() => {
-        const projectViewport = {
-          latitude: project.centerLat,
-          longitude: project.centerLong,
-          zoom: isMobileCustom ? project.zoom - 2 : project.zoom,
-          duration: 2700,
-          pitch: 30,
-        };
-
-        dispatch(setMapViewport(projectViewport));
-      }, 500);
+      const jsonData = JSON.parse(project.geoData);
+      const [minLng, minLat, maxLng, maxLat] = bbox(jsonData);
+      mapRef.current.fitBounds(
+        [
+          [minLng, minLat],
+          [maxLng, maxLat],
+        ],
+        { padding: 10, duration: 2700 }
+      );
     }
   }, [project]);
 
@@ -220,7 +220,21 @@ const Main = () => {
   const prevLat = usePrevious({ lat });
   useEffect(() => {
     if (openScream && !loadingIdea && mapRef.current && mapLoaded) {
+      console.log(mapRef);
       if (lat && prevLat && prevLat.lat !== lat) {
+        const minLng = long - 0.0002;
+        const minLat = lat - 0.0002;
+        const maxLng = long + 0.0002;
+        const maxLat = lat + 0.0002;
+
+        mapRef.current.fitBounds(
+          [
+            [minLng, minLat],
+            [maxLng, maxLat],
+          ],
+          { padding: 400, duration: 2700 }
+        );
+
         setTimeout(() => {
           dispatch(
             setMapViewport({

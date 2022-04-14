@@ -15,13 +15,16 @@ import {
 import Pin from "../../../images/pin3.png";
 
 //Map Stuff
-import MapGL, {
-  Source,
-  Layer,
-  Marker,
-  NavigationControl,
-  Image,
-} from "../../../util/urbica/react-map-gl.esm";
+// import MapGL, {
+//   Source,
+//   Layer,
+//   Marker,
+//   NavigationControl,
+//   Image,
+// } from "../../../util/urbica/react-map-gl.esm";
+
+import Map, { NavigationControl, Layer, Marker, Source } from "react-map-gl";
+
 import bbox from "@turf/bbox";
 
 import NoLocationPopUp from "./NoLocationPopUp";
@@ -117,7 +120,7 @@ const Bar = styled.div`
   top: 10px;
 `;
 
-const Map = ({
+const MapComponent = ({
   loadingProjects,
   dataFinal,
   geoData,
@@ -145,6 +148,54 @@ const Map = ({
   const [hoverLong, setHoverLong] = useState("");
   const [hoverTitle, setHoverTitle] = useState("");
 
+  useEffect(() => {
+    if (mapRef.current) {
+      const map = mapRef.current.getMap();
+      map.loadImage(Marker1, (error, image) => {
+        if (error) return;
+        if (map.hasImage("Marker1")) return;
+        map.addImage("Marker1", image);
+      });
+      map.loadImage(Marker2, (error, image) => {
+        if (error) return;
+        if (map.hasImage("Marker2")) return;
+
+        map.addImage("Marker2", image);
+      });
+      map.loadImage(Marker3, (error, image) => {
+        if (error) return;
+        if (map.hasImage("Marker3")) return;
+
+        map.addImage("Marker3", image);
+      });
+
+      map.loadImage(Marker4, (error, image) => {
+        if (error) return;
+        if (map.hasImage("Marker4")) return;
+
+        map.addImage("Marker4", image);
+      });
+      map.loadImage(Marker5, (error, image) => {
+        if (error) return;
+        if (map.hasImage("Marker5")) return;
+
+        map.addImage("Marker5", image);
+      });
+      map.loadImage(Marker6, (error, image) => {
+        if (error) return;
+        if (map.hasImage("Marker6")) return;
+
+        map.addImage("Marker6", image);
+      });
+      map.loadImage(Marker7, (error, image) => {
+        if (error) return;
+        if (map.hasImage("Marker7")) return;
+
+        map.addImage("Marker7", image);
+      });
+    }
+  }, [mapRef, mapLoaded, order, openProjectRoom]);
+
   const handlleMapLoaded = useCallback(() => {
     dispatch(setMapLoaded());
     setShowPatternBackground(false);
@@ -167,16 +218,6 @@ const Map = ({
       dispatch(setMapViewport(initialMapViewport));
     }, 1000);
   }, [dispatch, initialMapViewport]);
-
-  const _onViewportChange = useCallback(
-    (viewport) => {
-      //how can I dispatch viewport every 2 seconds
-      //instead of every mouse scroll
-      // thats the last thing wich causes rerenders
-      dispatch(setMapViewport(viewport));
-    },
-    [dispatch]
-  );
 
   const data = useMemo(() => {
     if (!loadingProjects && geoData !== undefined && geoData !== "") {
@@ -253,20 +294,24 @@ const Map = ({
   }
 
   const onHoverIdea = useCallback((event) => {
-    if (event.features.length > 0) {
+    console.log(event);
+    if (event.features[0].properties.screamId) {
       setHoverId(event.features[0].properties.screamId);
       setHoverLat(event.features[0].properties.lat);
       setHoverLong(event.features[0].properties.long);
       setHoverTitle(event.features[0].properties.title);
-    }
-  }, []);
-  const onLeave = useCallback((event) => {
-    if (event.features.length < 1) {
+    } else {
       setHoverId("");
       setHoverLat("");
       setHoverLong("");
       setHoverTitle("");
     }
+  }, []);
+  const onLeave = useCallback((event) => {
+    setHoverId("");
+    setHoverLat("");
+    setHoverLong("");
+    setHoverTitle("");
   }, []);
   const onClickIdea = useCallback(
     (event) => {
@@ -311,56 +356,35 @@ const Map = ({
     mapViewport && (
       <React.Fragment>
         {showPatternBackground && <PatternBackground />}
-
-        <MapGL
+        <Map
           ref={mapRef}
-          style={
-            openInfoPage
-              ? {
-                  position: "fixed",
-                  width: "100%",
-                  height: "100%",
-                  transform: "scale(1)",
-                  left: 0,
-                }
-              : isMobileCustom
-              ? {
-                  position: "fixed",
-                  width: "100vw",
-                  left: "0",
-                  height: "100vh",
-                  top: "0",
-                  transform: "scale(1)",
-                  zIndex: "-1",
-                }
-              : {
-                  position: "fixed",
-                  width: "calc(100% - 600px)",
-                  left: "600px",
-                  top: "0",
-                  height: "100%",
-                  transform: "scale(1)",
-                  zIndex: "-1",
-                }
-          }
+          style={{ width: "100vw", height: "100vh" }}
           mapStyle="mapbox://styles/tmorino/ckclpzylp0vgp1iqsrp4asxt6"
-          accessToken={import.meta.env.VITE_MAPBOX_ACCESS_TOKEN}
+          mapboxAccessToken={import.meta.env.VITE_MAPBOX_ACCESS_TOKEN}
           minZoom={7}
-          latitude={mapViewport.latitude}
-          longitude={mapViewport.longitude}
-          pitch={mapViewport.pitch}
-          bearing={mapViewport.bearing}
-          zoom={mapViewport.zoom}
-          onViewportChange={_onViewportChange}
-          viewportChangeMethod={"easeTo"}
-          viewportChangeOptions={{
-            duration: mapViewport.duration,
+          initialViewState={{
+            latitude: mapViewport.latitude,
+            longitude: mapViewport.longitude,
+            zoom: mapViewport.zoom,
+            bearing: 0,
+            pitch: mapViewport.pitch,
           }}
+          interactiveLayerIds={
+            order === 1 ? ["geojsonIdeas"] : ["geojsonProjectRooms"]
+          }
+          viewportChangeMethod={"easeTo"}
+          // viewportChangeOptions={{
+          //   duration: mapViewport.duration,
+          // }}
+          onClick={order === 1 ? onClickIdea : onClickProjectRoom}
           onLoad={handlleMapLoaded}
+          onMouseEnter={order === 1 ? onHoverIdea : onHoverProjectRoom}
+          onMouseLeave={onLeave}
         >
           {!isMobileCustom && (
             <NavigationControl showCompass showZoom position="top-right" />
           )}
+
           {openProjectRoom &&
             !loadingProjects &&
             geoData !== undefined &&
@@ -411,17 +435,14 @@ const Map = ({
                     ["zoom"],
                     0,
                     ["*", 0, ["get", "circleBlurRadius"]],
-
                     10,
                     ["*", 0, ["get", "circleBlurRadius"]],
-
                     14,
                     ["*", 4, ["get", "circleRadius"]],
                     20,
                     ["*", 0, ["get", "circleRadius"]],
                   ],
                   "circle-color": "#000",
-
                   "circle-blur": 1,
                   "circle-opacity": 0.15,
                 }}
@@ -431,9 +452,9 @@ const Map = ({
                 id="geojsonIdeas"
                 source="geojsonIdeas"
                 type="circle"
-                onHover={onHoverIdea}
-                onLeave={onLeave}
-                onClick={onClickIdea}
+                // onHover={onHoverIdea}
+                // onLeave={onLeave}
+                // onClick={onClickIdea}
                 paint={{
                   // "circle-radius": {
                   //   base: ["get", "likeCount"],
@@ -514,13 +535,13 @@ const Map = ({
             </React.Fragment>
           ) : (
             <React.Fragment>
-              <Image id="Marker1" image={Marker1} />
+              {/* <Image id="Marker1" image={Marker1} />
               <Image id="Marker2" image={Marker2} />
               <Image id="Marker3" image={Marker3} />
               <Image id="Marker4" image={Marker4} />
               <Image id="Marker5" image={Marker5} />
               <Image id="Marker6" image={Marker6} />
-              <Image id="Marker7" image={Marker7} />
+              <Image id="Marker7" image={Marker7} /> */}
               <Source
                 id="geojsonProjectRooms"
                 type="geojson"
@@ -574,10 +595,11 @@ const Map = ({
               />
             </React.Fragment>
           )}
-        </MapGL>
+        </Map>
+        ;
       </React.Fragment>
     )
   );
 };
 
-export default memo(Map);
+export default memo(MapComponent);

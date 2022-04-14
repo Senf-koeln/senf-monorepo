@@ -117,7 +117,7 @@ const CreateProjectPage4 = ({
 
   return (
     <React.Fragment>
-      <MapDialog
+      {/* <MapDialog
         mapOpen={mapOpen}
         setMapOpen={setMapOpen}
         viewport={viewport}
@@ -126,7 +126,7 @@ const CreateProjectPage4 = ({
         data={data}
         setData={setData}
         setViewport={setViewport}
-      />
+      /> */}
 
       <ComponentWrapper>
         <ComponentInnerWrapper>
