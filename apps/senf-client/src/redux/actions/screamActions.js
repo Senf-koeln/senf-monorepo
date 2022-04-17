@@ -28,51 +28,10 @@ import setColorByTopic from "../../data/setColorByTopic";
 export const getScreams = (mapViewport) => async (dispatch) => {
   dispatch({ type: LOADING_DATA });
 
-  const db = firebase.firestore();
-  const ref = await db
-    .collection("screams")
-    .where("lat", "<", Number(mapViewport.latitude) + 1)
-    .where("lat", ">", Number(mapViewport.latitude) - 1)
-    // .orderBy("createdAt", "desc")
-    .get()
-    .then((ref) => {
-      const screams = [];
-      ref.docs.forEach((doc) => {
-        const docData = {
-          screamId: doc.id,
-          lat: doc.data().lat,
-          long: doc.data().long,
-          title: doc.data().title,
-          body: doc.data().body.substr(0, 150),
-          createdAt: doc.data().createdAt,
-          commentCount: doc.data().commentCount,
-          likeCount: doc.data().likeCount,
-          status: doc.data().status,
-          Thema: doc.data().Thema,
-          Stadtteil: doc.data().Stadtteil,
-          projectRoomId: doc.data().projectRoomId,
-          color: setColorByTopic(doc.data().Thema),
-          locationHeader: doc.data().locationHeader,
-        };
-
-        screams.push(docData);
-      });
-
-      dispatch({
-        type: SET_SCREAMS,
-        payload: screams,
-      });
-    })
-    .catch((error) => {
-      dispatch({
-        type: SET_ERRORS,
-        payload: { title: "Error occured when loading" },
-      });
-      dispatch({
-        type: STOP_LOADING_DATA,
-      });
-      console.log("Error getting document:", error);
-    });
+  dispatch({
+    type: SET_SCREAMS,
+    payload: [],
+  });
 };
 
 export const reloadScreams = () => async (dispatch) => {

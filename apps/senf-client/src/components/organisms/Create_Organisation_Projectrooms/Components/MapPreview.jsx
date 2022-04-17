@@ -23,7 +23,7 @@ const MapPreview = ({ viewport, data }) => {
     <MapWrapper id="drawMapPreview">
       {viewport && (
         <MapGL
-          mapStyle="mapbox://styles/tmorino/ckclpzylp0vgp1iqsrp4asxt6"
+          mapStyle="mapbox://styles/tmorino/ckclpzylp0vgp1iqsrp4asxt6?optimize=true"
           accessToken={import.meta.env.VITE_MAPBOX_ACCESS_TOKEN}
           minZoom={7}
           latitude={viewport.latitude}

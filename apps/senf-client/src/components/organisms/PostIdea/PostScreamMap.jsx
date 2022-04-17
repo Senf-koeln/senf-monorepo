@@ -110,7 +110,7 @@ const PostScreamMap = ({
     viewport && (
       <MapGL
         accessToken={import.meta.env.VITE_MAPBOX_ACCESS_TOKEN}
-        mapStyle="mapbox://styles/tmorino/ckclpzylp0vgp1iqsrp4asxt6"
+        mapStyle="mapbox://styles/tmorino/ckclpzylp0vgp1iqsrp4asxt6?optimize=true"
         {...viewport}
         maxZoom={18}
         minZoom={11}

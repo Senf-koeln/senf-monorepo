@@ -343,7 +343,7 @@ const Map = ({
                   zIndex: "-1",
                 }
           }
-          mapStyle="mapbox://styles/tmorino/ckclpzylp0vgp1iqsrp4asxt6"
+          mapStyle="mapbox://styles/tmorino/ckclpzylp0vgp1iqsrp4asxt6?optimize=true"
           accessToken={import.meta.env.VITE_MAPBOX_ACCESS_TOKEN}
           minZoom={7}
           latitude={mapViewport.latitude}
