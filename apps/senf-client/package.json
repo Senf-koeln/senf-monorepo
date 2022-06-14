@@ -55,7 +55,7 @@
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.1",
     "resize-observer": "^1.0.4",
-    "senf-atomic-design-system": "^1.9.2",
+    "senf-atomic-design-system": "1.9.5",
     "styled-components": "^5.3.5",
     "ui": "*",
     "universal-cookie": "^4.0.4",
