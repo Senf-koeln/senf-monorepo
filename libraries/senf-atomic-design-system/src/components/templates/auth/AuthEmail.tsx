@@ -228,7 +228,10 @@ const AuthEmail: FC<AuthEmailProps> = ({
         onClick={
           variantState === "register"
             ? () => handleSubmitRegister(formikRegisterStore)
-            : () => handleSubmitLogin(formikLoginStore)
+            : async (e) => {
+                e.preventDefault();
+                await handleSubmitLogin(formikLoginStore);
+              }
         }
         disabled={
           variantState === "register"
