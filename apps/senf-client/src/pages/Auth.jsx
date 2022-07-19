@@ -178,6 +178,7 @@ const Auth = ({ setAuthOpen, setAuthEditOpen, authOpen, authEditOpen }) => {
         };
 
         setEmailRegistrationSubmitted(true);
+
         // history.push("/verify", emailWrapper);
       }
     } catch (error) {
