@@ -14,6 +14,8 @@ import { AuthProvider } from "./context/auth";
 import AuthPage from "./pages/AuthPage";
 import InviteMember from "./pages/InviteMember";
 import MemberBoard from "./pages/MemberBoard";
+import { AcceptInvitation } from "./pages/AcceptInvitation";
+import PageNotFound from "./pages/PageNotFound";
 
 const App = () => {
   return (
@@ -50,6 +52,12 @@ const App = () => {
                 <Route exact path="/members" element={<MemberBoard />} />
 
                 <Route exact path="/invite" element={<InviteMember />} />
+                <Route
+                  exact
+                  path="invitation/:invitationDocId"
+                  element={<AcceptInvitation />}
+                />
+                <Route path="*" element={<PageNotFound />} />
               </Routes>
             </React.Suspense>
           </Router>
